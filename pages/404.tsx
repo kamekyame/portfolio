@@ -12,7 +12,7 @@ export default function Page() {
           alignItems: "center",
         }}
       >
-        <Typography variant="h3" sx={{ my: 7 }}>
+        <Typography variant="h3" sx={{ my: 6 }}>
           よんまるよん
         </Typography>
         <Box sx={{ my: 1 }}>こんなページないよ</Box>

@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { Typography } from "@mui/material";
 
 const Home: NextPage = () => {
   return (
@@ -13,8 +14,9 @@ const Home: NextPage = () => {
       <Head>
         <title>welcome - sztm</title>
       </Head>
-
-      <h1>すずとものブログ</h1>
+      <Typography variant="h3" sx={{ my: 6 }}>
+        すずとものブログへようこそ
+      </Typography>
       <p>
         自宅で運用していたサーバ用PCが逝ってしまったのでこれを気にWordpressから自作ページに移行してます。
       </p>
