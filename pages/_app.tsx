@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CacheProvider, EmotionCache } from '@emotion/react';
-import { styled } from "@mui/material/styles";
-import theme from '../src/theme';
-import createEmotionCache from '../src/createEmotionCache';
+import * as React from "react";
+import Head from "next/head";
+import { AppProps } from "next/app";
+import { Box } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import theme from "../src/theme";
+import createEmotionCache from "../src/createEmotionCache";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
@@ -17,10 +17,6 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
-const Main = styled('main')(({ theme }) => ({
-
-}));
-
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
@@ -30,14 +26,19 @@ export default function MyApp(props: MyAppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
           <Header />
-          <main style={{ flexGrow: 1 }}>
+          <Box sx={{ p: 2, flexGrow: 1 }}>
             <Component {...pageProps} />
-          </main>
+          </Box>
           <Footer />
         </div>
-
       </ThemeProvider>
     </CacheProvider>
   );
