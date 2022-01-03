@@ -7,6 +7,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import { styled } from "@mui/material/styles";
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+import Header from "../components/header";
 import Footer from "../components/footer";
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -30,6 +31,7 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          <Header />
           <main style={{ flexGrow: 1 }}>
             <Component {...pageProps} />
           </main>
