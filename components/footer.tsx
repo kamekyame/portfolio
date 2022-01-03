@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Twitter, GitHub } from "@mui/icons-material";
+import { Twitter, GitHub, YouTube } from "@mui/icons-material";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
       <Box
         sx={{
           m: 1,
-          "& a": { mx: 2 },
+          "& a": { mx: 1.5 },
         }}
       >
         <Box
@@ -34,6 +34,14 @@ export default function App() {
           color="inherit"
         >
           <Twitter />
+        </Box>
+        <Box
+          component="a"
+          href="https://www.youtube.com/channel/UCP4eqORRoflTk1wyTzvslqA"
+          target="_blank"
+          color="inherit"
+        >
+          <YouTube />
         </Box>
       </Box>
       <Box>
