@@ -30,15 +30,7 @@ export default function App() {
   return (
     <AppBar color="primary" position="sticky">
       <Toolbar>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-        >
-          すずとものブログ
-        </Typography>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
           <IconButton onClick={handleOpenNavMenu} color="inherit">
             <MenuIcon />
           </IconButton>
@@ -63,22 +55,37 @@ export default function App() {
             {pages.map((page) => (
               <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                 <Link href={page.href} passHref>
-                  <Typography component={Button} color="inherit">
+                  <Box
+                    color="inherit"
+                    sx={{
+                      textDecoration: "none",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     {page.name}
-                  </Typography>
+                  </Box>
+                  {/* <Typography component={Button} color="inherit">
+                    {page.name}
+                  </Typography> */}
                 </Link>
               </MenuItem>
             ))}
           </Menu>
         </Box>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-        >
-          すずとものブログ
-        </Typography>
+        <Link href="/" passHref>
+          <Typography
+            variant="h6"
+            noWrap
+            component={Button}
+            color="inherit"
+            sx={{
+              mr: 4,
+              display: "flex",
+            }}
+          >
+            すずとものブログ
+          </Typography>
+        </Link>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           {pages.map((page) => (
             <Link key={page.name} href={page.href} passHref>
