@@ -1,5 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { Twitter, GitHub, YouTube } from "@mui/icons-material";
+import Twitter from "@mui/icons-material/Twitter";
+import GitHub from "@mui/icons-material/GitHub";
+import YouTube from "@mui/icons-material/YouTube";
 
 export default function App() {
   return (
