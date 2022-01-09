@@ -13,9 +13,7 @@ export default function Page() {
           alignItems: "center",
         }}
       >
-        <Typography variant="h3" sx={{ my: 6 }}>
-          ABOUT
-        </Typography>
+        <Typography variant="title">ABOUT</Typography>
         <Box sx={{ my: 1 }}>
           プログラミングとか音楽とかゲームとかいろいろ浅くやってます。
         </Box>
