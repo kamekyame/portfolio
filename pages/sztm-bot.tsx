@@ -14,9 +14,7 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h3" sx={{ my: 6 }}>
-          SZTM-BOT
-        </Typography>
+        <Typography variant="title">SZTM-BOT</Typography>
         <Box sx={{ my: 1 }}>
           {botVersion ? `Bot ver.${botVersion}` : "Botは稼働していません"}
         </Box>
