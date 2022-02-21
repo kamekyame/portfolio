@@ -5,6 +5,8 @@ import {
   Box,
   ToggleButton,
   ToggleButtonGroup,
+  Card,
+  CardContent,
 } from "@mui/material";
 import {
   BarChart,
@@ -47,18 +49,18 @@ const colorDict = [
 ];
 
 const zodiacDict = [
-  { data: "おひつじ座", color: "" },
-  { data: "おうし座", color: "" },
-  { data: "ふたご座", color: "" },
-  { data: "かに座", color: "" },
-  { data: "しし座", color: "" },
-  { data: "おとめ座", color: "" },
-  { data: "てんびん座", color: "" },
-  { data: "さそり座", color: "" },
-  { data: "いて座", color: "" },
-  { data: "やぎ座", color: "" },
-  { data: "みずがめ座", color: "" },
-  { data: "うお座", color: "" },
+  { data: "おひつじ座", sign: "♈" },
+  { data: "おうし座", sign: "♉" },
+  { data: "ふたご座", sign: "♊" },
+  { data: "かに座", sign: "♋" },
+  { data: "しし座", sign: "♌" },
+  { data: "おとめ座", sign: "♍" },
+  { data: "てんびん座", sign: "♎" },
+  { data: "さそり座", sign: "♏" },
+  { data: "いて座", sign: "♐" },
+  { data: "やぎ座", sign: "♑" },
+  { data: "みずがめ座", sign: "♒" },
+  { data: "うお座", sign: "♓" },
 ];
 
 type LuckyUnluckyBarChartData = {
@@ -93,10 +95,10 @@ function LuckyUnluckyBarChart({
       width="100%"
       maxWidth="800px"
       aspect={3}
-      sx={{ fontSize: "0.8em" }}
+      sx={{ fontSize: "0.8em", color: "black" }}
     >
       <BarChart data={data} barCategoryGap="20%" barGap={5}>
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="1 1" />
         <XAxis
           dataKey="name"
           height={50}
@@ -104,8 +106,9 @@ function LuckyUnluckyBarChart({
           interval={0}
           dy={15}
           dx={10}
+          stroke="white"
         />
-        <YAxis width={20} />
+        <YAxis width={20} stroke="white" />
         <Legend />
         <Tooltip />
         <Bar hide={type !== "normal"} dataKey="lucky" fill={colors.lucky} />
@@ -115,6 +118,17 @@ function LuckyUnluckyBarChart({
     </Box>
   );
 }
+
+const TodayInfo: React.FC<{ title: string }> = ({ title, children }) => {
+  return (
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Box sx={{ fontSize: "0.8em" }}>{title}</Box>
+      {children}
+    </Box>
+  );
+};
 
 const Page: NextPage<{ data?: Data }> = ({ data }) => {
   const colorData = useMemo(() => {
@@ -152,6 +166,16 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
     return d;
   }, [data]);
 
+  const todayData = useMemo(() => {
+    if (!data) return;
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${(
+      "00" +
+      (today.getMonth() + 1)
+    ).slice(-2)}-${("00" + today.getDate()).slice(-2)}`;
+    return data[todayStr];
+  }, [data]);
+
   const [type, setType] = useState<LuckyUnluckyBarChartType>("normal");
 
   return (
@@ -165,6 +189,83 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
         }}
       >
         <Typography variant="title">まぁじ占いビューア</Typography>
+
+        <Box sx={{ m: 2 }}>
+          <Card>
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h6" gutterBottom>
+                ✨本日の占い✨
+              </Typography>
+              {todayData ? (
+                <Box sx={{ display: "flex", gap: 3 }}>
+                  <TodayInfo title="ラッキーカラー">
+                    <Box>
+                      <Box
+                        component="span"
+                        sx={{
+                          color: colorDict.find(
+                            (c) => c.data === todayData?.color?.lucky
+                          )?.color,
+                        }}
+                      >
+                        ◆
+                      </Box>
+                      {todayData?.color?.lucky}
+                    </Box>
+                  </TodayInfo>
+                  <TodayInfo title="アンラッキーカラー">
+                    <Box>
+                      <Box
+                        component="span"
+                        sx={{
+                          color: colorDict.find(
+                            (c) => c.data === todayData?.color?.unlucky
+                          )?.color,
+                        }}
+                      >
+                        ◆
+                      </Box>
+                      {todayData?.color?.unlucky}
+                    </Box>
+                  </TodayInfo>
+                  <Box />
+                  <TodayInfo title="ラッキー星座">
+                    <Box>
+                      <Box component="span">
+                        {
+                          zodiacDict.find(
+                            (z) => z.data === todayData?.zodiac?.lucky
+                          )?.sign
+                        }
+                      </Box>
+                      {todayData?.zodiac?.lucky}
+                    </Box>
+                  </TodayInfo>
+                  <TodayInfo title="アンラッキー星座">
+                    <Box>
+                      <Box component="span">
+                        {
+                          zodiacDict.find(
+                            (z) => z.data === todayData?.zodiac?.unlucky
+                          )?.sign
+                        }
+                      </Box>
+                      {todayData?.zodiac?.unlucky}
+                    </Box>
+                  </TodayInfo>
+                </Box>
+              ) : (
+                <Box>朝8時のまぁじ占いまで待ってね</Box>
+              )}
+            </CardContent>
+          </Card>
+        </Box>
         <ToggleButtonGroup
           color="secondary"
           value={type}
