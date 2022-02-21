@@ -93,10 +93,10 @@ function LuckyUnluckyBarChart({
       width="100%"
       maxWidth="800px"
       aspect={3}
-      sx={{ fontSize: "0.8em" }}
+      sx={{ fontSize: "0.8em", color: "black" }}
     >
       <BarChart data={data} barCategoryGap="20%" barGap={5}>
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid strokeDasharray="1 1" />
         <XAxis
           dataKey="name"
           height={50}
@@ -104,8 +104,9 @@ function LuckyUnluckyBarChart({
           interval={0}
           dy={15}
           dx={10}
+          stroke="white"
         />
-        <YAxis width={20} />
+        <YAxis width={20} stroke="white" />
         <Legend />
         <Tooltip />
         <Bar hide={type !== "normal"} dataKey="lucky" fill={colors.lucky} />
