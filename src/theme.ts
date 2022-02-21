@@ -1,3 +1,4 @@
+import { darkScrollbar } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 
@@ -6,6 +7,7 @@ import { red } from "@mui/material/colors";
 // 若草色：#c3d825(https://www.colordic.org/w)
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
       main: "#c3d825",
       light: "#f9ff5f",
@@ -30,12 +32,26 @@ const theme = createTheme({
         },
       },
     },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: darkScrollbar(),
+        html: {
+          scrollPaddingTop: "64px",
+        },
+      },
+    },
   },
   typography: {
     title: {
       fontSize: "3rem",
       margin: "",
     },
+  },
+  breakpoints: {
+    // values: {
+    //   // mobile: 0,
+    //   // desktop: 1024,
+    // },
   },
 });
 
@@ -47,6 +63,16 @@ declare module "@mui/material/styles" {
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     title?: React.CSSProperties;
+  }
+
+  interface BreakpointOverrides {
+    xs: true; // removes the `xs` breakpoint
+    sm: true;
+    md: false;
+    lg: false;
+    xl: false;
+    // mobile: true;
+    // desktop: true;
   }
 }
 

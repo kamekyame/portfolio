@@ -3,12 +3,12 @@ import Link from "next/link";
 import {
   AppBar,
   Toolbar,
-  Typography,
   Box,
   IconButton,
   Menu,
   MenuItem,
   Button,
+  Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -16,8 +16,9 @@ const pages: { name: string; href: string }[] = [
   { name: "blog", href: "/blog" },
   { name: "tools", href: "/tools" },
   { name: "sztm-bot", href: "/sztm-bot" },
-  { name: "about", href: "/about" },
 ];
+
+import Logo from "../public/logo.svg";
 
 export default function App() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -75,18 +76,9 @@ export default function App() {
           </Menu>
         </Box>
         <Link href="/" passHref>
-          <Typography
-            variant="h6"
-            noWrap
-            component={Button}
-            color="inherit"
-            sx={{
-              mr: 4,
-              display: "flex",
-            }}
-          >
-            すずとものブログ
-          </Typography>
+          <Avatar sx={{ mx: 2 }}>
+            <Logo />
+          </Avatar>
         </Link>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           {pages.map((page) => (

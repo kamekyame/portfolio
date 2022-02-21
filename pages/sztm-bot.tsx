@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import { NextPage } from "next";
 import { Typography, Box } from "@mui/material";
 import { Mention, Tweet } from "react-twitter-widgets";
 import Title from "../components/title";

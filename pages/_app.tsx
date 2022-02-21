@@ -34,7 +34,7 @@ export default function MyApp(props: MyAppProps) {
           }}
         >
           <Header />
-          <Box sx={{ p: 2, flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1 }}>
             <Component {...pageProps} />
           </Box>
           <Footer />
