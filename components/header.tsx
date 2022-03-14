@@ -77,7 +77,7 @@ export default function App() {
         </Box>
         <Link href="/" passHref>
           <Avatar sx={{ mx: 2 }}>
-            <Logo />
+            <Box sx={{ width: "100%" }} component={Logo} />
           </Avatar>
         </Link>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
