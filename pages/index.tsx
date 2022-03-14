@@ -167,6 +167,20 @@ const Home: NextPage = () => {
     };
   }, []);
 
+  const [headerHeight, setHeaderHeight] = useState<number>();
+  useEffect(() => {
+    const getHeaderHeight = () => {
+      const header = document.querySelector("header");
+      if (!header) return;
+      setHeaderHeight(header?.clientHeight);
+    };
+
+    addEventListener("resize", getHeaderHeight);
+    return () => {
+      removeEventListener("resize", getHeaderHeight);
+    };
+  });
+
   return (
     <Box
       sx={{
@@ -184,8 +198,7 @@ const Home: NextPage = () => {
         sx={(theme) => {
           return {
             position: "sticky",
-            top: (theme.mixins.toolbar["@media (min-width:600px)"] as any)
-              .minHeight,
+            top: headerHeight,
             width: { xs: 1, sm: "30%" },
             p: 1,
             height: { xs: "7em", sm: pageHeight },
