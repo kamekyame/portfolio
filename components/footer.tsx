@@ -9,7 +9,7 @@ export default function App() {
     <Box
       component="footer"
       sx={{
-        borderTop: "2px solid #AAA",
+        borderTop: "2px solid #fafafa",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -17,7 +17,6 @@ export default function App() {
         p: 2,
         pt: 7,
         pb: 10,
-        mt: 3,
         gap: 2,
       }}
     >
@@ -76,6 +75,7 @@ export default function App() {
           Contents
         </Typography>
         <Link href="/">Top</Link>
+        <Link href="/blog">Blog</Link>
         <Link href="/tools">Tools</Link>
         <Link href="/sztm-bot">Sztm-bot</Link>
       </Box>
