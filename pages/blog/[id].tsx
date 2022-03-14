@@ -48,20 +48,20 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
           pb: 3,
         }}
       >
-        <Typography variant="title">{data.title}</Typography>
         <Box
           sx={{
             width: "90%",
             maxWidth: "1000px",
-            lineHeight: "1.7em",
           }}
         >
+          <Typography variant="title">{data.title}</Typography>
           <Box
             sx={{
               display: "flex",
               gap: 1,
               justifyContent: "end",
               fontSize: "0.8em",
+              lineHeight: "1.7em",
             }}
           >
             <Box>
