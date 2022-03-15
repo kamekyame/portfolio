@@ -167,20 +167,6 @@ const Home: NextPage = () => {
     };
   }, []);
 
-  const [headerHeight, setHeaderHeight] = useState<number>();
-  useEffect(() => {
-    const getHeaderHeight = () => {
-      const header = document.querySelector("header");
-      if (!header) return;
-      setHeaderHeight(header?.clientHeight);
-    };
-
-    addEventListener("resize", getHeaderHeight);
-    return () => {
-      removeEventListener("resize", getHeaderHeight);
-    };
-  });
-
   return (
     <Box
       sx={{
@@ -198,7 +184,7 @@ const Home: NextPage = () => {
         sx={(theme) => {
           return {
             position: "sticky",
-            top: headerHeight,
+            top: { xs: 56, sm: 64 },
             width: { xs: 1, sm: "30%" },
             p: 1,
             height: { xs: "7em", sm: pageHeight },
