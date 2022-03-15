@@ -61,7 +61,8 @@ const Page: NextPage<{ data: IList<IBlog> }> = ({ data }) => {
             gap: 2,
             width: "90%",
             maxWidth: "1000px",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(300px,100%), 1fr))",
             gridAutoRows: "1fr",
           }}
         >
