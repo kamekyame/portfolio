@@ -58,53 +58,55 @@ const Profile = () => {
             },
           })}
         >
-          <Box component="tr">
-            <Box component="th">Name</Box>
-            <Box component="td">すずとも</Box>
-          </Box>
-          <Box component="tr">
-            <Box component="th">Sub Name</Box>
-            <Box component="td">kamekyame</Box>
-          </Box>
-
-          <Box component="tr">
-            <Box component="th">From</Box>
-            <Box component="td">福井</Box>
-          </Box>
-
-          <Box component="tr">
-            <Box component="th">Birth</Box>
-            <Box component="td">11/6</Box>
-          </Box>
-
-          <Box component="tr">
-            <Box component="th">Programming Skil</Box>
-            <Box component="td">
-              JS, TS, C++, C#
-              <br />
-              Deno, React, Unity, Arduino, Mbed
+          <tbody>
+            <Box component="tr">
+              <Box component="th">Name</Box>
+              <Box component="td">すずとも</Box>
             </Box>
-          </Box>
-
-          <Box component="tr">
-            <Box component="th">Hobby</Box>
-            <Box component="td">エレクトーン</Box>
-          </Box>
-
-          <Box component="tr">
-            <Box component="th">Experience</Box>
-            <Box component="td">
-              エレクトーンコンクール(ソロ・アンサンブル)
-              <br />
-              高専ロボコン
-              <br />
-              回路設計・作成
-              <br />
-              Twitter Bot 作成
-              <br />
-              自サイト開発・運用
+            <Box component="tr">
+              <Box component="th">Sub Name</Box>
+              <Box component="td">kamekyame</Box>
             </Box>
-          </Box>
+
+            <Box component="tr">
+              <Box component="th">From</Box>
+              <Box component="td">福井</Box>
+            </Box>
+
+            <Box component="tr">
+              <Box component="th">Birth</Box>
+              <Box component="td">11/6</Box>
+            </Box>
+
+            <Box component="tr">
+              <Box component="th">Programming Skil</Box>
+              <Box component="td">
+                JS, TS, C++, C#
+                <br />
+                Deno, React, Unity, Arduino, Mbed
+              </Box>
+            </Box>
+
+            <Box component="tr">
+              <Box component="th">Hobby</Box>
+              <Box component="td">エレクトーン</Box>
+            </Box>
+
+            <Box component="tr">
+              <Box component="th">Experience</Box>
+              <Box component="td">
+                エレクトーンコンクール(ソロ・アンサンブル)
+                <br />
+                高専ロボコン
+                <br />
+                回路設計・作成
+                <br />
+                Twitter Bot 作成
+                <br />
+                自サイト開発・運用
+              </Box>
+            </Box>
+          </tbody>
         </Box>
       </Box>
     </Box>
@@ -182,8 +184,7 @@ const Home: NextPage = () => {
         sx={(theme) => {
           return {
             position: "sticky",
-            top: (theme.mixins.toolbar["@media (min-width:600px)"] as any)
-              .minHeight,
+            top: { xs: 56, sm: 64 },
             width: { xs: 1, sm: "30%" },
             p: 1,
             height: { xs: "7em", sm: pageHeight },
