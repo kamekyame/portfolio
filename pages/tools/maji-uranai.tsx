@@ -124,8 +124,18 @@ const TodayInfo: React.FC<{ title: string }> = ({ title, children }) => {
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <Box sx={{ fontSize: "0.8em" }}>{title}</Box>
-      {children}
+      <Box
+        sx={{
+          fontSize: "0.8em",
+          borderBottom: "1px solid",
+          borderColor: (t) => t.palette.primary.main,
+        }}
+      >
+        {title}
+      </Box>
+      <Box sx={{ minHeight: "2em", display: "flex", alignItems: "center" }}>
+        {children}
+      </Box>
     </Box>
   );
 };
@@ -167,13 +177,19 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
   }, [data]);
 
   const todayData = useMemo(() => {
-    if (!data) return;
+    if (!data) return undefined;
     const today = new Date();
     const todayStr = `${today.getFullYear()}-${(
       "00" +
       (today.getMonth() + 1)
     ).slice(-2)}-${("00" + today.getDate()).slice(-2)}`;
-    return data[todayStr];
+    const d = data[todayStr];
+    if (!d) {
+      const now = new Date();
+      if (now.getHours() < 8) return undefined;
+      else return null;
+    }
+    return d;
   }, [data]);
 
   const [type, setType] = useState<LuckyUnluckyBarChartType>("normal");
@@ -186,6 +202,7 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          mb: 3,
         }}
       >
         <Typography variant="title">まぁじ占いビューア</Typography>
@@ -205,63 +222,87 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
               {todayData ? (
                 <Box sx={{ display: "flex", gap: 3 }}>
                   <TodayInfo title="ラッキーカラー">
-                    <Box>
-                      <Box
-                        component="span"
-                        sx={{
-                          color: colorDict.find(
-                            (c) => c.data === todayData?.color?.lucky
-                          )?.color,
-                        }}
-                      >
-                        ◆
+                    {todayData?.color ? (
+                      <Box>
+                        <Box
+                          component="span"
+                          sx={{
+                            color: colorDict.find(
+                              (c) => c.data === todayData?.color?.lucky
+                            )?.color,
+                          }}
+                        >
+                          ◆
+                        </Box>
+                        {todayData.color.lucky}
                       </Box>
-                      {todayData?.color?.lucky}
-                    </Box>
+                    ) : (
+                      <Box sx={{ fontSize: "0.5em" }}>
+                        占い見るの忘れてた...
+                      </Box>
+                    )}
                   </TodayInfo>
                   <TodayInfo title="アンラッキーカラー">
-                    <Box>
-                      <Box
-                        component="span"
-                        sx={{
-                          color: colorDict.find(
-                            (c) => c.data === todayData?.color?.unlucky
-                          )?.color,
-                        }}
-                      >
-                        ◆
+                    {todayData?.color ? (
+                      <Box>
+                        <Box
+                          component="span"
+                          sx={{
+                            color: colorDict.find(
+                              (c) => c.data === todayData?.color?.unlucky
+                            )?.color,
+                          }}
+                        >
+                          ◆
+                        </Box>
+                        {todayData.color.unlucky}
                       </Box>
-                      {todayData?.color?.unlucky}
-                    </Box>
+                    ) : (
+                      <Box sx={{ fontSize: "0.5em" }}>占い忘れてた...</Box>
+                    )}
                   </TodayInfo>
                   <Box />
                   <TodayInfo title="ラッキー星座">
-                    <Box>
-                      <Box component="span">
-                        {
-                          zodiacDict.find(
-                            (z) => z.data === todayData?.zodiac?.lucky
-                          )?.sign
-                        }
+                    {todayData?.zodiac ? (
+                      <Box>
+                        <Box component="span">
+                          {
+                            zodiacDict.find(
+                              (z) => z.data === todayData?.zodiac?.lucky
+                            )?.sign
+                          }
+                        </Box>
+                        {todayData?.zodiac?.lucky}
                       </Box>
-                      {todayData?.zodiac?.lucky}
-                    </Box>
+                    ) : (
+                      <Box sx={{ fontSize: "0.5em" }}>
+                        占い見るの忘れてた...
+                      </Box>
+                    )}
                   </TodayInfo>
                   <TodayInfo title="アンラッキー星座">
-                    <Box>
-                      <Box component="span">
-                        {
-                          zodiacDict.find(
-                            (z) => z.data === todayData?.zodiac?.unlucky
-                          )?.sign
-                        }
+                    {todayData?.zodiac ? (
+                      <Box>
+                        <Box component="span">
+                          {
+                            zodiacDict.find(
+                              (z) => z.data === todayData?.zodiac?.unlucky
+                            )?.sign
+                          }
+                        </Box>
+                        {todayData?.zodiac?.unlucky}
                       </Box>
-                      {todayData?.zodiac?.unlucky}
-                    </Box>
+                    ) : (
+                      <Box sx={{ fontSize: "0.5em" }}>占い忘れてた...</Box>
+                    )}
                   </TodayInfo>
                 </Box>
               ) : (
-                <Box>朝8時のまぁじ占いまで待ってね</Box>
+                <Box>
+                  {todayData === undefined
+                    ? "朝8時のまぁじ占いまで待ってね"
+                    : "今日は占い師がお休みのようです"}
+                </Box>
               )}
             </CardContent>
           </Card>
