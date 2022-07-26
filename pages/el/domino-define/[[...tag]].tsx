@@ -101,7 +101,7 @@ const Home: NextPage<Props> = ({ readme, tag, releaseNote, tags, release }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Title name="Domino音源定義ファイル" />
+      <Title name="Domino用 Electone音源定義ファイル" />
 
       <Box
         sx={{
