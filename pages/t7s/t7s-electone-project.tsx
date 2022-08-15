@@ -58,7 +58,6 @@ const SectionTitle = ({ title }: { title: string }) => {
 };
 
 const Page: NextPage<Props> = ({ data }) => {
-  console.log(data);
   return (
     <>
       <Title name="t7s Electone Project" />
