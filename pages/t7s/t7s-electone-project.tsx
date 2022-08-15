@@ -36,7 +36,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     part: ["id", "snippet"],
     maxResults: 50,
   });
-  console.log(a);
   return {
     props: { data: a.data },
   };
