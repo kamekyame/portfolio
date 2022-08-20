@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import Twitter from "@mui/icons-material/Twitter";
 import ChatIcon from "@mui/icons-material/Chat";
-import { google, youtube_v3 } from "googleapis";
+import { google, ideahub_v1alpha, youtube_v3 } from "googleapis";
 import YouTube from "react-youtube";
 
 import Title from "../../components/title";
@@ -29,6 +29,20 @@ const opts = {
   width: "355",
   height: "200",
 };
+
+const contributors: Array<{
+  name: string;
+  twitterId?: string;
+}> = [
+  {
+    name: "すずとも",
+    twitterId: "SuzuTomo2001",
+  },
+  {
+    name: "カハル さん",
+    twitterId: "kaharu_1224",
+  },
+];
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const a = await youtube.playlistItems.list({
@@ -131,22 +145,27 @@ const Page: NextPage<Props> = ({ data }) => {
                 },
               }}
             >
-              <li>
-                すずとも
-                <IconButton
-                  size="small"
-                  href="https://twitter.com/SuzuTomo2001"
-                  target="_blank"
-                >
-                  <Twitter fontSize="inherit" />
-                </IconButton>
-              </li>
-              <li>カハル さん</li>
+              {contributors.map((contributor) => {
+                return (
+                  <li key={contributor.name}>
+                    {contributor.name}
+                    {contributor.twitterId && (
+                      <IconButton
+                        size="small"
+                        href={"https://twitter.com/" + contributor.twitterId}
+                        target="_blank"
+                      >
+                        <Twitter fontSize="inherit" />
+                      </IconButton>
+                    )}
+                  </li>
+                );
+              })}
             </Box>
           </Box>
           <SectionTitle title="Join" />
           <Box>
-            プロジェクト参加者募集中です！
+            プロジェクト参加者募集中です！エレクトーン未経験でもOK！
             <ul>
               <li>ナナシス楽曲の耳コピ</li>
               <li>エレクトーン用アレンジ譜面の作成</li>
