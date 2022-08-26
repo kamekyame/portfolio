@@ -72,11 +72,11 @@ export default function App() {
         }}
       >
         <Typography variant="h6" sx={{ my: 1 }}>
-          Contents
+          kamekyame.com
         </Typography>
         <Link href="/">Top</Link>
         <Link href="/blog">Blog</Link>
-        <Link href="/tools">Tools</Link>
+        <Link href="/contents">Contents</Link>
         <Link href="/sztm-bot">Sztm-bot</Link>
       </Box>
     </Box>

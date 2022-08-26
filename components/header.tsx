@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 const pages: { name: string; href: string }[] = [
   { name: "blog", href: "/blog" },
-  { name: "tools", href: "/tools" },
+  { name: "contents", href: "/contents" },
   { name: "sztm-bot", href: "/sztm-bot" },
 ];
 
