@@ -1,23 +1,21 @@
+import { useMemo } from "react";
 import { GetStaticProps, NextPage } from "next";
-import Link from "next/link";
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  CardActionArea,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Typography, Box, Button, IconButton } from "@mui/material";
 import Twitter from "@mui/icons-material/Twitter";
 import ChatIcon from "@mui/icons-material/Chat";
-import { google, ideahub_v1alpha, youtube_v3 } from "googleapis";
+import DownloadIcon from "@mui/icons-material/Download";
+import { google, youtube_v3 } from "googleapis";
 import YouTube from "react-youtube";
 
+import { getDataList } from "../../src/dropbox";
+import Link from "../../src/link";
 import Title from "../../components/title";
 
 type Props = {
-  data: youtube_v3.Schema$PlaylistItemListResponse;
+  youtubeData: youtube_v3.Schema$PlaylistItemListResponse;
+  dropboxData: ReturnType<typeof getDataList> extends Promise<infer T>
+    ? T
+    : never;
 };
 
 const youtube = google.youtube({
@@ -50,8 +48,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     part: ["id", "snippet"],
     maxResults: 50,
   });
+  const dropboxData = await getDataList();
   return {
-    props: { data: a.data },
+    props: { youtubeData: a.data, dropboxData },
+    revalidate: 60,
   };
 };
 
@@ -71,7 +71,18 @@ const SectionTitle = ({ title }: { title: string }) => {
   );
 };
 
-const Page: NextPage<Props> = ({ data }) => {
+const Page: NextPage<Props> = ({ youtubeData, dropboxData }) => {
+  const dropboxPdfData = useMemo(() => {
+    return dropboxData
+      .filter((d) => d.type === "pdf")
+      .sort((a, b) => (a > b ? 1 : -1));
+  }, [dropboxData]);
+  const dropboxZipData = useMemo(() => {
+    return dropboxData
+      .filter((d) => d.type === "data")
+      .sort((a, b) => (a > b ? 1 : -1));
+  }, [dropboxData]);
+
   return (
     <>
       <Title name="t7s Electone Project" />
@@ -121,50 +132,116 @@ const Page: NextPage<Props> = ({ data }) => {
               justifyContent: "space-evenly",
             }}
           >
-            {data.items?.map((item) => {
+            {youtubeData.items?.map((item) => {
               const title = item.snippet?.title;
               const videoId = item.snippet?.resourceId?.videoId || undefined;
               return (
-                <Box key={item.id} sx={{ minWidth: "100px" }}>
-                  {/* <Box>{title}</Box> */}
+                <Box key={item.id}>
                   <YouTube videoId={videoId} opts={opts} />
                 </Box>
               );
             })}
           </Box>
-          <SectionTitle title="Contributor" />
-          <Box>
-            <Box
-              component="ul"
-              sx={{
-                display: "flex",
-                gap: 3,
-                "& > li": {
-                  display: "flex",
-                  alignItems: "center",
-                },
-              }}
-            >
-              {contributors.map((contributor) => {
+          <SectionTitle title="Download" />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box>
+              <Box
+                sx={{ width: "100%", textAlign: "center", fontWeight: "bold" }}
+              >
+                楽譜
+              </Box>
+              {dropboxPdfData.map((item) => {
                 return (
-                  <li key={contributor.name}>
-                    {contributor.name}
-                    {contributor.twitterId && (
-                      <IconButton
-                        size="small"
-                        href={"https://twitter.com/" + contributor.twitterId}
-                        target="_blank"
-                      >
-                        <Twitter fontSize="inherit" />
-                      </IconButton>
-                    )}
-                  </li>
+                  <Link
+                    key={item.downloadUrl}
+                    href={item.downloadUrl}
+                    underline="none"
+                    color="inherit"
+                    sx={{
+                      display: "grid",
+                      gap: 2,
+                      my: 1,
+                      gridTemplateColumns: "1fr max-content",
+                    }}
+                  >
+                    <span>{item.fileName}</span>
+                    <DownloadIcon />
+                  </Link>
+                );
+              })}
+            </Box>
+            <Box>
+              <Box
+                sx={{ width: "100%", textAlign: "center", fontWeight: "bold" }}
+              >
+                データ
+              </Box>
+              {dropboxZipData.map((item) => {
+                return (
+                  <Link
+                    key={item.downloadUrl}
+                    href={item.downloadUrl}
+                    underline="none"
+                    color="inherit"
+                    sx={{
+                      display: "grid",
+                      gap: 2,
+                      my: 1,
+                      gridTemplateColumns: "1fr max-content",
+                    }}
+                  >
+                    <span>{item.fileName}</span>
+                    <DownloadIcon />
+                  </Link>
                 );
               })}
             </Box>
           </Box>
+          <SectionTitle title="Contributor" />
+          <Box
+            component="ul"
+            sx={{
+              display: "flex",
+              gap: 3,
+              justifyContent: "space-evenly",
+              p: 0,
+              "& > li": {
+                display: "flex",
+                alignItems: "center",
+              },
+            }}
+          >
+            {contributors.map((contributor) => {
+              return (
+                <li key={contributor.name}>
+                  {contributor.name}
+                  {contributor.twitterId && (
+                    <IconButton
+                      size="small"
+                      href={"https://twitter.com/" + contributor.twitterId}
+                      target="_blank"
+                    >
+                      <Twitter fontSize="inherit" />
+                    </IconButton>
+                  )}
+                </li>
+              );
+            })}
+          </Box>
           <SectionTitle title="Join" />
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             プロジェクト参加者募集中です！エレクトーン未経験でもOK！
             <ul>
               <li>ナナシス楽曲の耳コピ</li>
@@ -178,14 +255,32 @@ const Page: NextPage<Props> = ({ data }) => {
             <br />
             <Button
               href="https://discord.gg/7MfGf2M"
-              style={{
+              sx={{
                 backgroundColor: "#5865F2",
                 color: "white",
-                margin: "10px",
+                m: 1,
+                px: 2,
               }}
               startIcon={<ChatIcon />}
             >
               t7s Electone Project Discordサーバ
+            </Button>
+          </Box>
+          <SectionTitle title="Request" />
+          <Box sx={{ textAlign: "center" }}>
+            リクエストは以下のリンクからお願いします！
+            <br />
+            <Button
+              href="https://forms.gle/k7YYdWhPUYpNJrSBA"
+              sx={{
+                px: 2,
+                backgroundColor: "#eff258",
+                color: "black",
+                m: 1,
+              }}
+              startIcon={<ChatIcon />}
+            >
+              リクエスト用Google Forms
             </Button>
           </Box>
         </Box>

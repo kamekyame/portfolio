@@ -15,6 +15,7 @@
     "@mui/material": "^5.2.6",
     "dayjs": "^1.10.8",
     "dom-parser-react": "^0.2.1",
+    "dropbox": "^10.32.0",
     "googleapis": "^105.0.0",
     "microcms-js-sdk": "^2.0.0",
     "next": "12.1.0",
