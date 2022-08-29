@@ -39,6 +39,8 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
       <Title
         name={`${data.title}`}
         thumbnailUrl={`api/blog/ogp?title=${data.title}`}
+        type="article"
+        twitterCard="summary_large_image"
       />
 
       <Box

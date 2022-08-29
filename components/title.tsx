@@ -5,9 +5,16 @@ type Props = {
   thumbnailUrl?: string;
   description?: string;
   type?: "website" | "article" | "blog" | "product";
+  twitterCard?: "summary" | "summary_large_image";
 };
 
-export default function App({ name, description, type, thumbnailUrl }: Props) {
+export default function App({
+  name,
+  description,
+  type,
+  thumbnailUrl,
+  twitterCard,
+}: Props) {
   return (
     <Head>
       <title>{name} - sztm-blog</title>
@@ -26,7 +33,7 @@ export default function App({ name, description, type, thumbnailUrl }: Props) {
         content={description || "すずとものブログです。"}
       />
 
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content={twitterCard || "summary"} />
       <meta name="twitter:site" content="@SuzuTomo2001" />
     </Head>
   );
