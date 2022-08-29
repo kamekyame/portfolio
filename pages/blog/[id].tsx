@@ -36,7 +36,12 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
   const theme = useMemo(() => createTheme("light"), []);
   return (
     <ThemeProvider theme={theme}>
-      <Title name={`${data.title}`} />
+      <Title
+        name={`${data.title}`}
+        thumbnailUrl={`api/blog/ogp?title=${data.title}`}
+        type="article"
+        twitterCard="summary_large_image"
+      />
 
       <Box
         sx={{
