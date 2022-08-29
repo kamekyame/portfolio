@@ -5,8 +5,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import opentype from "opentype.js";
 import * as sharp from "sharp";
 
-const font = opentype.loadSync("assets/NotoSansJP-Medium.otf");
-const svg = fs.readFileSync("assets/ogp_blog.svg", "utf-8");
+const cwd = process.cwd();
+const font = opentype.loadSync(cwd + "/assets/NotoSansJP-Medium.otf");
+const svg = fs.readFileSync(cwd + "/assets/ogp_blog.svg", "utf-8");
 
 export default async function handler(
   req: NextApiRequest,
