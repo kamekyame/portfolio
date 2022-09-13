@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, ReactNode } from "react";
 import { NextPage } from "next";
 import {
   Typography,
@@ -119,7 +119,10 @@ function LuckyUnluckyBarChart({
   );
 }
 
-const TodayInfo: React.FC<{ title: string }> = ({ title, children }) => {
+const TodayInfo: React.FC<{ title: string; children: ReactNode }> = ({
+  title,
+  children,
+}) => {
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}

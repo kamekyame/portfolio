@@ -15,9 +15,10 @@ export default function App({
   thumbnailUrl,
   twitterCard,
 }: Props) {
+  const title = `${name} - sztm-blog`;
   return (
     <Head>
-      <title>{name} - sztm-blog</title>
+      <title>{title}</title>
       <meta property="og:locale" content="ja_JP" />
       <meta property="og:type" content={type || "website"} />
       <meta property="og:site_name" content="sztm-blog" />
