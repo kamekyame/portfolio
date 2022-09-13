@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import { Typography, Box } from "@mui/material";
 import { Mention, Tweet } from "react-twitter-widgets";
+
+import Link from "../src/link";
 import Title from "../components/title";
 
 const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
@@ -12,6 +14,7 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          mb: 3,
         }}
       >
         <Typography variant="title">SZTM-BOT</Typography>
@@ -28,57 +31,57 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
             <Typography variant="h6" sx={{ my: 2 }}>
               じゃんけんBOT
             </Typography>
-            <p>
+            <Box>
               Twitterで すずとも とじゃんけんができるBOTです。
               <br />
               現在整備中ですので、お待ちください。
-            </p>
+            </Box>
           </Box>
           <Box>
             <Typography variant="h6" sx={{ my: 2 }}>
               まぁじ占いアンラッキーBOT
             </Typography>
-            <p>
+            <Box>
               まぁじ
               っていう人が毎朝やってる「まぁじ占い」。まぁじ占いはラッキー星座・色しか占わないので、すずともがアンラッキー星座・色を占ってあげています。
               <br />
               (ついでに占い情報も収集しています。)
               <br />
               現在整備中ですので、お待ちください。
-            </p>
+            </Box>
           </Box>
           <Box>
             <Typography variant="h6" sx={{ my: 2 }}>
               高専ロボコンInfo-BOT
             </Typography>
-            <p>
+            <Box>
               高専ロボコンの各大会までの日数を毎朝ツイートするBOTです。
               <br />
               高専ロボコンが気になった方は
-              <a href="https://official-robocon.com/kosen/">ロボコンHP</a>
+              <Link href="https://official-robocon.com/kosen/">ロボコンHP</Link>
               まで！
               <Tweet tweetId="1478124008881242113" options={{ lang: "ja" }} />
-            </p>
+            </Box>
           </Box>
           <Box>
             <Typography variant="h6" sx={{ my: 2 }}>
               ナナシスInfo-BOT
             </Typography>
-            <p>
+            <Box>
               ゲームアプリ「Tokyo 7th
               シスターズ」の周年までの日数を毎朝ツイートするBOTです。
               <br />
               ナナシスが気になった方は
-              <a href="http://t7s.jp/">Tokyo 7th Sisters 公式HP</a>
+              <Link href="http://t7s.jp/">Tokyo 7th Sisters 公式HP</Link>
               まで！
               <Tweet tweetId="1478131558687068160" options={{ lang: "ja" }} />
-            </p>
+            </Box>
           </Box>
           <Box>
             <Typography variant="h6" sx={{ my: 2 }}>
               (くそ)占いBOT
             </Typography>
-            <p>
+            <Box>
               Twitterで 占い と送ると運勢とラッキーアイテムが返ってくるBOTです。
               <br />
               @SuzuTomo2001宛に「占い」という文字列を含んだツイートを送信してください。
@@ -87,7 +90,7 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
                 username="SuzuTomo2001"
                 options={{ text: "占い", size: "large" }}
               />
-            </p>
+            </Box>
           </Box>
         </Box>
       </Box>

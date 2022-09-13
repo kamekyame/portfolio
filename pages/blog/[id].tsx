@@ -19,14 +19,18 @@ const parser: React.ComponentProps<typeof DOMParserReact>["components"] = {
   },
   img: ({ src, ...props }) => {
     return (
-      <Box sx={{ width: "90%", mx: "auto" }}>
-        <Box
-          component="img"
-          sx={{ objectFit: "contain", width: "100%" }}
-          src={src}
-          alt="image"
-        />
-      </Box>
+      <Box
+        component="img"
+        sx={{
+          objectFit: "contain",
+          width: "90%",
+          mx: "auto",
+          my: 1,
+          display: "block",
+        }}
+        src={src}
+        alt="image"
+      />
     );
   },
   figure: ({ children }) => <>{children}</>,
