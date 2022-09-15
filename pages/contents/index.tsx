@@ -24,6 +24,12 @@ const contents: Array<{
     type: "normal",
   },
   {
+    title: "kosen-calendar",
+    description: "高専ごとのカレンダーをiCalendar形式で公開しています。",
+    href: "contents/kosen-calendar",
+    type: "normal",
+  },
+  {
     title: "Domino用 Electone音源定義ファイル",
     description:
       "MIDIエディタ「Domino」でElectoneの資源を最大限活用するための音源定義ファイル",
