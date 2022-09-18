@@ -36,6 +36,13 @@ const contents: Array<{
     href: "/t7s/t7s-electone-project",
     type: "t7s",
   },
+  {
+    title: "My-Electone",
+    description:
+      "すずともが過去に弾いてきた曲たちを忘備録としてまとめています。",
+    href: "/contents/my-electone",
+    type: "normal",
+  },
 ];
 
 const sxs: { [key: string]: SxProps<Theme> } = {
