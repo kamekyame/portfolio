@@ -41,7 +41,7 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const res = await fetch("https://api.kamekyame.com/t7s-resume/data");
-  console.log(res);
+  // console.log(res);
   const data = Object.values(await res.json()) as StreamTweet[];
 
   return {
@@ -175,7 +175,7 @@ const Page: NextPage<Props> = ({ data: allData }) => {
     allData.sort(
       (a, b) => (b.data.id > a.data.id ? 1 : -1) // IDが大きい順に並べる（新着順）
     );
-    console.log(allData);
+    // console.log(allData);
     return allData.slice((page - 1) * num, page * num);
   }, [allData, page]);
   const pageCount = useMemo(() => {
