@@ -43,6 +43,13 @@ const contents: Array<{
     type: "t7s",
   },
   {
+    title: "ナナシス履歴書ギャラリー",
+    description:
+      "ナナシス支配人がTwitterにあげている履歴書を一覧で見ることができます。",
+    href: "/t7s/resume",
+    type: "t7s",
+  },
+  {
     title: "My-Electone",
     description:
       "すずともが過去に弾いてきた曲たちを忘備録としてまとめています。",
