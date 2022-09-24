@@ -5,6 +5,8 @@ import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import { GoogleAnalytics } from "nextjs-google-analytics";
+
 import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
 import Header from "../components/header";
@@ -21,6 +23,7 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <CacheProvider value={emotionCache}>
+      <GoogleAnalytics trackPageViews />
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
