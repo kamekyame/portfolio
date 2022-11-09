@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { NextPage, GetServerSideProps } from "next";
-import { Typography, Box, ThemeProvider } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import dayjs from "dayjs";
 import DOMParserReact from "dom-parser-react";
 
@@ -54,7 +54,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
           alignItems: "center",
           backgroundColor: (t) => t.palette.background.default,
           color: (t) => t.palette.text.primary,
-          pb: 3,
+          py: 3,
         }}
       >
         <Box
@@ -63,12 +63,23 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
             maxWidth: "1000px",
           }}
         >
-          <Typography variant="title">{data.title}</Typography>
+          <Box
+            component="h1"
+            sx={{
+              wordBreak: "keep-all",
+              overflowWrap: "break-word",
+              p: 1,
+              borderBottom: (t) => `3px dashed ${t.palette.secondary.main}`,
+            }}
+          >
+            {data.title}
+          </Box>
           <Box
             sx={{
               display: "flex",
               gap: 1,
               justifyContent: "end",
+              flexWrap: "wrap",
               fontSize: "0.8em",
               lineHeight: "1.7em",
             }}
