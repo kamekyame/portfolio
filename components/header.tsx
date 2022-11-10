@@ -58,7 +58,7 @@ export default function App() {
           >
             {pages.map((page) => (
               <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                <Link href={page.href} passHref>
+                <Link href={page.href} underline="none" color="inherit">
                   <Box
                     color="inherit"
                     sx={{
@@ -76,7 +76,7 @@ export default function App() {
             ))}
           </Menu>
         </Box>
-        <Link href="/" passHref>
+        <Link href="/">
           <Avatar sx={{ mx: 2 }}>
             <Box sx={{ width: "100%" }} component={Logo} />
           </Avatar>

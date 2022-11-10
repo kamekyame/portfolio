@@ -220,7 +220,6 @@ const Home: NextPage = () => {
                   key={page.id}
                   href={`#${page.id}`}
                   replace
-                  passHref
                   underline="none"
                   color="inherit"
                 >
