@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import type { NextPage } from "next";
-import Link from "next/link";
 import { Typography, Box } from "@mui/material";
 
 import theme from "../src/theme";
+import Link from "../src/link";
 import Title from "../components/title";
 
 import Logo from "../public/logo.svg";
@@ -216,7 +216,14 @@ const Home: NextPage = () => {
             {pages.map((page, i) => {
               const isActive = nowPageInt === i;
               return (
-                <Link key={page.id} href={`#${page.id}`} replace passHref>
+                <Link
+                  key={page.id}
+                  href={`#${page.id}`}
+                  replace
+                  passHref
+                  underline="none"
+                  color="inherit"
+                >
                   <Box
                     sx={{
                       my: { xs: 0, sm: 2 },
