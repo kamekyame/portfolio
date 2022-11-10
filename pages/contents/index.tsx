@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Typography,
   Box,
@@ -9,6 +8,7 @@ import {
   Theme,
 } from "@mui/material";
 
+import Link from "../../src/link";
 import Title from "../../components/title";
 
 const contents: Array<{
@@ -100,7 +100,11 @@ export default function Page() {
           {contents.map((content) => {
             return (
               <Card key={content.href} sx={sxs[content.type]}>
-                <Link href={content.href} passHref>
+                <Link
+                  href={content.href}
+                  underline="none"
+                  sx={{ color: "inherit" }}
+                >
                   <CardActionArea>
                     <CardContent>
                       <Typography variant="h6" gutterBottom>

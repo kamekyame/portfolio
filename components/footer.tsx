@@ -1,8 +1,9 @@
-import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import Twitter from "@mui/icons-material/Twitter";
 import GitHub from "@mui/icons-material/GitHub";
 import YouTube from "@mui/icons-material/YouTube";
+
+import Link from "../src/link";
 
 export default function App() {
   return (

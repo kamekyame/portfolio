@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 import {
   AppBar,
   Toolbar,
@@ -11,6 +10,8 @@ import {
   Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+
+import Link from "../src/link";
 
 const pages: { name: string; href: string }[] = [
   { name: "blog", href: "/blog" },
@@ -57,7 +58,7 @@ export default function App() {
           >
             {pages.map((page) => (
               <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                <Link href={page.href} passHref>
+                <Link href={page.href} underline="none" color="inherit">
                   <Box
                     color="inherit"
                     sx={{
@@ -75,18 +76,21 @@ export default function App() {
             ))}
           </Menu>
         </Box>
-        <Link href="/" passHref>
+        <Link href="/">
           <Avatar sx={{ mx: 2 }}>
             <Box sx={{ width: "100%" }} component={Logo} />
           </Avatar>
         </Link>
         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
           {pages.map((page) => (
-            <Link key={page.name} href={page.href} passHref>
-              <Button onClick={handleCloseNavMenu} color="inherit">
-                {page.name}
-              </Button>
-            </Link>
+            <Button
+              key={page.name}
+              href={page.href}
+              onClick={handleCloseNavMenu}
+              color="inherit"
+            >
+              {page.name}
+            </Button>
           ))}
         </Box>
       </Toolbar>
