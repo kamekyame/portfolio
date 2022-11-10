@@ -219,10 +219,6 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
             locale={ja}
             view="month"
             resourceViewMode="tabs"
-            customEditor={({ close }) => {
-              close();
-              return <></>;
-            }}
             resources={resources}
             resourceFields={{
               idField: "name",
@@ -250,12 +246,9 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
               step: 120,
               cellRenderer: () => <></>,
             }}
-            onDelete={() => {
-              return new Promise((resolve) => resolve());
-            }}
-            onEventDrop={() => {
-              return new Promise((resolve) => resolve());
-            }}
+            editable={false}
+            deletable={false}
+            draggable={false}
           />
         </Box>
         <Box component="section">
