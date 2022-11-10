@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { NextPage, GetStaticProps } from "next";
-import Image from "next/future/image";
+import Image from "next/image";
 import {
   Typography,
   Box,
