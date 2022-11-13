@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.4",
     "date-fns": "^2.29.3",
-    "dayjs": "^1.11.5",
+    "dayjs": "^1.11.6",
     "dom-parser-react": "^0.2.2",
     "dropbox": "^10.32.0",
     "googleapis": "^107.0.0",
