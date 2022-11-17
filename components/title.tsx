@@ -16,6 +16,10 @@ export default function App({
   twitterCard,
 }: Props) {
   const title = `${name} - sztm-blog`;
+  const host = process.env.NEXT_PUBLIC_VERCEL_URL;
+  const ogpImageUrl = `http${host ? "s" : ""}://${host ?? "localhost:3000"}/${
+    thumbnailUrl || "ogp.jpg"
+  }`;
   return (
     <Head>
       <title>{title}</title>
@@ -23,12 +27,7 @@ export default function App({
       <meta property="og:type" content={type || "website"} />
       <meta property="og:site_name" content="sztm-blog" />
       <meta property="og:title" content={name} />
-      <meta
-        property="og:image"
-        content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/${
-          thumbnailUrl || "ogp.jpg"
-        }`}
-      />
+      <meta property="og:image" content={ogpImageUrl} />
       <meta
         property="og:description"
         content={description || "すずとものブログです。"}
