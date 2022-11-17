@@ -42,7 +42,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
     <ThemeProvider theme={theme}>
       <Title
         name={`${data.title}`}
-        thumbnailUrl={`api/blog/ogp?title=${data.title}`}
+        thumbnailUrl={`api/blog/ogp?title=${encodeURIComponent(data.title)}`}
         type="article"
         twitterCard="summary_large_image"
       />
