@@ -37,4 +37,5 @@ export default async function handler(
   }
   res.revalidate("/blog");
   res.revalidate("/blog/" + data.id);
+  return res.json({ revalidated: true });
 }
