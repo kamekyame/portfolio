@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Box, ThemeProvider } from "@mui/material";
 import dayjs from "dayjs";
 import DOMParserReact from "dom-parser-react";
@@ -107,14 +107,24 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const id = Array.isArray(ctx.query.id) ? ctx.query.id[0] : ctx.query.id;
-  let data = null;
-  if (id) {
-    data = await client.get({ endpoint: "blog", contentId: id });
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps<
+  { data: IBlog },
+  { id: string }
+> = async (ctx) => {
+  const id = ctx.params?.id;
+  try {
+    const data = await client.get({ endpoint: "blog", contentId: id });
+    return { props: { data } };
+  } catch (_) {
+    return { notFound: true };
   }
-  if (data === null) return { notFound: true };
-  return { props: { data } };
 };
 
 export default Page;

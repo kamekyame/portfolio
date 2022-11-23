@@ -27,3 +27,9 @@ export type IBlog = {
   title: string;
   body: (BlogRichEditor | BlogHTML)[];
 } & ListBase;
+
+export type WebhookData = {
+  service: string,
+  api: string,
+  id:string,
+}
