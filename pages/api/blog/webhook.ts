@@ -10,6 +10,7 @@ export default async function handler(
 ) {
   // signature 検証
   // https://document.microcms.io/manual/webhook-setting
+  console.log(req.headers, req.body);
   const signature = req.headers["x-microcms-signature"];
   const webhookSecret = process.env.MICROCMS_BLOG_WEBHOOK_SECRET;
 
