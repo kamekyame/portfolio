@@ -36,6 +36,9 @@ export default async function handler(
     throw new Error("Invalid data.service or data.api or data.id");
   }
   res.revalidate("/blog");
+  console.log("revalidate /blog");
   res.revalidate("/blog/" + data.id);
+  console.log("revalidate /blog/" + data.id);
+
   return res.json({ revalidated: true });
 }
