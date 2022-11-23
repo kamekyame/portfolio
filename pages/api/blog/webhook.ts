@@ -10,7 +10,6 @@ export default async function handler(
 ) {
   // signature 検証
   // https://document.microcms.io/manual/webhook-setting
-  console.log(req.headers, req.body);
   const signature = req.headers["x-microcms-signature"];
   const webhookSecret = process.env.MICROCMS_BLOG_WEBHOOK_SECRET;
 
@@ -24,6 +23,7 @@ export default async function handler(
     !timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
   ) {
     res.status(401);
+    res.json({ error: "Invalid signature" });
     return;
   }
 
@@ -36,9 +36,6 @@ export default async function handler(
     throw new Error("Invalid data.service or data.api or data.id");
   }
   res.revalidate("/blog");
-  console.log("revalidate /blog");
   res.revalidate("/blog/" + data.id);
-  console.log("revalidate /blog/" + data.id);
-
   return res.json({ revalidated: true });
 }
