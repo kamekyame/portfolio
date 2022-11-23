@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage, GetStaticProps } from "next";
 import { ThemeProvider } from "@mui/material/styles";
 import {
   Typography,
@@ -8,8 +8,8 @@ import {
   CardActionArea,
   CardContent,
 } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import dayjs from "dayjs";
 
 import Title from "../../components/title";
@@ -17,23 +17,26 @@ import { client, IList, IBlog } from "../../src/microCms";
 import Link from "../../src/link";
 import { createTheme } from "../../src/theme";
 
-const Page: NextPage<{ data: IList<IBlog> }> = ({ data }) => {
+const Page: NextPage<{
+  data: IList<Pick<IBlog, "id" | "title" | "updatedAt">>;
+}> = ({ data }) => {
   const theme = useMemo(() => createTheme("light"), []);
 
-  const nowPage = useMemo(
-    () => data.offset / data.limit,
-    [data.offset, data.limit]
-  );
+  // page処理をやめたため、このコードは不要になった
+  // const nowPage = useMemo(
+  //   () => data.offset / data.limit,
+  //   [data.offset, data.limit]
+  // );
 
-  const prevPage = useMemo(() => {
-    const prevPage = nowPage - 1;
-    return prevPage < 0 ? undefined : prevPage;
-  }, [nowPage]);
+  // const prevPage = useMemo(() => {
+  //   const prevPage = nowPage - 1;
+  //   return prevPage < 0 ? undefined : prevPage;
+  // }, [nowPage]);
 
-  const nextPage = useMemo(() => {
-    const nextPage = nowPage + 1;
-    return nextPage * data.limit > data.totalCount ? undefined : nextPage;
-  }, [nowPage, data.totalCount, data.limit]);
+  // const nextPage = useMemo(() => {
+  //   const nextPage = nowPage + 1;
+  //   return nextPage * data.limit > data.totalCount ? undefined : nextPage;
+  // }, [nowPage, data.totalCount, data.limit]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,13 +60,11 @@ const Page: NextPage<{ data: IList<IBlog> }> = ({ data }) => {
         </Box>
         <Box
           sx={{
-            display: "grid",
+            display: "flex",
+            flexDirection: "column",
             gap: 2,
             width: "90%",
             maxWidth: "1000px",
-            gridTemplateColumns:
-              "repeat(auto-fit, minmax(min(300px,100%), 1fr))",
-            gridAutoRows: "1fr",
           }}
         >
           {data.contents.map((blog) => {
@@ -98,7 +99,9 @@ const Page: NextPage<{ data: IList<IBlog> }> = ({ data }) => {
             );
           })}
         </Box>
-        <Box sx={{ m: 2, display: "flex", gap: 3 }}>
+        {
+          // page処理をやめたため、このコードは不要になった
+          /* <Box sx={{ m: 2, display: "flex", gap: 3 }}>
           {prevPage !== undefined && (
             <Link
               href={{ pathname: "/blog", query: { page: prevPage } }}
@@ -121,29 +124,21 @@ const Page: NextPage<{ data: IList<IBlog> }> = ({ data }) => {
               <ArrowForwardIcon />
             </Link>
           )}
-        </Box>
+        </Box> */
+        }
       </Box>
     </ThemeProvider>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const limit = 10;
-  const redirection = { redirect: { destination: "/blog" }, props: {} };
-  const pages = ctx.query.page;
-
-  if (pages && typeof pages !== "string") return redirection;
-
-  const offset = pages ? parseInt(pages) * limit : 0;
+export const getStaticProps: GetStaticProps = async () => {
   const data = await client.get({
     endpoint: "blog",
     queries: {
-      offset,
-      limit,
+      limit: Number.MAX_SAFE_INTEGER,
+      fields: "id,title,updatedAt",
     },
   });
-  if (data.totalCount < offset) return redirection;
-
   return { props: { data } };
 };
 
