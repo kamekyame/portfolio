@@ -4,6 +4,8 @@ import { Box, ThemeProvider } from "@mui/material";
 import dayjs from "dayjs";
 import DOMParserReact from "dom-parser-react";
 
+import TwitterIcon from "@mui/icons-material/Twitter";
+
 import Title from "../../components/title";
 import { client, IBlog } from "../../src/microCms";
 import Link from "../../src/link";
@@ -74,21 +76,36 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
           >
             {data.title}
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 1,
-              justifyContent: "end",
-              flexWrap: "wrap",
-              fontSize: "0.8em",
-              lineHeight: "1.7em",
-            }}
-          >
-            <Box>
-              公開日：{dayjs(data.publishedAt).format("YYYY/MM/DD HH:mm")}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <TwitterIcon
+                onClick={() => {
+                  const url = new URL("https://twitter.com/intent/tweet");
+                  const sp = url.searchParams;
+                  sp.set("url", location.href);
+                  sp.set("text", `${data.title} - sztm-blog`);
+                  sp.set("hashtags", "sztm_blog");
+
+                  window.open(url.href, "_blank");
+                }}
+              />
             </Box>
-            <Box>
-              最終更新日：{dayjs(data.updatedAt).format("YYYY/MM/DD HH:mm")}
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1,
+                justifyContent: "end",
+                flexWrap: "wrap",
+                fontSize: "0.8em",
+                lineHeight: "1.7em",
+              }}
+            >
+              <Box>
+                公開日：{dayjs(data.publishedAt).format("YYYY/MM/DD HH:mm")}
+              </Box>
+              <Box>
+                最終更新日：{dayjs(data.updatedAt).format("YYYY/MM/DD HH:mm")}
+              </Box>
             </Box>
           </Box>
           {data.body.map((field, i) => {
