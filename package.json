@@ -12,7 +12,7 @@
     "@aldabil/react-scheduler": "^2.5.13",
     "@emotion/react": "^11.10.5",
     "@emotion/server": "^11.10.0",
-    "@emotion/styled": "^11.10.4",
+    "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
     "date-fns": "^2.29.3",
