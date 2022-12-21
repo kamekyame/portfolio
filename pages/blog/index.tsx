@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { NextPage, GetStaticProps } from "next";
+import Image from "next/image";
 import { ThemeProvider } from "@mui/material/styles";
 import {
   Typography,
@@ -8,18 +9,26 @@ import {
   CardActionArea,
   CardContent,
 } from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 // import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import dayjs from "dayjs";
 
 import Title from "../../components/title";
-import { client, IList, IBlog } from "../../src/microCms";
+import { client } from "../../src/microCms";
 import Link from "../../src/link";
 import { createTheme } from "../../src/theme";
 
+type Content = {
+  url: string;
+  title: string;
+  updatedAt: string;
+  type: "qiita" | "blog";
+};
+
 const Page: NextPage<{
-  data: IList<Pick<IBlog, "id" | "title" | "updatedAt">>;
-}> = ({ data }) => {
+  contents: Content[];
+}> = ({ contents }) => {
   const theme = useMemo(() => createTheme("light"), []);
 
   // page処理をやめたため、このコードは不要になった
@@ -55,9 +64,6 @@ const Page: NextPage<{
         <Typography variant="title" color="">
           BLOG
         </Typography>
-        <Box sx={{ m: 2 }}>
-          古い記事は昔のブログから移行したものなので表示がおかしくなっているかもしれません。
-        </Box>
         <Box
           sx={{
             display: "flex",
@@ -67,28 +73,55 @@ const Page: NextPage<{
             maxWidth: "1000px",
           }}
         >
-          {data.contents.map((blog) => {
+          {contents.map((blog) => {
             return (
-              <Card key={blog.id}>
+              <Card key={blog.url}>
                 <CardActionArea sx={{ height: "100%" }}>
-                  <Link
-                    href={`/blog/${blog.id}`}
-                    color="inherit"
-                    underline="none"
-                  >
+                  <Link href={blog.url} color="inherit" underline="none">
                     <CardContent
                       sx={{
                         display: "grid",
                         height: "100%",
-                        gridTemplateColumns: "1fr",
-                        gridTemplateRows: "1fr min-content",
+                        gridTemplateColumns: "25px 1fr",
+                        gridTemplateRows: "minmax(25px,1fr) min-content",
                         gap: 1,
+                        p: 2,
+                        "&:last-child": { pb: 2 },
                       }}
                     >
-                      <Box sx={{ flexGrow: "1", m: 0 }} component="h3">
+                      {blog.type === "qiita" && (
+                        <Box
+                          sx={{
+                            gridColumn: "1 / 2",
+                            position: "relative",
+                            aspectRatio: "1",
+                          }}
+                        >
+                          <Image
+                            src="/qiita.png"
+                            alt="Qiita favicon"
+                            fill
+                            // width="25"
+                            // height="25"
+                          ></Image>
+                        </Box>
+                      )}
+                      <Box
+                        sx={{
+                          gridColumn: "2 / -1",
+                          display: "flex",
+                          alignItems: "center",
+                          m: 0,
+                          gap: 1,
+                        }}
+                        component="h3"
+                      >
                         {blog.title}
+                        {blog.type !== "blog" && (
+                          <OpenInNewIcon fontSize="small" />
+                        )}
                       </Box>
-                      <Box sx={{ fontSize: "0.8em" }}>
+                      <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
                         最終更新日：
                         {dayjs(blog.updatedAt).format("YYYY/MM/DD HH:mm")}
                       </Box>
@@ -132,14 +165,48 @@ const Page: NextPage<{
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const data = await client.get({
+  const contents: Content[] = [];
+
+  const microCmsData = await client.get({
     endpoint: "blog",
     queries: {
       limit: Number.MAX_SAFE_INTEGER,
       fields: "id,title,updatedAt",
     },
   });
-  return { props: { data } };
+  if (Array.isArray(microCmsData.contents)) {
+    microCmsData.contents.forEach((c: any) => {
+      contents.push({
+        url: `/blog/${c.id}`,
+        title: c.title,
+        updatedAt: c.updatedAt,
+        type: "blog",
+      });
+    });
+  }
+
+  const qiitaUrl = new URL("https://qiita.com/api/v2/items");
+  const sp = qiitaUrl.searchParams;
+  sp.set("query", "user:SuzuTomo2001");
+  const qiitaRes = await fetch(qiitaUrl);
+  const qiitaJson = await qiitaRes.json();
+  if (Array.isArray(qiitaJson)) {
+    qiitaJson.forEach((c) => {
+      contents.push({
+        title: c.title,
+        url: c.url,
+        updatedAt: c["updated_at"],
+        type: "qiita",
+      });
+    });
+  }
+  console.log(contents);
+
+  contents.sort((a, b) => {
+    return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+  });
+
+  return { props: { contents }, revalidate: 120 };
 };
 
 export default Page;
