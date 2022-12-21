@@ -10,6 +10,7 @@ import Title from "../../components/title";
 import { client, IBlog } from "../../src/microCms";
 import Link from "../../src/link";
 import { createTheme } from "../../src/theme";
+import { createGzip } from "zlib";
 
 const parser: React.ComponentProps<typeof DOMParserReact>["components"] = {
   a: ({ href, children }) => {
@@ -136,8 +137,22 @@ export const getStaticProps: GetStaticProps<
   { id: string }
 > = async (ctx) => {
   const id = ctx.params?.id;
+  let draftKey: string | undefined;
+  if (
+    ctx.preview &&
+    typeof ctx.previewData === "object" &&
+    "draftKey" in ctx.previewData &&
+    typeof ctx.previewData.draftKey === "string"
+  ) {
+    draftKey = ctx.previewData.draftKey;
+  }
+
   try {
-    const data = await client.get({ endpoint: "blog", contentId: id });
+    const data = await client.get({
+      endpoint: "blog",
+      contentId: id,
+      queries: { draftKey },
+    });
     return { props: { data } };
   } catch (_) {
     return { notFound: true };
