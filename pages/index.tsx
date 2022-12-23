@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { Typography, Box } from "@mui/material";
 
 import theme from "../src/theme";
@@ -7,6 +8,7 @@ import Link from "../src/link";
 import Title from "../components/title";
 
 import Logo from "../public/logo.svg";
+import GitHub from "@mui/icons-material/GitHub";
 
 const pageHeight = `calc(100vh - ${
   (theme.mixins.toolbar["@media (min-width:600px)"] as any).minHeight
@@ -113,6 +115,187 @@ const Profile = () => {
   );
 };
 
+const Projects = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <Box>
+        これまでに作成したツールや参加しているプロジェクト等の一覧です。
+      </Box>
+      <Box
+        component="ul"
+        sx={(theme) => ({
+          listStyle: "none",
+          p: 0,
+          m: 0,
+          "& li": {
+            p: 1,
+            borderBottom: `1px solid ${theme.palette.primary.dark}`,
+          },
+        })}
+      >
+        <Box
+          component="li"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "30px 1fr",
+            gridTemplateRows: "min-content 1fr",
+            gap: 1,
+          }}
+        >
+          <Box sx={{ gridRow: "1/-1" }}>
+            <Image
+              src="https://kakomimasu.com/img/kakomimasu-icon.png"
+              alt="囲みマスアイコン"
+              width="30"
+              height="30"
+            />
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Link href="https://kakomimasu.com" color="inherit">
+              囲みマス
+            </Link>
+            <Link href="https://github.com/kakomimasu" color="inherit">
+              <GitHub />
+            </Link>
+          </Box>
+          <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+            コロナによって中止になった高専プロコン2020
+            競技部門をオンライン上でプレイ可能にするプロジェクト
+            <br />
+            サーバ(server)・フロント(viewer)の開発を主に担当。
+          </Box>
+        </Box>
+        <Box
+          component="li"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "30px 1fr",
+            gridTemplateRows: "min-content 1fr",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              gridColumn: "2 / -1",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Link href="/contents/kosen-calendar" color="inherit">
+              高専カレンダー
+            </Link>
+            <Link
+              href="https://github.com/kamekyame/kosen-calendar"
+              color="inherit"
+            >
+              <GitHub />
+            </Link>
+          </Box>
+          <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+            各高専の行事予定をical形式で提供するプロジェクト。
+            <br />
+            対応高専は限られているが、スクレイピングスクリプトとGithub
+            Actionsの活用により予定変更時にも対応
+          </Box>
+        </Box>
+        <Box
+          component="li"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "30px 1fr",
+            gridTemplateRows: "min-content 1fr",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              gridColumn: "2 / -1",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Link href="/sztm-bot" color="inherit">
+              Twitter Bot
+            </Link>
+          </Box>
+          <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+            Twitterのリプライに応答したり、特定のツイートを収集したりしている。
+            <br />
+            活用例→<Link href="contents/maji-uranai">まぁじ占いビューア</Link>、
+            <Link href="/t7s/resume">ナナシス履歴書ギャラリー</Link>
+          </Box>
+        </Box>
+        <Box
+          component="li"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "30px 1fr",
+            gridTemplateRows: "min-content 1fr",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              gridColumn: "2 / -1",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Link href="/t7s/t7s-electone-project" color="inherit">
+              t7s Electone Project
+            </Link>
+          </Box>
+          <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+            スマホリズムゲーム
+            <Link href="https://t7s.jp">
+              「Tokyo 7thシスターズ」（通称、t7s）
+            </Link>
+            で制作されている楽曲をエレクトーンでアレンジするプロジェクト
+            <br />
+            参加者募集中です！笑
+          </Box>
+        </Box>
+        <Box
+          component="li"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "30px 1fr",
+            gridTemplateRows: "min-content 1fr",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              gridColumn: "2 / -1",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <Link href="/el/domino-define" color="inherit">
+              Domino用エレクトーン音源定義ファイル
+            </Link>
+          </Box>
+          <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+            MIDI編集ソフト
+            <Link href="https://takabosoft.com/domino">「Domino」</Link>
+            でエレクトーン音源を扱いやすくする音源定義ファイルを作成。
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
 const pages: {
   id: string;
   title: string;
@@ -129,6 +312,13 @@ const pages: {
     id: "profile",
     title: "Profile",
     component: Profile,
+    ref: React.createRef<HTMLDivElement>(),
+  },
+
+  {
+    id: "projects",
+    title: "Projects",
+    component: Projects,
     ref: React.createRef<HTMLDivElement>(),
   },
 ];
