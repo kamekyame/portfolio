@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["images.microcms-assets.io", "pbs.twimg.com"]
+    domains: ["images.microcms-assets.io", "pbs.twimg.com", "kakomimasu.com"]
   },
   webpack(config) {
     config.module.rules.push({
