@@ -375,12 +375,12 @@ const Home: NextPage = () => {
           return {
             position: "sticky",
             top: { xs: 56, sm: 64 },
-            width: { xs: 1, sm: "30%" },
+            width: { xs: 1, sm: "25%" },
             p: 1,
             height: { xs: "7em", sm: pageHeight },
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: { sm: "end", xs: "center" },
             backgroundColor: theme.palette.background.default,
             zIndex: 1,
           };
@@ -452,7 +452,7 @@ const Home: NextPage = () => {
         </Box>
       </Box>
 
-      <Box sx={{ width: { sm: "70%" } }}>
+      <Box sx={{ width: { sm: "75%" } }}>
         {/* 右側コンテンツ */}
         {pages.map((page, i) => {
           const Page = page.component;
@@ -463,7 +463,8 @@ const Home: NextPage = () => {
               ref={page.ref}
               sx={{
                 minHeight: { xs: `calc(${pageHeight} - 7em)`, sm: pageHeight },
-                p: 3,
+                px: 3,
+                py: 5,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
