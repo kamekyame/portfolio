@@ -244,8 +244,14 @@ const Home: NextPage = () => {
             <Box // バー
               sx={(theme) => ({
                 position: "relative",
-                top: { sm: `${(100 / pages.length) * (nowPageInt || 0)}%` },
-                left: { xs: `${(100 / pages.length) * (nowPageInt || 0)}%` },
+                top: {
+                  sm: `${(100 / pages.length) * (nowPageInt || 0)}%`,
+                  xs: "0%",
+                },
+                left: {
+                  xs: `${(100 / pages.length) * (nowPageInt || 0)}%`,
+                  sm: "0%",
+                },
                 transition: "all 0.2s ease",
                 width: { xs: `${100 / pages.length}%`, sm: "0.2em" },
                 height: { xs: "0.2em", sm: `${100 / pages.length}%` },
