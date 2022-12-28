@@ -10,7 +10,6 @@ import Title from "../../components/title";
 import { client, IBlog } from "../../src/microCms";
 import Link from "../../src/link";
 import { createTheme } from "../../src/theme";
-import { createGzip } from "zlib";
 
 const parser: React.ComponentProps<typeof DOMParserReact>["components"] = {
   a: ({ href, children }) => {
@@ -36,7 +35,47 @@ const parser: React.ComponentProps<typeof DOMParserReact>["components"] = {
       />
     );
   },
+  strong: ({ children }) => {
+    return <Box component="strong">{children}</Box>;
+  },
+  blockquote: ({ children }) => {
+    return (
+      <Box
+        component="blockquote"
+        sx={{
+          m: 1,
+          p: 1,
+          pl: 2,
+          backgroundColor: "#E0E0E0",
+          borderLeft: (t) => `3px solid ${t.palette.primary.main}`,
+        }}
+      >
+        {children}
+      </Box>
+    );
+  },
   figure: ({ children }) => <>{children}</>,
+  h4: ({ children }) => {
+    return (
+      <Box component="h4" sx={{ my: 1 }}>
+        {children}
+      </Box>
+    );
+  },
+  h5: ({ children }) => {
+    return (
+      <Box component="h5" sx={{ my: 0.5 }}>
+        {children}
+      </Box>
+    );
+  },
+  p: ({ children }) => {
+    return (
+      <Box component="p" sx={{ my: 0.5 }}>
+        {children}
+      </Box>
+    );
+  },
 };
 
 const Page: NextPage<{ data: IBlog }> = ({ data }) => {
