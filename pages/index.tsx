@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useMediaQuery, useTheme } from "@mui/material";
 
 import theme from "../src/theme";
 import Link from "../src/link";
@@ -9,10 +9,12 @@ import Title from "../components/title";
 
 import Logo from "../public/logo.svg";
 import GitHub from "@mui/icons-material/GitHub";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import QiitaIcon from "../public/qiita.png";
 
-const pageHeight = `calc(100vh - ${
-  (theme.mixins.toolbar["@media (min-width:600px)"] as any).minHeight
-}px)`;
+const pageHeight = (media: "xs" | "sm") =>
+  `calc(100vh - ${media === "sm" ? 64 : 56}px)`;
 
 const Welcome = () => {
   return (
@@ -296,6 +298,72 @@ const Projects = () => {
   );
 };
 
+const Links = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      <Box>各種リンク集です。</Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 5,
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          "& .link-icon": {
+            minWidth: "30px",
+            minHeight: "30px",
+            width: "10vw",
+            height: "10vw",
+            maxWidth: "70px",
+            maxHeight: "70px",
+            position: "relative",
+          },
+        }}
+      >
+        <Box>
+          <Link href="https://qiita.com/SuzuTomo2001">
+            <Box className="link-icon">
+              <Image src={QiitaIcon} alt="Qiita Icon" fill />
+            </Box>
+          </Link>
+        </Box>
+        <Box>
+          <Link href="https://github.com/kamekyame" color="inherit">
+            <GitHub className="link-icon" />
+          </Link>
+        </Box>
+        <Box>
+          <Link href="https://twitter.com/SuzuTomo2001" color="inherit">
+            <TwitterIcon className="link-icon" sx={{ color: "#1DA1F2" }} />
+          </Link>
+        </Box>
+        <Box>
+          <Link
+            href="https://www.youtube.com/channel/UCP4eqORRoflTk1wyTzvslqA"
+            color="inherit"
+          >
+            <YouTubeIcon
+              className="link-icon"
+              sx={{
+                color: "#FF0000",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "20%",
+              }}
+            />
+          </Link>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
 const pages: {
   id: string;
   title: string;
@@ -319,6 +387,12 @@ const pages: {
     id: "projects",
     title: "Projects",
     component: Projects,
+    ref: React.createRef<HTMLDivElement>(),
+  },
+  {
+    id: "links",
+    title: "Links",
+    component: Links,
     ref: React.createRef<HTMLDivElement>(),
   },
 ];
@@ -357,6 +431,24 @@ const Home: NextPage = () => {
     };
   }, []);
 
+  const sideBarRef = useRef<HTMLDivElement>();
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
+  useEffect(() => {
+    const element = sideBarRef.current;
+    if (element === undefined) return;
+    if (isSm) {
+      const top =
+        ((element.scrollHeight - element.offsetHeight) * (nowPageInt || 0)) /
+        (pages.length - 1);
+      element.scrollTo({ top });
+    } else {
+      const left =
+        ((element.scrollWidth - element.offsetWidth) * (nowPageInt || 0)) /
+        (pages.length - 1);
+      element.scrollTo({ left });
+    }
+  }, [nowPageInt, isSm]);
+
   return (
     <Box
       sx={{
@@ -370,14 +462,14 @@ const Home: NextPage = () => {
     >
       <Title name="Top" />
 
-      <Box // 左サイドバー(モバイルの場合はトップに表示)
+      <Box
         sx={(theme) => {
           return {
             position: "sticky",
             top: { xs: 56, sm: 64 },
             width: { xs: 1, sm: "25%" },
             p: 1,
-            height: { xs: "7em", sm: pageHeight },
+            height: { xs: "7em", sm: pageHeight("sm") },
             display: "flex",
             alignItems: "center",
             justifyContent: { sm: "end", xs: "center" },
@@ -386,68 +478,81 @@ const Home: NextPage = () => {
           };
         }}
       >
-        <Box // リンク + バー
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
-            p: { xs: 1, sm: 4 },
-            borderRight: { xs: "0px", sm: "1px solid" },
-            borderBottom: { xs: "1px solid", sm: "0px" },
+        <Box // 左サイドバー(モバイルの場合はトップに表示)
+          sx={(theme) => {
+            return {
+              maxWidth: { xs: "100%", sm: undefined },
+              maxHeight: { xs: undefined, sm: "100%" },
+              overflow: "auto",
+            };
           }}
+          ref={sideBarRef}
         >
-          <Box // リンク
+          <Box // リンク + バー
             sx={{
               display: "flex",
-              flexDirection: { xs: "row", sm: "column" },
-              textAlign: { xs: "center", sm: "right" },
-              fontSize: "1.2em",
+              width: "fit-content",
+              maxWidth: { sm: "100%", xs: undefined },
+              flexDirection: { xs: "column", sm: "row" },
+              p: { xs: 1, sm: 4 },
+              borderRight: { xs: "0px", sm: "1px solid" },
+              borderBottom: { xs: "1px solid", sm: "0px" },
             }}
           >
-            {pages.map((page, i) => {
-              const isActive = nowPageInt === i;
-              return (
-                <Link
-                  key={page.id}
-                  href={`#${page.id}`}
-                  replace
-                  underline="none"
-                  color="inherit"
-                >
-                  <Box
-                    sx={{
-                      my: { xs: 0, sm: 2 },
-                      mx: { xs: 2, sm: 0 },
-                      transition: "all 0.2s ease-in-out",
-                      fontWeight: isActive ? "bold" : "normal",
-                      color: isActive ? "inherit" : "#AAA",
-                      cursor: "pointer",
-                      width: "4.5em",
-                    }}
+            <Box // リンク
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "row", sm: "column" },
+                textAlign: { xs: "center", sm: "right" },
+                fontSize: "1.2em",
+              }}
+            >
+              {pages.map((page, i) => {
+                const isActive = nowPageInt === i;
+                return (
+                  <Link
+                    key={page.id}
+                    href={`#${page.id}`}
+                    replace
+                    underline="none"
+                    color="inherit"
                   >
-                    {page.title}
-                  </Box>
-                </Link>
-              );
-            })}
-          </Box>
-          <Box sx={{ mx: { xs: 0, sm: 2 }, my: { xs: 2, sm: 0 } }}>
-            <Box // バー
-              sx={(theme) => ({
-                position: "relative",
-                top: {
-                  sm: `${(100 / pages.length) * (nowPageInt || 0)}%`,
-                  xs: "0%",
-                },
-                left: {
-                  xs: `${(100 / pages.length) * (nowPageInt || 0)}%`,
-                  sm: "0%",
-                },
-                transition: "all 0.2s ease",
-                width: { xs: `${100 / pages.length}%`, sm: "0.2em" },
-                height: { xs: "0.2em", sm: `${100 / pages.length}%` },
-                backgroundColor: theme.palette.primary.main,
+                    <Box
+                      sx={{
+                        my: { xs: 0, sm: 2 },
+                        mx: { xs: 2, sm: 0 },
+                        transition: "all 0.2s ease-in-out",
+                        fontWeight: isActive ? "bold" : "normal",
+                        color: isActive ? "inherit" : "#AAA",
+                        cursor: "pointer",
+                        width: "4.5em",
+                      }}
+                    >
+                      {page.title}
+                    </Box>
+                  </Link>
+                );
               })}
-            ></Box>
+            </Box>
+            <Box sx={{ mx: { xs: 0, sm: 2 }, my: { xs: 2, sm: 0 } }}>
+              <Box // バー
+                sx={(theme) => ({
+                  position: "relative",
+                  top: {
+                    sm: `${(100 / pages.length) * (nowPageInt || 0)}%`,
+                    xs: "0%",
+                  },
+                  left: {
+                    xs: `${(100 / pages.length) * (nowPageInt || 0)}%`,
+                    sm: "0%",
+                  },
+                  transition: "all 0.2s ease",
+                  width: { xs: `${100 / pages.length}%`, sm: "0.2em" },
+                  height: { xs: "0.2em", sm: `${100 / pages.length}%` },
+                  backgroundColor: theme.palette.primary.main,
+                })}
+              ></Box>
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -459,10 +564,12 @@ const Home: NextPage = () => {
           return (
             <Box
               key={page.id}
-              id={page.id}
               ref={page.ref}
               sx={{
-                minHeight: { xs: `calc(${pageHeight} - 7em)`, sm: pageHeight },
+                minHeight: {
+                  xs: `calc(${pageHeight("xs")} - 7em)`,
+                  sm: pageHeight("sm"),
+                },
                 px: 3,
                 py: 5,
                 display: "flex",
@@ -470,8 +577,18 @@ const Home: NextPage = () => {
                 justifyContent: "center",
                 transition: "opacity 1.5s ease",
                 opacity: nowPageInt === i ? 1 : 0,
+                position: "relative",
               }}
             >
+              <Box // スマホ向けレイアウト時のページ内遷移用にmarginとして配置
+                id={page.id}
+                sx={{
+                  position: "absolute",
+                  top: { xs: "-7em", sm: 0 },
+                  height: "7em",
+                  width: "100%",
+                }}
+              />
               <Page />
             </Box>
           );
