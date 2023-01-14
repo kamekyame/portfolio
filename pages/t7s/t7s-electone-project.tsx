@@ -37,8 +37,8 @@ const contributors: Array<{
     twitterId: "SuzuTomo2001",
   },
   {
-    name: "カハル さん",
-    twitterId: "kaharu_1224",
+    name: "レクト さん",
+    twitterId: "rect_1001",
   },
 ];
 
