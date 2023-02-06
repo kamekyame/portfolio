@@ -29,7 +29,7 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.3",
     "react-twitter-widgets": "^1.11.0",
-    "react-youtube": "^10.0.0",
+    "react-youtube": "^10.1.0",
     "recharts": "^2.3.2",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.31.2"
