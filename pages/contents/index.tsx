@@ -50,6 +50,13 @@ const contents: Array<{
     type: "t7s",
   },
   {
+    title: "t7s 2053 1st Live Startrail カウントダウンイラスト集",
+    description:
+      "t7s 2053 1st Live Startrailのカウントダウンで公式が投稿したイラストをまとめています。",
+    href: "/t7s/illust/2053-1stlive-countdown",
+    type: "t7s",
+  },
+  {
     title: "My-Electone",
     description:
       "すずともが過去に弾いてきた曲たちを忘備録としてまとめています。",
