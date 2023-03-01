@@ -12,6 +12,8 @@ import createEmotionCache from "../src/createEmotionCache";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
+import "./font.css";
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
