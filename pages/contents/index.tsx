@@ -18,6 +18,12 @@ const contents: Array<{
   type: "normal" | "el" | "t7s";
 }> = [
   {
+    title: "EL-Explorer",
+    description: "エレクトーン用のエクスプローラです。",
+    href: "/el/explorer",
+    type: "el",
+  },
+  {
     title: "まぁじ占いビューア",
     description: "まぁじ占いの結果を一覧で見ることができます。",
     href: "contents/maji-uranai",
