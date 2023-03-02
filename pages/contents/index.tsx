@@ -20,7 +20,7 @@ const contents: Array<{
   {
     title: "EL-Explorer",
     description: "エレクトーン用のエクスプローラです。",
-    href: "/el/el-explorer",
+    href: "/el/explorer",
     type: "el",
   },
   {
