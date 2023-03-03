@@ -38,6 +38,7 @@ export class GithubClient {
   renderMarkdown = async (text: string) => {
     const res = await this.octokit.rest.markdown.render({ text, mode: "gfm" });
     let html = res.data;
+    console.log(res, html);
     // Repository内の相対パスを絶対パスに変換
     html = html.replaceAll(
       /".\/(.+?)"/g,
