@@ -12,34 +12,21 @@ import {
   Divider,
   ThemeProvider,
 } from "@mui/material";
-import ReactMarkdown, { Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { RestEndpointMethodTypes } from "@octokit/rest";
 
 import Title from "../../../components/title";
+import GithubMd from "../../../components/GithubMd";
 import Link from "../../../src/link";
 import { createTheme } from "../../../src/theme";
+import { GithubClient } from "../../../src/octokit";
 
 type Props = {
-  readme: string;
+  readmeHtml: string;
   tag: string;
-  releaseNote: string;
+  releaseNoteHtml: string;
   tags: string[];
-  release: any;
+  release: RestEndpointMethodTypes["repos"]["listReleases"]["response"]["data"][number];
 };
-
-const components: Components = {
-  h1: () => <></>,
-};
-
-const baseUrl = "https://api.github.com/repos/kamekyame/el-domino_define";
-
-async function getReleases() {
-  let url = `${baseUrl}/releases`;
-  const res = await fetch(url);
-  if (res.ok === false) return;
-  const json = await res.json();
-  return json;
-}
 
 export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
   return {
@@ -48,51 +35,52 @@ export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
-  const paramTag = Array.isArray(ctx.params?.tag)
-    ? ctx.params?.tag[0]
-    : ctx.params?.tag;
+export const getStaticProps: GetStaticProps<Props, { tag: string[] }> = async (
+  ctx
+) => {
+  const gh = new GithubClient("kamekyame", "el-domino_define");
 
-  const releases = await getReleases();
+  const paramTag = ctx.params?.tag?.[0];
+
+  const releases = await gh.listReleases();
 
   const release = paramTag
     ? releases.find((r: any) => r.tag_name === paramTag)
     : releases[0];
 
-  // const release = await getRelease(ctx.params?.tag);
-  if (release === undefined) {
-    return { notFound: true };
-  }
+  if (!release) return { notFound: true };
+
   const tag = release.tag_name;
-  const res = await fetch(`${baseUrl}/contents/README.md?ref=${tag}`);
-  const data = await res.json();
-  const readme = Buffer.from(data.content, "base64").toString();
+  gh.setTag(tag);
+
+  const readme = await gh.getFileContent("README.md");
+  if (!readme) return { notFound: true };
+  const readmeHtml = await gh.renderMarkdown(readme);
+
+  const releaseNoteHtml = await gh.renderMarkdown(release.body ?? "");
+
   return {
     props: {
-      release: release,
-      readme: readme,
+      release,
+      readmeHtml,
       tag,
-      releaseNote: release.body,
+      releaseNoteHtml,
       tags: releases.map((r: any) => r.tag_name),
     },
     revalidate: 60,
   };
 };
 
-const Home: NextPage<Props> = ({ readme, tag, releaseNote, tags, release }) => {
+const Home: NextPage<Props> = ({
+  readmeHtml,
+  tag,
+  releaseNoteHtml,
+  tags,
+  release,
+}) => {
   const theme = useMemo(() => createTheme("light"), []);
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = React.useState(false);
-
-  const transformImageUrl = React.useCallback<
-    NonNullable<React.ComponentProps<typeof ReactMarkdown>["transformImageUri"]>
-  >(
-    (src, _alt, _title) => {
-      const newSrc = `https://raw.githubusercontent.com/kamekyame/el-domino_define/${tag}/${src}`;
-      return newSrc;
-    },
-    [tag]
-  );
 
   const isLatest = useMemo(() => {
     if ("tag" in router.query) return false;
@@ -129,7 +117,6 @@ const Home: NextPage<Props> = ({ readme, tag, releaseNote, tags, release }) => {
               gap: 4,
               p: 1,
               backgroundColor: "#FFE0E0",
-              // backgroundColor: (t) => t.palette.primary.light,
             }}
           >
             <Box
@@ -191,45 +178,20 @@ const Home: NextPage<Props> = ({ readme, tag, releaseNote, tags, release }) => {
                   color="error"
                   sx={{ py: 1, minWidth: "max-content" }}
                   href="./"
-                  // onClick={() => setDialogOpen(true)}
                   size="small"
                 >
                   Go to Latest
                 </Button>
               )}
             </Box>
-            <Box
-              component={ReactMarkdown}
-              remarkPlugins={[[remarkGfm]]}
-              components={components}
-              sx={{ fontSize: "80%" }}
-            >
-              {releaseNote}
+            <Box sx={{ fontSize: "80%", flexGrow: 1 }}>
+              <GithubMd html={releaseNoteHtml} />
             </Box>
           </Box>
           <Divider textAlign="left" sx={{ my: 2 }}>
             README
           </Divider>
-          <Box
-            component={ReactMarkdown}
-            remarkPlugins={[[remarkGfm]]}
-            components={components}
-            transformImageUri={transformImageUrl}
-            sx={{
-              "& h2, & h3, & h4": {
-                my: 2,
-              },
-              "& p": {
-                my: 1,
-              },
-              "& img": {
-                maxWidth: "100%",
-                maxHeight: "50vh",
-              },
-            }}
-          >
-            {readme}
-          </Box>
+          <GithubMd html={readmeHtml}></GithubMd>
         </Box>
       </Box>
     </ThemeProvider>
