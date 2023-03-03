@@ -12,11 +12,13 @@ import {
   Divider,
   ThemeProvider,
 } from "@mui/material";
-import { Octokit, RestEndpointMethodTypes } from "@octokit/rest";
+import { RestEndpointMethodTypes } from "@octokit/rest";
 
 import Title from "../../../components/title";
 import Link from "../../../src/link";
 import { createTheme } from "../../../src/theme";
+import { GithubClient } from "../../../src/octokit";
+import GithubMd from "../../../components/GithubMd";
 
 type Props = {
   readmeHtml: string;
@@ -26,13 +28,6 @@ type Props = {
   release: RestEndpointMethodTypes["repos"]["listReleases"]["response"]["data"][number];
 };
 
-const repo = { owner: "kamekyame", repo: "el-explorer" };
-
-async function getReleases() {
-  const res = await new Octokit().rest.repos.listReleases(repo);
-  return res.data;
-}
-
 export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
   return {
     paths: [{ params: { tag: [] } }],
@@ -40,41 +35,36 @@ export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
-  const paramTag = Array.isArray(ctx.params?.tag)
-    ? ctx.params?.tag[0]
-    : ctx.params?.tag;
+export const getStaticProps: GetStaticProps<Props, { tag: string[] }> = async (
+  ctx
+) => {
+  const gh = new GithubClient("kamekyame", "el-explorer");
 
-  const releases = await getReleases();
+  const paramTag = ctx.params?.tag?.[0];
+
+  const releases = await gh.listReleases();
 
   const release = paramTag
     ? releases.find((r: any) => r.tag_name === paramTag)
     : releases[0];
 
-  if (release === undefined) {
-    return { notFound: true };
-  }
-  const tag = release.tag_name;
-  const a = await new Octokit().rest.repos.getContent({
-    ...repo,
-    path: "README.md",
-    ref: tag,
-  });
-  if (Array.isArray(a.data)) return { notFound: true };
-  const content = a.data.type === "file" ? a.data.content : "";
-  const readme = Buffer.from(content, "base64").toString();
-  const readmeHtml = await new Octokit().rest.markdown.render({ text: readme });
+  if (!release) return { notFound: true };
 
-  const releaseNoteHtml = await new Octokit().rest.markdown.render({
-    text: release.body ?? "",
-  });
+  const tag = release.tag_name;
+  gh.setTag(tag);
+
+  const readme = await gh.getFileContent("README.md");
+  if (!readme) return { notFound: true };
+  const readmeHtml = await gh.renderMarkdown(readme);
+
+  const releaseNoteHtml = await gh.renderMarkdown(release.body ?? "");
 
   return {
     props: {
-      release: release,
-      readmeHtml: readmeHtml.data,
+      release,
+      readmeHtml,
       tag,
-      releaseNoteHtml: releaseNoteHtml.data,
+      releaseNoteHtml,
       tags: releases.map((r: any) => r.tag_name),
     },
     revalidate: 60,
@@ -138,7 +128,6 @@ const Home: NextPage<Props> = ({
               gap: 4,
               p: 1,
               backgroundColor: "#FFE0E0",
-              // backgroundColor: (t) => t.palette.primary.light,
             }}
           >
             <Box
@@ -204,36 +193,14 @@ const Home: NextPage<Props> = ({
                 </Button>
               )}
             </Box>
-            <Box dangerouslySetInnerHTML={{ __html: releaseNoteHtml }} />
+            <Box sx={{ fontSize: "80%", flexGrow: 1 }}>
+              <GithubMd html={releaseNoteHtml} />
+            </Box>
           </Box>
           <Divider textAlign="left" sx={{ my: 2 }}>
             README
           </Divider>
-          <Box
-            sx={{
-              "& h1": {
-                display: "none",
-              },
-              "& h2, & h3, & h4": {
-                my: 2,
-              },
-              "& p": {
-                my: 1,
-              },
-              "& img": {
-                maxWidth: "100%",
-                maxHeight: "50vh",
-              },
-              "& table": {
-                borderCollapse: "collapse",
-              },
-              "& td, & th": {
-                border: "1px solid gray",
-                p: 1,
-              },
-            }}
-            dangerouslySetInnerHTML={{ __html: readmeHtml }}
-          />
+          <GithubMd html={readmeHtml}></GithubMd>
         </Box>
       </Box>
     </ThemeProvider>
