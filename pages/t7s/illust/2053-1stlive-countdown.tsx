@@ -7,6 +7,11 @@ import Link from "../../../src/link";
 
 const images = [
   {
+    left: 0,
+    imgSrc: "https://pbs.twimg.com/media/FqX3fYKaEAAsbJl?format=png&name=large",
+    tweet: "https://twitter.com/t7s_staff/status/1631982592315781121",
+  },
+  {
     left: 1,
     imgSrc: "https://pbs.twimg.com/media/FqMawJJaYAEXAnR?format=png&name=large",
     tweet: "https://twitter.com/t7s_staff/status/1631308394802868224",
