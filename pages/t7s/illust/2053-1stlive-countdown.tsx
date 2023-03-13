@@ -54,15 +54,25 @@ const Page: NextPage = () => {
     >
       <Title name="t7s 2053 1st Live Startrail カウントダウンイラスト集" />
       <Typography variant="title" align="center">
-        t7s 2053 1st Live Startrail カウントダウンイラスト集
+        <Box sx={{ fontSize: "0.5em" }}>t7s カウントダウンイラスト集</Box>
+        <Box>2053 1st Live Startrail </Box>
       </Typography>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: 3,
-          mb: 3,
+          display: "grid",
+          gridTemplateColumns: {
+            sm: "repeat(5, 1fr)",
+            xs: "1fr",
+          },
+          gridTemplateRows: {
+            sm: "repeat(2, 1fr)",
+            xs: "repeat(6, 1fr)",
+          },
+          gridTemplateAreas: {
+            sm: '"l0 l0 l1 l2 l3" "l0 l0 l4 l5 l6"',
+            xs: '"l0" "l1" "l2" "l3" "l4" "l5" "l6"',
+          },
+          gap: 2,
         }}
       >
         {images.map((image) => {
@@ -72,9 +82,14 @@ const Page: NextPage = () => {
               sx={{
                 position: "relative",
                 aspectRatio: "1/1",
-                width: "30%",
-                minWidth: "20em",
-                maxWidth: "500px",
+                gridArea: `l${image.left}`,
+                borderRadius: 1,
+                overflow: "hidden",
+                transition: "transform 0.3s",
+                "&:hover": {
+                  transform: "scale(1.1,1.1)",
+                  zIndex: 10,
+                },
               }}
             >
               <Link href={image.tweet} target="_blank">
@@ -84,7 +99,6 @@ const Page: NextPage = () => {
           );
         })}
       </Box>
-      <Box>※イラストをクリックすると該当ツイートに飛びます。</Box>
     </Box>
   );
 };
