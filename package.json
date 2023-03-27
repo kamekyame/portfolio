@@ -31,7 +31,7 @@
     "react-twitter-widgets": "^1.11.0",
     "react-youtube": "^10.1.0",
     "recharts": "^2.3.2",
-    "sharp": "^0.31.2"
+    "sharp": "^0.32.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
