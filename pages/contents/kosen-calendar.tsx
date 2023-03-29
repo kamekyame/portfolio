@@ -10,7 +10,7 @@ import {
   TableBody,
 } from "@mui/material";
 import ical from "node-ical";
-import { Scheduler } from "@aldabil/react-scheduler";
+import Scheduler from "@aldabil/react-scheduler";
 import { ja } from "date-fns/locale";
 
 import Title from "../../components/title";
