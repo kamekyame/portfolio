@@ -63,6 +63,13 @@ const contents: Array<{
     type: "t7s",
   },
   {
+    title: "t7s 2023年エイプリルフール タイトル画面集",
+    description:
+      "t7s 2023年のエイプリルフールにゲームのタイトル画面で表示されていた画像をまとめています。",
+    href: "/t7s/illust/2023-aprilfools_day",
+    type: "t7s",
+  },
+  {
     title: "My-Electone",
     description:
       "すずともが過去に弾いてきた曲たちを忘備録としてまとめています。",

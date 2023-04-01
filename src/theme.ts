@@ -56,7 +56,7 @@ const createMyTheme = (mode: PaletteMode = "dark") =>
     },
     typography: {
       title: {
-        fontSize: "3rem",
+        fontSize: "2rem",
         margin: "",
       },
     },
