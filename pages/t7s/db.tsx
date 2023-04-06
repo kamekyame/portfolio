@@ -1,23 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { NextPage } from "next";
 import Image from "next/image";
-import {
-  Box,
-  Tabs,
-  Tab,
-  TextField,
-  InputAdornment,
-  Chip,
-  ImageList,
-  Typography,
-} from "@mui/material";
+import { Box, Tabs, Tab, TextField, InputAdornment, Chip } from "@mui/material";
 import DataGrid, { Column, SortColumn, Renderers, Row } from "react-data-grid";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { GithubClient } from "../../src/octokit";
 import { DB, Character, Unit, Ingame, CD, DVD } from "../../src/t7s-db";
+import Title from "../../components/title";
 
 import "react-data-grid/lib/styles.css";
+import { useRouter } from "next/router";
+import { getQueryAsString } from "../../src/query";
 
 const gh = new GithubClient("kamekyame", "t7s-db");
 
@@ -32,6 +26,12 @@ type ColumnSort<T = any> = {
 };
 type Columns<T> = (Column<T> & ColumnSearchType<T> & ColumnSort<T>)[];
 
+const createUrl = (type: DBKey, q?: string) => {
+  let url = "./db?type=" + type;
+  if (q) url += "&q=" + q;
+  return url;
+};
+
 const CharacterImage = ({ src, alt }: { src: string; alt: string }) => {
   return (
     <Box
@@ -41,7 +41,13 @@ const CharacterImage = ({ src, alt }: { src: string; alt: string }) => {
         position: "relative",
       }}
     >
-      <Image src={src} alt={alt} fill style={{ objectFit: "contain" }} />
+      <Image
+        src={src}
+        alt={alt}
+        height={35}
+        width={35}
+        style={{ objectFit: "contain" }}
+      />
     </Box>
   );
 };
@@ -51,14 +57,13 @@ const ingameColumn: Columns<Ingame> = [
     key: "jacket",
     name: "",
     formatter: ({ row: { jacketSrc, title } }) => (
-      <Box sx={{ height: "100%", aspectRatio: "1/1", position: "relative" }}>
-        <Image
-          src={jacketSrc}
-          alt={title + " ジャケット"}
-          fill
-          style={{ objectFit: "contain" }}
-        />
-      </Box>
+      <Image
+        src={jacketSrc}
+        alt={title + " ジャケット"}
+        height={35}
+        width={35}
+        style={{ objectFit: "contain" }}
+      />
     ),
     searchText: null,
     frozen: true,
@@ -156,14 +161,13 @@ const cdColumn: Columns<CD> = [
     key: "jacket",
     name: "",
     formatter: ({ row: { jacketSrc, title } }) => (
-      <Box sx={{ height: "100%", aspectRatio: "1/1", position: "relative" }}>
-        <Image
-          src={jacketSrc}
-          alt={title + " ジャケット"}
-          fill
-          style={{ objectFit: "contain" }}
-        />
-      </Box>
+      <Image
+        src={jacketSrc}
+        alt={title + " ジャケット"}
+        height={35}
+        width={35}
+        style={{ objectFit: "contain" }}
+      />
     ),
     searchText: null,
     frozen: true,
@@ -193,7 +197,7 @@ const cdColumn: Columns<CD> = [
     },
   },
 ];
-const dvdColumn: Columns<DVD> = cdColumn; // [{ key: "title", name: "タイトル" }];
+const dvdColumn: Columns<DVD> = cdColumn;
 
 const unitColumn: Columns<Unit> = [
   { key: "name", name: "名前", sortable: true, frozen: true },
@@ -202,14 +206,13 @@ const unitColumn: Columns<Unit> = [
     key: "visual",
     name: "ビジュアル",
     formatter: ({ row: { visualImgSrc, name } }) => (
-      <Box sx={{ height: "100%", width: "100%", position: "relative" }}>
-        <Image
-          src={visualImgSrc}
-          alt={name + " ビジュアル"}
-          fill
-          style={{ objectFit: "contain" }}
-        />
-      </Box>
+      <Image
+        src={visualImgSrc}
+        alt={name + " ビジュアル"}
+        height={35}
+        width={60}
+        style={{ objectFit: "contain" }}
+      />
     ),
     searchText: null,
   },
@@ -222,24 +225,17 @@ const unitColumn: Columns<Unit> = [
           height: "100%",
           width: "fit-content",
           backgroundColor: "white",
-          p: 1,
-          overflow: "hidden",
+          py: "2px",
+          px: "4px",
         }}
       >
-        <Box
-          sx={{
-            height: "100%",
-            width: "10em",
-            position: "relative",
-          }}
-        >
-          <Image
-            src={logoImgSrc}
-            alt={name + " ロゴ"}
-            fill
-            style={{ objectFit: "contain" }}
-          />
-        </Box>
+        <Image
+          src={logoImgSrc}
+          alt={name + " ロゴ"}
+          height={31}
+          width={100}
+          style={{ objectFit: "contain" }}
+        />
       </Box>
     ),
     searchText: null,
@@ -451,6 +447,9 @@ const renderers: Renderers<any, any> = {
 };
 
 const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
+  const router = useRouter();
+  const q = getQueryAsString(router.query.q) ?? "";
+
   const [data, setData] = useState<
     | {
         type: "characters";
@@ -487,7 +486,11 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
   }, [type, db]);
 
   const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
-  const [searchText, setSearchText] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>(q);
+
+  useEffect(() => {
+    setSearchText(q);
+  }, [q]);
 
   const sortedRows = useMemo(() => {
     if (!data) return [];
@@ -548,7 +551,15 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
               </InputAdornment>
             ),
           }}
-          onChange={(e) => setSearchText(e.target.value)}
+          value={searchText}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && "value" in e.target) {
+              router.replace(createUrl(type, e.target.value as string));
+            }
+          }}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
         />
       </Box>
 
@@ -622,44 +633,44 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
 };
 
 const DB = ({ db }: { db: DB }) => {
-  const [tab, setTab] = useState<DBKey>("ingames");
+  const router = useRouter();
+  const type: DBKey = getQueryAsString(router.query.type) ?? "characters";
+
   const changeTab = (_: React.SyntheticEvent, value: DBKey) => {
-    setTab(value);
+    router.replace(createUrl(value));
   };
 
   return (
     <Box
       sx={{ p: 1, height: "100%", display: "flex", flexDirection: "column" }}
     >
+      <Box
+        sx={{
+          top: 0,
+          right: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "1.5rem",
+        }}
+      >
+        Tokyo 7th Sisters DataBase
+      </Box>
       <Box sx={{ position: "relative" }}>
-        <Tabs value={tab} onChange={changeTab}>
+        <Tabs value={type} onChange={changeTab}>
           <Tab label="Character" value="characters" />
           <Tab label="Unit" value="units" />
           <Tab label="InGame" value="ingames" />
           <Tab label="CD" value="cds" />
           <Tab label="DVD/BD" value="dvds" />
         </Tabs>
-        <Typography
-          variant="title"
-          sx={{
-            position: "absolute",
-            height: "100%",
-            top: 0,
-            right: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          Tokyo 7th Sisters DataBase
-        </Typography>
       </Box>
-      <DataView db={db} type={tab} />
+      <DataView db={db} type={type} />
     </Box>
   );
 };
 
-const Page: NextPage = () => {
+const Page: NextPage<{}, { type: string }> = ({}) => {
   const [db, setDB] = useState<DB>();
 
   useEffect(() => {
@@ -670,7 +681,10 @@ const Page: NextPage = () => {
   }, []);
 
   return (
-    <Box sx={{ height: "calc(100vh - 64px)" }}>{db && <DB db={db} />}</Box>
+    <Box sx={{ height: "calc(100vh - 64px)" }}>
+      <Title name="Tokyo 7th Sisters DB" />
+      {db && <DB db={db} />}
+    </Box>
   );
 };
 
