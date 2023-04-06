@@ -49,6 +49,13 @@ const contents: Array<{
     type: "t7s",
   },
   {
+    title: "t7s DataBase",
+    description:
+      "ナナシスのキャラ・ユニット・ゲーム内楽曲・CD等のデータが閲覧できるサイト",
+    href: "/t7s/db",
+    type: "t7s",
+  },
+  {
     title: "ナナシス履歴書ギャラリー",
     description:
       "ナナシス支配人がTwitterにあげている履歴書を一覧で見ることができます。",
