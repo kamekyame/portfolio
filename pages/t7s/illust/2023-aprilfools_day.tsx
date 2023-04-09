@@ -19,7 +19,7 @@ const Page: NextPage = () => {
   return (
     <Box sx={{ mb: 3 }}>
       <Title name="t7s 2023年エイプリルフール タイトル画面集" />
-      <Typography variant="title" align="center">
+      <Typography variant="h1" align="center">
         <Box sx={{ fontSize: "0.5em" }}>t7s タイトル画面集</Box>
         <Box>2023年 エイプリルフール</Box>
       </Typography>

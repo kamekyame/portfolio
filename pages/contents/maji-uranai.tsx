@@ -208,7 +208,7 @@ const Page: NextPage<{ data?: Data }> = ({ data }) => {
           mb: 3,
         }}
       >
-        <Typography variant="title">まぁじ占いビューア</Typography>
+        <Typography variant="h1">まぁじ占いビューア</Typography>
 
         <Box sx={{ m: 2 }}>
           <Card>

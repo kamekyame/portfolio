@@ -10,14 +10,12 @@ import {
   List,
   ListItem,
   Divider,
-  ThemeProvider,
 } from "@mui/material";
 import { RestEndpointMethodTypes } from "@octokit/rest";
 
 import Title from "../../../components/title";
 import GithubMd from "../../../components/GithubMd";
 import Link from "../../../src/link";
-import { createTheme } from "../../../src/theme";
 import { GithubClient } from "../../../src/octokit";
 
 type Props = {
@@ -78,7 +76,6 @@ const Home: NextPage<Props> = ({
   tags,
   release,
 }) => {
-  const theme = useMemo(() => createTheme("light"), []);
   const router = useRouter();
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
@@ -88,113 +85,110 @@ const Home: NextPage<Props> = ({
   }, [router.query]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: (t) => t.palette.background.default,
+        color: (t) => t.palette.text.primary,
+      }}
+    >
       <Title name="Domino用 Electone音源定義ファイル" />
+      <Typography variant="h1">Domino用音源定義ファイル</Typography>
 
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: (t) => t.palette.background.default,
-          color: (t) => t.palette.text.primary,
+          maxWidth: "90%",
+          mx: "auto",
+          mb: 5,
         }}
       >
-        <Typography variant="title">Domino用音源定義ファイル</Typography>
-
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            maxWidth: "90%",
-            mx: "auto",
-            mb: 5,
+            gap: 4,
+            p: 1,
+            backgroundColor: "#FFE0E0",
           }}
         >
           <Box
             sx={{
               display: "flex",
-              gap: 4,
-              p: 1,
-              backgroundColor: "#FFE0E0",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 3,
+              m: 2,
+              width: "max-content",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 3,
-                m: 2,
-                width: "max-content",
-              }}
-            >
-              <Typography variant="h5">{tag}</Typography>
-              {release.assets.map((asset: any) => {
-                return (
-                  <Button
-                    key={asset.id}
-                    variant="contained"
-                    sx={{ py: 4, minWidth: "max-content", textAlign: "center" }}
-                    href={asset.browser_download_url}
-                  >
-                    ダウンロード
-                    <br />
-                    {asset.name}
-                  </Button>
-                );
-              })}
+            <Typography variant="h5">{tag}</Typography>
+            {release.assets.map((asset: any) => {
+              return (
+                <Button
+                  key={asset.id}
+                  variant="contained"
+                  sx={{ py: 4, minWidth: "max-content", textAlign: "center" }}
+                  href={asset.browser_download_url}
+                >
+                  ダウンロード
+                  <br />
+                  {asset.name}
+                </Button>
+              );
+            })}
 
+            <Button
+              variant="outlined"
+              color="inherit"
+              sx={{ py: 1, minWidth: "max-content" }}
+              onClick={() => setDialogOpen(true)}
+              size="small"
+            >
+              別バージョン
+            </Button>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+              <DialogTitle>バージョンを選択</DialogTitle>
+              <List>
+                {tags.map((t, i) => (
+                  <Link key={t} href={t} underline="none" color="inherit">
+                    <ListItem
+                      button
+                      key={t}
+                      onClick={() => setDialogOpen(false)}
+                    >
+                      {t}
+                      {i === 0 ? "(Latest)" : ""}
+                    </ListItem>
+                  </Link>
+                ))}
+              </List>
+            </Dialog>
+            {isLatest === false && (
               <Button
                 variant="outlined"
-                color="inherit"
+                color="error"
                 sx={{ py: 1, minWidth: "max-content" }}
-                onClick={() => setDialogOpen(true)}
+                href="./"
                 size="small"
               >
-                別バージョン
+                Go to Latest
               </Button>
-              <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-                <DialogTitle>バージョンを選択</DialogTitle>
-                <List>
-                  {tags.map((t, i) => (
-                    <Link key={t} href={t} underline="none" color="inherit">
-                      <ListItem
-                        button
-                        key={t}
-                        onClick={() => setDialogOpen(false)}
-                      >
-                        {t}
-                        {i === 0 ? "(Latest)" : ""}
-                      </ListItem>
-                    </Link>
-                  ))}
-                </List>
-              </Dialog>
-              {isLatest === false && (
-                <Button
-                  variant="outlined"
-                  color="error"
-                  sx={{ py: 1, minWidth: "max-content" }}
-                  href="./"
-                  size="small"
-                >
-                  Go to Latest
-                </Button>
-              )}
-            </Box>
-            <Box sx={{ fontSize: "80%", flexGrow: 1 }}>
-              <GithubMd html={releaseNoteHtml} />
-            </Box>
+            )}
           </Box>
-          <Divider textAlign="left" sx={{ my: 2 }}>
-            README
-          </Divider>
-          <GithubMd html={readmeHtml}></GithubMd>
+          <Box sx={{ fontSize: "80%", flexGrow: 1 }}>
+            <GithubMd html={releaseNoteHtml} />
+          </Box>
         </Box>
+        <Divider textAlign="left" sx={{ my: 2 }}>
+          README
+        </Divider>
+        <GithubMd html={readmeHtml}></GithubMd>
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 };
 

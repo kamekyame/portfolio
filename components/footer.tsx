@@ -10,6 +10,8 @@ export default function App() {
     <Box
       component="footer"
       sx={{
+        backgroundColor: "black",
+        color: "white",
         borderTop: "2px solid #fafafa",
         display: "flex",
         flexDirection: "row",

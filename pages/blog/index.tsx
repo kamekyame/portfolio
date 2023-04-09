@@ -1,7 +1,5 @@
-import { useMemo } from "react";
 import { NextPage, GetStaticProps } from "next";
 import Image from "next/image";
-import { ThemeProvider } from "@mui/material/styles";
 import {
   Typography,
   Box,
@@ -10,14 +8,11 @@ import {
   CardContent,
 } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-// import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import dayjs from "dayjs";
 
 import Title from "../../components/title";
 import { client } from "../../src/microCms";
 import Link from "../../src/link";
-import { createTheme } from "../../src/theme";
 
 type Content = {
   url: string;
@@ -29,8 +24,6 @@ type Content = {
 const Page: NextPage<{
   contents: Content[];
 }> = ({ contents }) => {
-  const theme = useMemo(() => createTheme("light"), []);
-
   // page処理をやめたため、このコードは不要になった
   // const nowPage = useMemo(
   //   () => data.offset / data.limit,
@@ -48,93 +41,91 @@ const Page: NextPage<{
   // }, [nowPage, data.totalCount, data.limit]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: (t) => t.palette.background.default,
+        color: (t) => t.palette.text.primary,
+        pb: 3,
+      }}
+    >
       <Title name="blog" />
-
+      <Typography variant="h1" color="">
+        BLOG
+      </Typography>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          backgroundColor: (t) => t.palette.background.default,
-          color: (t) => t.palette.text.primary,
-          pb: 3,
+          gap: 2,
+          width: "90%",
+          maxWidth: "1000px",
         }}
       >
-        <Typography variant="title" color="">
-          BLOG
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: "90%",
-            maxWidth: "1000px",
-          }}
-        >
-          {contents.map((blog) => {
-            return (
-              <Card key={blog.url}>
-                <CardActionArea sx={{ height: "100%" }}>
-                  <Link href={blog.url} color="inherit" underline="none">
-                    <CardContent
-                      sx={{
-                        display: "grid",
-                        height: "100%",
-                        gridTemplateColumns: "25px 1fr",
-                        gridTemplateRows: "minmax(25px,1fr) min-content",
-                        gap: 1,
-                        p: 2,
-                        "&:last-child": { pb: 2 },
-                      }}
-                    >
-                      {blog.type === "qiita" && (
-                        <Box
-                          sx={{
-                            gridColumn: "1 / 2",
-                            position: "relative",
-                            aspectRatio: "1",
-                          }}
-                        >
-                          <Image
-                            src="/qiita.png"
-                            alt="Qiita favicon"
-                            fill
-                            // width="25"
-                            // height="25"
-                          ></Image>
-                        </Box>
-                      )}
+        {contents.map((blog) => {
+          return (
+            <Card key={blog.url}>
+              <CardActionArea sx={{ height: "100%" }}>
+                <Link href={blog.url} color="inherit" underline="none">
+                  <CardContent
+                    sx={{
+                      display: "grid",
+                      height: "100%",
+                      gridTemplateColumns: "25px 1fr",
+                      gridTemplateRows: "minmax(25px,1fr) min-content",
+                      gap: 1,
+                      p: 2,
+                      "&:last-child": { pb: 2 },
+                    }}
+                  >
+                    {blog.type === "qiita" && (
                       <Box
                         sx={{
-                          gridColumn: "2 / -1",
-                          display: "flex",
-                          alignItems: "center",
-                          m: 0,
-                          gap: 1,
+                          gridColumn: "1 / 2",
+                          position: "relative",
+                          aspectRatio: "1",
                         }}
-                        component="h3"
                       >
-                        {blog.title}
-                        {blog.type !== "blog" && (
-                          <OpenInNewIcon fontSize="small" />
-                        )}
+                        <Image
+                          src="/qiita.png"
+                          alt="Qiita favicon"
+                          fill
+                          // width="25"
+                          // height="25"
+                        ></Image>
                       </Box>
-                      <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
-                        最終更新日：
-                        {dayjs(blog.updatedAt).format("YYYY/MM/DD HH:mm")}
-                      </Box>
-                    </CardContent>
-                  </Link>
-                </CardActionArea>
-              </Card>
-            );
-          })}
-        </Box>
-        {
-          // page処理をやめたため、このコードは不要になった
-          /* <Box sx={{ m: 2, display: "flex", gap: 3 }}>
+                    )}
+                    <Box
+                      sx={{
+                        gridColumn: "2 / -1",
+                        display: "flex",
+                        alignItems: "center",
+                        m: 0,
+                        gap: 1,
+                      }}
+                      component="h3"
+                    >
+                      {blog.title}
+                      {blog.type !== "blog" && (
+                        <OpenInNewIcon fontSize="small" />
+                      )}
+                    </Box>
+                    <Box sx={{ gridColumn: "2 / -1", fontSize: "0.8em" }}>
+                      最終更新日：
+                      {dayjs(blog.updatedAt).format("YYYY/MM/DD HH:mm")}
+                    </Box>
+                  </CardContent>
+                </Link>
+              </CardActionArea>
+            </Card>
+          );
+        })}
+      </Box>
+      {
+        // page処理をやめたため、このコードは不要になった
+        /* <Box sx={{ m: 2, display: "flex", gap: 3 }}>
           {prevPage !== undefined && (
             <Link
               href={{ pathname: "/blog", query: { page: prevPage } }}
@@ -158,9 +149,8 @@ const Page: NextPage<{
             </Link>
           )}
         </Box> */
-        }
-      </Box>
-    </ThemeProvider>
+      }
+    </Box>
   );
 };
 

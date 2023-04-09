@@ -32,7 +32,14 @@ export default function App() {
   };
 
   return (
-    <AppBar color="primary" position="sticky" elevation={0}>
+    <AppBar
+      position="sticky"
+      elevation={0}
+      sx={{
+        backgroundColor: "black",
+        color: "white",
+      }}
+    >
       <Toolbar>
         <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
           <IconButton onClick={handleOpenNavMenu} color="inherit">

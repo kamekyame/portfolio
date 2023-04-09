@@ -181,7 +181,7 @@ const Page: NextPage = () => {
   return (
     <Box sx={{ mb: 3 }}>
       <Title name="My-Electone" />
-      <Typography variant="title" align="center">
+      <Typography variant="h1" align="center">
         My-Electone
       </Typography>
 

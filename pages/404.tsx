@@ -3,21 +3,10 @@ import { Typography, Box } from "@mui/material";
 
 export default function Page() {
   return (
-    <>
+    <Box display="flex" flexDirection="column" alignItems="center">
       <Title name="404 Not Found" />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h3" sx={{ my: 6 }}>
-          よんまるよん
-        </Typography>
-        <Box sx={{ my: 1 }}>こんなページないよ</Box>
-        <Box sx={{ my: 1 }}>404 Not Found</Box>
-      </Box>
-    </>
+      <Typography variant="h1">よんまるよん</Typography>
+      <Box mb={3}>404 Not Found</Box>
+    </Box>
   );
 }

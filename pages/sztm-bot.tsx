@@ -1,11 +1,13 @@
-import { NextPage } from "next";
+import { NextPage, GetStaticProps } from "next";
 import { Typography, Box } from "@mui/material";
 import { Mention, Tweet } from "react-twitter-widgets";
 
 import Link from "../src/link";
 import Title from "../components/title";
 
-const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
+type Props = { botWorking: boolean };
+
+const Page: NextPage<Props> = ({ botWorking }) => {
   return (
     <>
       <Title name="sztm-bot" />
@@ -17,10 +19,8 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
           mb: 3,
         }}
       >
-        <Typography variant="title">SZTM-BOT</Typography>
-        <Box sx={{ my: 1 }}>
-          {botVersion ? `Bot ver.${botVersion}` : "Botは稼働していません"}
-        </Box>
+        <Typography variant="h1">SZTM-BOT</Typography>
+        <Box sx={{ my: 1 }}>{botWorking ? `Bot稼働中` : "Bot停止中"}</Box>
         <Box sx={{ my: 1, textAlign: "center", width: "90%" }}>
           すずともが制作しているBot達です。可愛がってあげてください。
           <br />
@@ -98,10 +98,10 @@ const Page: NextPage<{ botVersion: string }> = ({ botVersion }) => {
   );
 };
 
-Page.getInitialProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const res = await fetch("https://api.kamekyame.com/version");
-  const botVersion = res.ok ? await res.text() : "";
-  return { botVersion };
+  const botWorking = res.ok;
+  return { props: { botWorking } };
 };
 
 export default Page;

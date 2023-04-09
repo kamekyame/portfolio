@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Typography, Box, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, Box, useMediaQuery } from "@mui/material";
 
 import theme from "../src/theme";
 import Link from "../src/link";
@@ -452,6 +452,8 @@ const Home: NextPage = () => {
   return (
     <Box
       sx={{
+        color: "white",
+        backgroundColor: "black",
         display: "flex",
         flexDirection: {
           xs: "column",
@@ -473,18 +475,15 @@ const Home: NextPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: { sm: "end", xs: "center" },
-            backgroundColor: theme.palette.background.default,
             zIndex: 1,
           };
         }}
       >
         <Box // 左サイドバー(モバイルの場合はトップに表示)
-          sx={(theme) => {
-            return {
-              maxWidth: { xs: "100%", sm: undefined },
-              maxHeight: { xs: undefined, sm: "100%" },
-              overflow: "auto",
-            };
+          sx={{
+            maxWidth: { xs: "100%", sm: undefined },
+            maxHeight: { xs: undefined, sm: "100%" },
+            overflow: "auto",
           }}
           ref={sideBarRef}
         >
@@ -575,7 +574,7 @@ const Home: NextPage = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transition: "opacity 1.5s ease",
+                transition: "opacity .5s ease",
                 opacity: nowPageInt === i ? 1 : 0,
                 position: "relative",
               }}
