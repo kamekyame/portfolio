@@ -51,6 +51,7 @@ const theme = createTheme({
       fontWeight: undefined,
       fontSize: "2rem",
       margin: "2rem 0 2rem 0",
+      letterSpacing: "0.1rem",
     },
   },
 });
