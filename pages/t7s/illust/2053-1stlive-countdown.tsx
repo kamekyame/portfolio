@@ -53,7 +53,7 @@ const Page: NextPage = () => {
       }}
     >
       <Title name="t7s 2053 1st Live Startrail カウントダウンイラスト集" />
-      <Typography variant="title" align="center">
+      <Typography variant="h1" align="center">
         <Box sx={{ fontSize: "0.5em" }}>t7s カウントダウンイラスト集</Box>
         <Box>2053 1st Live Startrail </Box>
       </Typography>

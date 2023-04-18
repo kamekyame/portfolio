@@ -113,7 +113,7 @@ export default function Page() {
           mb: 5,
         }}
       >
-        <Typography variant="title">Contents</Typography>
+        <Typography variant="h1">Contents</Typography>
         <Box
           sx={{
             my: 1,

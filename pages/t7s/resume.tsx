@@ -80,19 +80,31 @@ const Resume: React.FC<{ tweet: StreamTweet }> = ({ tweet }) => {
       }}
     >
       <CardContent>
-        <Box sx={{ mb: 1 }}>
-          <Box sx={{ color: "#A0A0A0", fontSize: "0.5em" }}>
-            支配人名（Twitter名）
+        <Box width="100%" display="flex" alignItems="center">
+          <Box flexGrow={1} overflow="hidden">
+            <Box sx={{ color: "#A0A0A0", fontSize: "0.5em" }}>
+              支配人名（Twitter名）
+            </Box>
+            <Box
+              sx={{
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {user?.name}
+            </Box>
           </Box>
-          <Box
-            sx={{
-              textOverflow: "ellipsis",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {user?.name}
-          </Box>
+          {isActive && (
+            <Box
+              component="a"
+              href={`https://twitter.com/_/status/${tweet.data.id}`}
+              target="_blank"
+              color="inherit"
+            >
+              <Twitter />
+            </Box>
+          )}
         </Box>
         {image &&
           (isActive ? (
@@ -135,24 +147,6 @@ const Resume: React.FC<{ tweet: StreamTweet }> = ({ tweet }) => {
             <Box sx={{ color: "#A0A0A0" }}>ツイートは削除されました。</Box>
           ))}
       </CardContent>
-      <Box sx={{ flexGrow: "1" }} />
-      <CardActions
-        sx={{
-          display: "flex",
-          justifyContent: "end",
-        }}
-      >
-        {isActive && (
-          <Box
-            component="a"
-            href={`https://twitter.com/_/status/${tweet.data.id}`}
-            target="_blank"
-            color="inherit"
-          >
-            <Twitter />
-          </Box>
-        )}
-      </CardActions>
     </Card>
   );
 };
@@ -191,7 +185,7 @@ const Page: NextPage<Props> = ({ data: allData }) => {
       }}
     >
       <Title name="ナナシス履歴書ギャラリー" />
-      <Typography variant="title" align="center">
+      <Typography variant="h1" align="center">
         ナナシス履歴書ギャラリー
       </Typography>
       <Box

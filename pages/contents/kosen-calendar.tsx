@@ -133,9 +133,7 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
   return (
     <Box sx={{ mb: 3 }}>
       <Title name="kosen-calendar" />
-      <Box
-        sx={{ backgroundColor: "white", textAlign: "center", width: "100vw" }}
-      >
+      <Box sx={{ textAlign: "center", width: "100vw" }}>
         <Box
           component={Logo}
           sx={{

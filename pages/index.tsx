@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Typography, Box, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, Box, useMediaQuery } from "@mui/material";
 
 import theme from "../src/theme";
 import Link from "../src/link";
@@ -452,6 +452,8 @@ const Home: NextPage = () => {
   return (
     <Box
       sx={{
+        color: "white",
+        backgroundColor: "black",
         display: "flex",
         flexDirection: {
           xs: "column",
@@ -461,30 +463,26 @@ const Home: NextPage = () => {
       }}
     >
       <Title name="Top" />
-
-      <Box
-        sx={(theme) => {
-          return {
-            position: "sticky",
-            top: { xs: 56, sm: 64 },
-            width: { xs: 1, sm: "25%" },
-            p: 1,
-            height: { xs: "7em", sm: pageHeight("sm") },
-            display: "flex",
-            alignItems: "center",
-            justifyContent: { sm: "end", xs: "center" },
-            backgroundColor: theme.palette.background.default,
-            zIndex: 1,
-          };
+      <Box // 左サイドバー(モバイルの場合はトップに表示)
+        sx={{
+          position: "sticky",
+          top: { xs: 56, sm: 64 },
+          width: { xs: 1, sm: "25%" },
+          p: 1,
+          height: { xs: "6em", sm: pageHeight("sm") },
+          display: "flex",
+          alignItems: "center",
+          justifyContent: { sm: "end", xs: "center" },
+          zIndex: 1,
+          backgroundColor: "black",
         }}
+        ref={sideBarRef}
       >
-        <Box // 左サイドバー(モバイルの場合はトップに表示)
-          sx={(theme) => {
-            return {
-              maxWidth: { xs: "100%", sm: undefined },
-              maxHeight: { xs: undefined, sm: "100%" },
-              overflow: "auto",
-            };
+        <Box
+          sx={{
+            maxWidth: { xs: "100%", sm: undefined },
+            maxHeight: { xs: undefined, sm: "100%" },
+            overflow: "auto",
           }}
           ref={sideBarRef}
         >
@@ -575,8 +573,8 @@ const Home: NextPage = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transition: "opacity 1.5s ease",
-                opacity: nowPageInt === i ? 1 : 0,
+                transition: "opacity .5s ease",
+                opacity: { xs: 1, sm: nowPageInt === i ? 1 : 0 }, // スマホはアニメーションすると見にくいので無効に
                 position: "relative",
               }}
             >

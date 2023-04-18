@@ -565,7 +565,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
 
       {data?.type === "characters" && (
         <DataGrid
-          className={"rdg-dark"}
+          className={"rdg-light"}
           rows={sortedRows}
           columns={characterColumn}
           sortColumns={sortColumns}
@@ -578,7 +578,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
       )}
       {data?.type === "units" && (
         <DataGrid
-          className={"rdg-dark"}
+          className={"rdg-light"}
           rows={sortedRows}
           columns={unitColumn}
           sortColumns={sortColumns}
@@ -591,7 +591,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
       )}
       {data?.type === "ingames" && (
         <DataGrid
-          className={"rdg-dark"}
+          className={"rdg-light"}
           rows={sortedRows}
           columns={ingameColumn}
           sortColumns={sortColumns}
@@ -604,7 +604,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
       )}
       {data?.type === "cds" && (
         <DataGrid
-          className={"rdg-dark"}
+          className={"rdg-light"}
           rows={sortedRows}
           columns={cdColumn}
           sortColumns={sortColumns}
@@ -617,7 +617,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
       )}
       {data?.type === "dvds" && (
         <DataGrid
-          className={"rdg-dark"}
+          className={"rdg-light"}
           rows={sortedRows}
           columns={dvdColumn}
           sortColumns={sortColumns}
@@ -681,7 +681,7 @@ const Page: NextPage<{}, { type: string }> = ({}) => {
   }, []);
 
   return (
-    <Box sx={{ height: "calc(100vh - 64px)" }}>
+    <Box sx={{ height: "max(calc(100vh - 64px),500px)" }}>
       <Title name="Tokyo 7th Sisters DB" />
       {db && <DB db={db} />}
     </Box>
