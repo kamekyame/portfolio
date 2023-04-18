@@ -39,7 +39,20 @@ const theme = createTheme({
     },
     MuiCssBaseline: {
       styleOverrides: {
-        // body: darkScrollbar(),
+        body: {
+          "::-webkit-scrollbar": {
+            backgroundColor: "black",
+          },
+          "::-webkit-scrollbar-corner": {
+            backgroundColor: "#2b2b2b",
+          },
+          "::-webkit-scrollbar-thumb": {
+            borderRadius: "8px",
+            backgroundColor: "#c3d825",
+            minHeight: "24px",
+            border: "4px solid black",
+          },
+        },
         html: {
           scrollPaddingTop: "64px",
         },
