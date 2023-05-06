@@ -8,6 +8,7 @@ const contents: Array<{
   description: string;
   href: string;
   type: "normal" | "el" | "t7s";
+  bgImage?: string;
 }> = [
   {
     title: "EL-Explorer",
@@ -34,6 +35,15 @@ const contents: Array<{
       "MIDIエディタ「Domino」でElectoneの資源を最大限活用するための音源定義ファイル",
     href: "/el/domino-define",
     type: "el",
+  },
+  {
+    title: "t7s チェックインスポット マップ",
+    description:
+      "t7s GWキャンペーン ニッポン全国チェックインイベント!!のチェックポイントをマップ上にプロットしてみました。",
+    href: "/t7s/gw-checkin-map",
+    type: "t7s",
+    bgImage:
+      "https://pbs.twimg.com/media/FuOEtVDaUAEce8Q?format=png&name=large",
   },
   {
     title: "kosen-calendar",
@@ -139,18 +149,25 @@ export default function Page() {
 
                 display: "grid",
                 gridTemplateRows: "1.5em 4fr 6fr",
+
+                "&::before": {
+                  content: `""`,
+                  position: "absolute",
+                  backgroundImage: `url(${content.bgImage})`,
+                  inset: "-7px",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  filter: "blur(7px)",
+                },
               }}
             >
               <Box
                 className="backdrop"
                 sx={{
                   position: "absolute",
-                  top: 0,
-                  left: 0,
+                  inset: "0",
                   backgroundColor: "black",
                   opacity: 0,
-                  height: "100%",
-                  width: "100%",
                   zIndex: 1,
                   transition: "all 0.2s",
                 }}
