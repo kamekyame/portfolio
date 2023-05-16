@@ -60,14 +60,23 @@ const contents: Array<{
     type: "t7s",
   },
   {
-    title: "t7s 2053 1st Live Startrail\nカウントダウンイラスト集",
+    title: "Le☆S☆Ca 1st Live\nカウントダウンイラスト集",
+    description:
+      "t7s Le☆S☆Ca 1st Liveのカウントダウンで公式が投稿したイラストをまとめています。",
+    href: "/t7s/illust/lesca-1stlive-countdown",
+    type: "t7s",
+    bgImage: "https://t7s.jp/live/lesca1stlive/top/img/main.png",
+  },
+  {
+    title: "2053 1st Live Startrail\nカウントダウンイラスト集",
     description:
       "t7s 2053 1st Live Startrailのカウントダウンで公式が投稿したイラストをまとめています。",
     href: "/t7s/illust/2053-1stlive-countdown",
     type: "t7s",
+    bgImage: "https://t7s.jp/live/startrail/top/img/main.png",
   },
   {
-    title: "t7s 2023年エイプリルフール\nタイトル画面集",
+    title: "2023年エイプリルフール\nタイトル画面集",
     description:
       "t7s 2023年のエイプリルフールにゲームのタイトル画面で表示されていた画像をまとめています。",
     href: "/t7s/illust/2023-aprilfools_day",
@@ -144,7 +153,7 @@ export default function Page() {
                   color: "#fff",
                 },
                 "&:hover .backdrop": {
-                  opacity: 0.5,
+                  backgroundColor: "black",
                 },
 
                 display: "grid",
@@ -154,10 +163,10 @@ export default function Page() {
                   content: `""`,
                   position: "absolute",
                   backgroundImage: `url(${content.bgImage})`,
-                  inset: "-7px",
+                  inset: "-5px",
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
-                  filter: "blur(7px)",
+                  filter: "blur(5px)",
                 },
               }}
             >
@@ -166,8 +175,8 @@ export default function Page() {
                 sx={{
                   position: "absolute",
                   inset: "0",
-                  backgroundColor: "black",
-                  opacity: 0,
+                  backgroundColor: "white",
+                  opacity: 0.5,
                   zIndex: 1,
                   transition: "all 0.2s",
                 }}
