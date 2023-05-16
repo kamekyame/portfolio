@@ -190,7 +190,7 @@ export const getStaticProps: GetStaticProps = async () => {
       });
     });
   }
-  console.log(contents);
+  // console.log(contents);
 
   contents.sort((a, b) => {
     return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();

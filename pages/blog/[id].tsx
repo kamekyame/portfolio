@@ -2,78 +2,73 @@ import React from "react";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
-import DOMParserReact from "dom-parser-react";
+import parse, { HTMLReactParserOptions, domToReact } from "html-react-parser";
 
 import TwitterIcon from "@mui/icons-material/Twitter";
 
 import Title from "../../components/title";
 import { client, IBlog } from "../../src/microCms";
-import Link from "../../src/link";
 
-const parser: React.ComponentProps<typeof DOMParserReact>["components"] = {
-  a: ({ href, children }) => {
-    return (
-      <Link href={href} color="inherit">
-        {children}
-      </Link>
-    );
-  },
-  img: ({ src, ...props }) => {
-    return (
-      <Box
-        component="img"
-        sx={{
-          objectFit: "contain",
-          width: "90%",
-          mx: "auto",
-          my: 1,
-          display: "block",
-        }}
-        src={src}
-        alt="image"
-      />
-    );
-  },
-  strong: ({ children }) => {
-    return <Box component="strong">{children}</Box>;
-  },
-  blockquote: ({ children }) => {
-    return (
-      <Box
-        component="blockquote"
-        sx={{
-          m: 1,
-          p: 1,
-          pl: 2,
-          backgroundColor: "#E0E0E0",
-          borderLeft: (t) => `3px solid ${t.palette.primary.main}`,
-        }}
-      >
-        {children}
-      </Box>
-    );
-  },
-  figure: ({ children }) => <>{children}</>,
-  h4: ({ children }) => {
-    return (
-      <Box component="h4" sx={{ my: 1 }}>
-        {children}
-      </Box>
-    );
-  },
-  h5: ({ children }) => {
-    return (
-      <Box component="h5" sx={{ my: 0.5 }}>
-        {children}
-      </Box>
-    );
-  },
-  p: ({ children }) => {
-    return (
-      <Box component="p" sx={{ my: 0.5 }}>
-        {children}
-      </Box>
-    );
+const parserOptions: HTMLReactParserOptions = {
+  replace: (domNode) => {
+    if (!("attribs" in domNode)) return domNode;
+    if (domNode.name === "img") {
+      return (
+        <Box
+          component="img"
+          sx={{
+            objectFit: "contain",
+            maxWidth: "90%",
+            mx: "auto",
+            display: "block",
+          }}
+          src={domNode.attribs.src}
+          alt="image"
+        />
+      );
+    } else if (domNode.name === "blockquote") {
+      // classが定義されている場合、埋め込みコンテンツの場合があるためそのまま返す（ツイッターなど）
+      if (domNode.attribs.class !== undefined)
+        return <>{domToReact([domNode])}</>;
+      return (
+        <Box
+          component="blockquote"
+          sx={{
+            m: 1,
+            p: 1,
+            pl: 2,
+            backgroundColor: "#E0E0E0",
+            borderLeft: (t) => `3px solid ${t.palette.primary.main}`,
+          }}
+        >
+          {domToReact(domNode.children)}
+        </Box>
+      );
+    } else if (domNode.name === "iframe") {
+      let aspectRatio: string | undefined = undefined;
+      if (domNode.attribs.title === "YouTube embed") {
+        aspectRatio = `${domNode.attribs.width} / ${domNode.attribs.height}`;
+      }
+      return (
+        <Box
+          sx={{
+            position: "relative",
+            aspectRatio: aspectRatio,
+            maxWidth: domNode.attribs.width + "px",
+            "& iframe": {
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            },
+          }}
+        >
+          {domToReact([domNode])}
+        </Box>
+      );
+    }
+    // console.log(domNode.name);
   },
 };
 
@@ -145,14 +140,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
           </Box>
         </Box>
         {data.body.map((field, i) => {
-          return (
-            <Box
-              key={i}
-              component={DOMParserReact}
-              source={field.content}
-              components={parser}
-            ></Box>
-          );
+          return <Box key={i}>{parse(field.content, parserOptions)}</Box>;
         })}
       </Box>
     </Box>
@@ -187,7 +175,7 @@ export const getStaticProps: GetStaticProps<
       contentId: id,
       queries: { draftKey },
     });
-    return { props: { data } };
+    return { props: { data }, revalidate: 60 };
   } catch (_) {
     return { notFound: true };
   }

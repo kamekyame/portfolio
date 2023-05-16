@@ -21,6 +21,7 @@
     "dom-parser-react": "^0.2.2",
     "dropbox": "^10.34.0",
     "googleapis": "^114.0.0",
+    "html-react-parser": "^3.0.16",
     "leaflet": "^1.9.3",
     "microcms-js-sdk": "^2.3.2",
     "next": "13.2.4",
