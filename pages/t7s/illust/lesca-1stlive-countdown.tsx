@@ -11,6 +11,16 @@ const images = [
     imgSrc: "https://pbs.twimg.com/media/FwPhCOpaUAEAozv?format=png&name=large",
     tweet: "https://twitter.com/t7s_staff/status/1658487474489024520",
   },
+  {
+    left: 2,
+    imgSrc: "https://pbs.twimg.com/media/FwUbCrhakAELCyg?format=png&name=large",
+    tweet: "https://twitter.com/t7s_staff/status/1658849866368552961",
+  },
+  {
+    left: 1,
+    imgSrc: "https://pbs.twimg.com/media/FwUboR2aMAUb4Bz?format=png&name=large",
+    tweet: "https://twitter.com/t7s_staff/status/1659212253248487430",
+  },
 ];
 
 const Page: NextPage = () => {
@@ -30,8 +40,7 @@ const Page: NextPage = () => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 400px))",
-          width: "fit-content",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           mx: "auto",
           // gridTemplateColumns: {
           //   sm: "repeat(5, 1fr)",
