@@ -21,6 +21,11 @@ const images = [
     imgSrc: "https://pbs.twimg.com/media/FwUboR2aMAUb4Bz?format=png&name=large",
     tweet: "https://twitter.com/t7s_staff/status/1659212253248487430",
   },
+  {
+    left: 0,
+    imgSrc: "https://pbs.twimg.com/media/FwUcalXaIAQI7JY?format=png&name=large",
+    tweet: "https://twitter.com/t7s_staff/status/1659574643777507329",
+  }
 ];
 
 const Page: NextPage = () => {
