@@ -9,7 +9,7 @@
     "lint": "npm run check-types && next lint"
   },
   "dependencies": {
-    "@aldabil/react-scheduler": "2.6.4",
+    "@aldabil/react-scheduler": "2.7.15",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.6",
