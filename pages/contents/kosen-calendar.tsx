@@ -203,6 +203,7 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
           <Scheduler
             events={events}
             locale={ja}
+            timeZone="Asia/Tokyo"
             view="month"
             resourceViewMode="tabs"
             resources={resources}
