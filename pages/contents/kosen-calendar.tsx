@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   // console.log(events);
   return {
     props: { resources, events },
-    revalidate: 60 * 60,
+    revalidate: 60,
   };
 };
 
@@ -114,19 +114,7 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
     return eventsRaw.flatMap((data, i) => {
       const start = new Date(data.start);
       const end = new Date(data.end);
-      if (start.getTime() >= end.getTime()) {
-        console.log("invalid", data);
-        return [];
-      }
-      return [
-        {
-          event_id: i,
-          title: data.title,
-          start: new Date(data.start),
-          end: new Date(data.end),
-          name: data.name,
-        },
-      ];
+      return [{ event_id: i, title: data.title, start, end, name: data.name }];
     });
   }, [eventsRaw]);
 
@@ -235,13 +223,13 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
               weekStartOn: 1,
               startHour: 0,
               endHour: 23,
-              step: 120,
+              step: 240,
               cellRenderer: () => <></>,
             }}
             day={{
               startHour: 0,
               endHour: 23,
-              step: 120,
+              step: 240,
               cellRenderer: () => <></>,
             }}
             editable={false}
