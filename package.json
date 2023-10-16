@@ -46,7 +46,7 @@
     "@types/recharts": "^1.8.24",
     "@types/sharp": "^0.31.1",
     "eslint": "^8.37.0",
-    "eslint-config-next": "^13.2.4",
+    "eslint-config-next": "^13.5.5",
     "typescript": "^5.0.4"
   }
 }
