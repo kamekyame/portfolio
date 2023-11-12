@@ -5,8 +5,10 @@ import dayjs from "dayjs";
 import parse, { HTMLReactParserOptions, domToReact } from "html-react-parser";
 
 import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkIcon from "@mui/icons-material/Link";
 
 import Title from "../../components/title";
+import Link from "../../src/link";
 import { client, IBlog } from "../../src/microCms";
 
 const parserOptions: HTMLReactParserOptions = {
@@ -140,7 +142,79 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
           </Box>
         </Box>
         {data.body.map((field, i) => {
-          return <Box key={i}>{parse(field.content, parserOptions)}</Box>;
+          if (field.fieldId === "articleLink") {
+            const article = field.article;
+            return (
+              <Link
+                href={`/blog/${article.id}`}
+                target="_blank"
+                underline="none"
+                color="inherit"
+                sx={{
+                  display: "block",
+                  pl: 2,
+                  pb: 2,
+                  my: 1,
+                  mx: 2,
+                  lineHeight: "1em",
+                  border: "1px solid #333",
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "#eee",
+                    filter: "drop-shadow(2px 2px 2px rgba(0,0,0,0.1))",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    fontSize: "0.8em",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                    backgroundColor: "#333",
+                    color: "white",
+                    width: "fit-content",
+                    px: 1,
+                    py: "0.2em",
+                  }}
+                >
+                  <LinkIcon sx={{ fontSize: "1.2em" }}></LinkIcon>
+                  <Box>関連記事</Box>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 1,
+                    py: 1,
+                    fontSize: "0.8em",
+                  }}
+                >
+                  {article.tag.map((tag) => {
+                    return (
+                      <Box
+                        sx={(t) => ({
+                          border: "1px solid",
+                          borderColor: t.palette.primary.main,
+                          color: t.palette.primary.dark,
+                          borderRadius: 1,
+                          py: 0.2,
+                          px: 1,
+                        })}
+                      >
+                        {tag}
+                      </Box>
+                    );
+                  })}
+                </Box>
+                <Box sx={{ px: 2, py: 0.5 }}>
+                  <Box sx={{}}>{article.title}</Box>
+                </Box>
+              </Link>
+            );
+          } else {
+            return <Box key={i}>{parse(field.content, parserOptions)}</Box>;
+          }
         })}
       </Box>
     </Box>

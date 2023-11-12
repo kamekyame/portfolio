@@ -22,14 +22,16 @@ type ListBase = {
 
 export type BlogRichEditor = { fieldId: "richEditor"; content: string };
 export type BlogHTML = { fieldId: "html"; content: string };
+export type BlogArticleLink = { fieldId: "articleLink"; article: IBlog };
 
 export type IBlog = {
   title: string;
-  body: (BlogRichEditor | BlogHTML)[];
+  body: (BlogRichEditor | BlogHTML | BlogArticleLink)[];
+  tag: string[];
 } & ListBase;
 
 export type WebhookData = {
-  service: string,
-  api: string,
-  id:string,
-}
+  service: string;
+  api: string;
+  id: string;
+};
