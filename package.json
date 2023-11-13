@@ -23,7 +23,7 @@
     "googleapis": "^118.0.0",
     "html-react-parser": "^3.0.16",
     "leaflet": "^1.9.3",
-    "microcms-js-sdk": "^2.3.2",
+    "microcms-js-sdk": "^2.7.0",
     "next": "13.2.4",
     "nextjs-google-analytics": "^2.3.3",
     "node-ical": "^0.16.0",
