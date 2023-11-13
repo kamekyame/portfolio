@@ -146,6 +146,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
             const article = field.article;
             return (
               <Link
+                key={article.id}
                 href={`/blog/${article.id}`}
                 target="_blank"
                 underline="none"
@@ -193,6 +194,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
                   {article.tag.map((tag) => {
                     return (
                       <Box
+                        key={article.id + tag}
                         sx={(t) => ({
                           border: "1px solid",
                           borderColor: t.palette.primary.main,
