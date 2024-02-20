@@ -53,11 +53,12 @@ const contents: Array<{
   },
 
   {
-    title: "ナナシス履歴書ギャラリー",
+    title: "2024年ゲーム10周年記念\nタイトル画面集",
     description:
-      "ナナシス支配人がTwitterにあげている履歴書を一覧で見ることができます。",
-    href: "/t7s/resume",
+      "t7s 2024年2月19日のゲーム10周年に合わせてゲームのタイトル画面で表示されていた画像をまとめています。",
+    href: "/t7s/illust/2024-10th_game_startup",
     type: "t7s",
+    bgImage: "https://t7s.jp/10th_anniversary/assets/images/kv/kv_pc_04.png",
   },
   {
     title: "Le☆S☆Ca 1st Live\nカウントダウンイラスト集",
@@ -80,6 +81,13 @@ const contents: Array<{
     description:
       "t7s 2023年のエイプリルフールにゲームのタイトル画面で表示されていた画像をまとめています。",
     href: "/t7s/illust/2023-aprilfools_day",
+    type: "t7s",
+  },
+  {
+    title: "ナナシス履歴書ギャラリー",
+    description:
+      "ナナシス支配人がTwitterにあげている履歴書を一覧で見ることができます。",
+    href: "/t7s/resume",
     type: "t7s",
   },
   {
