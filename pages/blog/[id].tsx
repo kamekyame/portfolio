@@ -2,7 +2,11 @@ import React from "react";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
-import parse, { HTMLReactParserOptions, domToReact } from "html-react-parser";
+import parse, {
+  HTMLReactParserOptions,
+  domToReact,
+  DOMNode,
+} from "html-react-parser";
 
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkIcon from "@mui/icons-material/Link";
@@ -43,7 +47,7 @@ const parserOptions: HTMLReactParserOptions = {
             borderLeft: (t) => `3px solid ${t.palette.primary.main}`,
           }}
         >
-          {domToReact(domNode.children)}
+          {domToReact(domNode.children as DOMNode[])}
         </Box>
       );
     } else if (domNode.name === "iframe") {

@@ -56,7 +56,7 @@ const ingameColumn: Columns<Ingame> = [
   {
     key: "jacket",
     name: "",
-    formatter: ({ row: { jacketSrc, title } }) => (
+    renderCell: ({ row: { jacketSrc, title } }) => (
       <Image
         src={jacketSrc}
         alt={title + " ジャケット"}
@@ -106,7 +106,7 @@ const ingameColumn: Columns<Ingame> = [
     key: "lyrics",
     name: "作詞",
     sortable: true,
-    formatter: ({ row }) => row.credit.lyrics,
+    renderCell: ({ row }) => row.credit.lyrics,
     sortFn: (
       { credit: { lyrics: a } },
       { credit: { lyrics: b } },
@@ -120,7 +120,7 @@ const ingameColumn: Columns<Ingame> = [
     key: "compose",
     name: "作曲",
     sortable: true,
-    formatter: ({ row }) => row.credit.compose,
+    renderCell: ({ row }) => row.credit.compose,
     sortFn: (
       { credit: { compose: a } },
       { credit: { compose: b } },
@@ -134,7 +134,7 @@ const ingameColumn: Columns<Ingame> = [
     key: "implementationDate",
     name: "実装日",
     sortable: true,
-    formatter: ({ row }) =>
+    renderCell: ({ row }) =>
       new Date(row.implementationDate).toLocaleDateString("ja-JP"),
     sortFn: (
       { implementationDate: a },
@@ -151,7 +151,7 @@ const ingameColumn: Columns<Ingame> = [
   {
     key: "lead",
     name: "詳細",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return <Box sx={{ fontSize: "0.8em" }}>{row.lead}</Box>;
     },
   },
@@ -160,7 +160,7 @@ const cdColumn: Columns<CD> = [
   {
     key: "jacket",
     name: "",
-    formatter: ({ row: { jacketSrc, title } }) => (
+    renderCell: ({ row: { jacketSrc, title } }) => (
       <Image
         src={jacketSrc}
         alt={title + " ジャケット"}
@@ -179,7 +179,7 @@ const cdColumn: Columns<CD> = [
     key: "releaseDate",
     name: "発売日",
     sortable: true,
-    formatter: ({ row }) =>
+    renderCell: ({ row }) =>
       new Date(row.releaseDate).toLocaleDateString("ja-JP"),
     sortFn: ({ releaseDate: a }, { releaseDate: b }, direction) => {
       const aDate = new Date(a);
@@ -192,7 +192,7 @@ const cdColumn: Columns<CD> = [
   {
     key: "info",
     name: "詳細",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return <Box sx={{ fontSize: "0.8em" }}>{row.info}</Box>;
     },
   },
@@ -205,7 +205,7 @@ const unitColumn: Columns<Unit> = [
   {
     key: "visual",
     name: "ビジュアル",
-    formatter: ({ row: { visualImgSrc, name } }) => (
+    renderCell: ({ row: { visualImgSrc, name } }) => (
       <Image
         src={visualImgSrc}
         alt={name + " ビジュアル"}
@@ -219,7 +219,7 @@ const unitColumn: Columns<Unit> = [
   {
     key: "logo",
     name: "ロゴ",
-    formatter: ({ row: { logoImgSrc, name } }) => (
+    renderCell: ({ row: { logoImgSrc, name } }) => (
       <Box
         sx={{
           height: "100%",
@@ -243,7 +243,7 @@ const unitColumn: Columns<Unit> = [
   {
     key: "members",
     name: "メンバー",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return row.members.map((member) => {
         return (
           <Chip
@@ -271,7 +271,7 @@ const unitColumn: Columns<Unit> = [
   {
     key: "info",
     name: "詳細",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return <Box sx={{ fontSize: "0.8em" }}>{row.info}</Box>;
     },
   },
@@ -283,7 +283,7 @@ const characterColumn: Columns<Character> = [
     key: "img",
     name: "画像",
     width: "max-content",
-    formatter: ({ row: { normalImgSrc, idolImgSrc, imgImgSrc, name } }) => (
+    renderCell: ({ row: { normalImgSrc, idolImgSrc, imgImgSrc, name } }) => (
       <Box sx={{ height: "100%", display: "flex" }}>
         {normalImgSrc && (
           <CharacterImage src={normalImgSrc} alt={name + " 通常"} />
@@ -308,7 +308,7 @@ const characterColumn: Columns<Character> = [
     key: "birthday",
     name: "誕生日",
     sortable: true,
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return row.birthday ? row.birthday.month + "/" + row.birthday.day : "";
     },
     searchText: (row) => {
@@ -332,7 +332,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "bust",
     name: "バスト",
-    formatter: ({ row }) => row.threeSize?.bust,
+    renderCell: ({ row }) => row.threeSize?.bust,
     sortable: true,
     searchText: (row) => row.threeSize?.bust,
     sortFn: ({ threeSize: a }, { threeSize: b }, direction) => {
@@ -347,7 +347,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "waist",
     name: "ウエスト",
-    formatter: ({ row }) => row.threeSize?.waist,
+    renderCell: ({ row }) => row.threeSize?.waist,
     sortable: true,
     searchText: (row) => row.threeSize?.waist,
     sortFn: ({ threeSize: a }, { threeSize: b }, direction) => {
@@ -361,7 +361,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "hip",
     name: "ヒップ",
-    formatter: ({ row }) => row.threeSize?.hip,
+    renderCell: ({ row }) => row.threeSize?.hip,
     sortable: true,
     searchText: (row) => row.threeSize?.hip,
     sortFn: ({ threeSize: a }, { threeSize: b }, direction) => {
@@ -376,7 +376,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "nickname",
     name: "ニックネーム",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return row.nickname ? row.nickname.join(", ") : "";
     },
   },
@@ -386,7 +386,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "unit",
     name: "ユニット",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return row.units.map((unit) => {
         return <Chip key={unit} label={unit} size="small" />;
       });
@@ -395,7 +395,7 @@ const characterColumn: Columns<Character> = [
   {
     key: "info",
     name: "詳細",
-    formatter: ({ row }) => {
+    renderCell: ({ row }) => {
       return <Box sx={{ fontSize: "0.8em" }}>{row.info}</Box>;
     },
   },
@@ -434,7 +434,7 @@ const defaultColumnOptions = {
 };
 const rowKeyGutter = (row: { url: string }) => row.url;
 const renderers: Renderers<any, any> = {
-  rowRenderer: (key, props) => {
+  renderRow: (key, props) => {
     if (typeof key !== "string") return <></>;
     return (
       <Row
