@@ -51,7 +51,14 @@ const contents: Array<{
     href: "contents/kosen-calendar",
     type: "normal",
   },
-
+  {
+    title: "2024年エイプリルフール\nタイトル画面集",
+    description:
+      "t7s 2024年のエイプリルフールにゲームのタイトル画面で表示されていた画像をまとめています。",
+    href: "/t7s/illust/2024-aprilfools_day",
+    bgImage: "/img/t7s/illust/2024-april_fool-nanasisu_dot.webp",
+    type: "t7s",
+  },
   {
     title: "2024年ゲーム10周年記念\nタイトル画面集",
     description:
@@ -82,6 +89,7 @@ const contents: Array<{
       "t7s 2023年のエイプリルフールにゲームのタイトル画面で表示されていた画像をまとめています。",
     href: "/t7s/illust/2023-aprilfools_day",
     type: "t7s",
+    bgImage: "/img/t7s/illust/2023-april_fool-nanasisu_walk.webp",
   },
   {
     title: "ナナシス履歴書ギャラリー",
