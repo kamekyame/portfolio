@@ -37,7 +37,16 @@ const contents: Array<{
     type: "el",
   },
   {
-    title: "t7s チェックインスポット マップ",
+    title: "t7s 推しカードチェックインスポット マップ",
+    description:
+      "t7s 全国 推しカードチェックイン!!のチェックポイントをマップ上にプロットしてみました。",
+    href: "/t7s/oshicard-checkin-map",
+    type: "t7s",
+    bgImage:
+      "https://pbs.twimg.com/media/GQ6GaiVaQAA9mu5?format=webp&name=small",
+  },
+  {
+    title: "t7s GWチェックインスポット マップ",
     description:
       "t7s GWキャンペーン ニッポン全国チェックインイベント!!のチェックポイントをマップ上にプロットしてみました。",
     href: "/t7s/gw-checkin-map",
