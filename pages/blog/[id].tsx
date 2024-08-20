@@ -79,6 +79,16 @@ const parserOptions: HTMLReactParserOptions = {
 };
 
 const Page: NextPage<{ data: IBlog }> = ({ data }) => {
+  const ShareX = () => {
+    const url = new URL("https://x.com/intent/tweet");
+    const sp = url.searchParams;
+    sp.set("url", location.href);
+    sp.set("text", `${data.title} - sztm-blog`);
+    sp.set("hashtags", "sztm_blog");
+
+    window.open(url.href, "_blank");
+  };
+
   return (
     <Box
       sx={{
@@ -115,17 +125,7 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <XIcon
-              onClick={() => {
-                const url = new URL("https://x.com/intent/tweet");
-                const sp = url.searchParams;
-                sp.set("url", location.href);
-                sp.set("text", `${data.title} - sztm-blog`);
-                sp.set("hashtags", "sztm_blog");
-
-                window.open(url.href, "_blank");
-              }}
-            />
+            <XIcon onClick={ShareX} />
           </Box>
           <Box
             sx={{
@@ -222,6 +222,48 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
             return <Box key={i}>{parse(field.content, parserOptions)}</Box>;
           }
         })}
+        <Box sx={{ mt: 4 }}>
+          <Box
+            sx={(theme) => ({
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              alignItems: "center",
+              gap: 1,
+              p: 2,
+              borderRadius: 1,
+              backgroundColor: theme.palette.primary.main,
+            })}
+          >
+            <Box>
+              {`最後まで読んでくださりありがとうございました！`}
+              <br />
+              {`良ければ、SNSでシェアしていただけると嬉しいです。`}
+            </Box>
+            <Box>
+              <Box
+                component={"button"}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  width: "fit-content",
+                  py: 1,
+                  px: 2,
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: 1,
+                  backgroundColor: "black",
+                  color: "white",
+                }}
+                onClick={ShareX}
+              >
+                <XIcon />
+                <Box component={"span"}>シェアする</Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
