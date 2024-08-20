@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import Twitter from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import GitHub from "@mui/icons-material/GitHub";
 import YouTube from "@mui/icons-material/YouTube";
 
@@ -23,11 +23,25 @@ export default function App() {
         gap: 2,
       }}
     >
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
         <Box
           sx={{
-            m: 1,
-            "& a": { mx: 1.5 },
+            display: "flex",
+            justifyContent: "center",
+            gap: 3,
+            "& a": {
+              display: "flex",
+              width: "24px",
+              height: "24px",
+              alignItems: "center",
+              justifyContent: "center",
+            },
           }}
         >
           <Box
@@ -40,11 +54,11 @@ export default function App() {
           </Box>
           <Box
             component="a"
-            href="https://twitter.com/SuzuTomo2001"
+            href="https://x.com/SuzuTomo2001"
             target="_blank"
             color="inherit"
           >
-            <Twitter />
+            <XIcon />
           </Box>
           <Box
             component="a"
@@ -56,7 +70,7 @@ export default function App() {
           </Box>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <Typography>©2022 kamekyame</Typography>
+          <Typography>©2024 kamekyame</Typography>
         </Box>
       </Box>
       <Box

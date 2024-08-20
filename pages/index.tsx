@@ -9,7 +9,7 @@ import Title from "../components/title";
 
 import Logo from "../public/logo.svg";
 import GitHub from "@mui/icons-material/GitHub";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import QiitaIcon from "../public/qiita.png";
 
@@ -341,7 +341,7 @@ const Links = () => {
         </Box>
         <Box>
           <Link href="https://twitter.com/SuzuTomo2001" color="inherit">
-            <TwitterIcon className="link-icon" sx={{ color: "#1DA1F2" }} />
+            <XIcon className="link-icon" />
           </Link>
         </Box>
         <Box>
