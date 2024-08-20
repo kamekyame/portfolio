@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { GetStaticProps, NextPage } from "next";
 import { Typography, Box, Button, IconButton } from "@mui/material";
-import Twitter from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import ChatIcon from "@mui/icons-material/Chat";
 import DownloadIcon from "@mui/icons-material/Download";
 import { google, youtube_v3 } from "googleapis";
@@ -215,10 +215,10 @@ const Page: NextPage<Props> = ({ youtubeData, dropboxData }) => {
                 {contributor.twitterId && (
                   <IconButton
                     size="small"
-                    href={"https://twitter.com/" + contributor.twitterId}
+                    href={"https://x.com/" + contributor.twitterId}
                     target="_blank"
                   >
-                    <Twitter fontSize="inherit" />
+                    <XIcon sx={{ color: "black", fontSize: 20 }} />
                   </IconButton>
                 )}
               </li>

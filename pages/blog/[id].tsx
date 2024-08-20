@@ -8,7 +8,7 @@ import parse, {
   DOMNode,
 } from "html-react-parser";
 
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import LinkIcon from "@mui/icons-material/Link";
 
 import Title from "../../components/title";
@@ -115,9 +115,9 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <TwitterIcon
+            <XIcon
               onClick={() => {
-                const url = new URL("https://twitter.com/intent/tweet");
+                const url = new URL("https://x.com/intent/tweet");
                 const sp = url.searchParams;
                 sp.set("url", location.href);
                 sp.set("text", `${data.title} - sztm-blog`);

@@ -6,11 +6,10 @@ import {
   Box,
   Card,
   CardContent,
-  CardActions,
   Pagination,
   Backdrop,
 } from "@mui/material";
-import Twitter from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 
 import Title from "../../components/title";
 import Link from "../../src/link";
@@ -98,11 +97,11 @@ const Resume: React.FC<{ tweet: StreamTweet }> = ({ tweet }) => {
           {isActive && (
             <Box
               component="a"
-              href={`https://twitter.com/_/status/${tweet.data.id}`}
+              href={`https://x.com/_/status/${tweet.data.id}`}
               target="_blank"
               color="inherit"
             >
-              <Twitter />
+              <XIcon />
             </Box>
           )}
         </Box>
