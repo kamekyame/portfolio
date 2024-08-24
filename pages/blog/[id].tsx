@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentProps } from "react";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -73,8 +73,36 @@ const parserOptions: HTMLReactParserOptions = {
           {domToReact([domNode])}
         </Box>
       );
+    } else if (domNode.name.match(/h\d/)) {
+      return (
+        <Box
+          component={domNode.name as ComponentProps<typeof Box>["component"]}
+          sx={{
+            mt: "1.5em",
+            mb: "0.5em",
+          }}
+        >
+          {domToReact(domNode.children as DOMNode[], parserOptions)}
+        </Box>
+      );
+    } else if (domNode.name === "p") {
+      // pタグの中が空か（<br>のみか）
+      const isEmpty = domNode.children.every((c) => {
+        if (c.type === "tag" && c.name === "br") {
+          return true;
+        }
+        return false;
+      });
+      if (isEmpty) {
+        return <></>;
+      } else {
+        return (
+          <Box component="p" sx={{ my: 1 }}>
+            {domToReact(domNode.children as DOMNode[], parserOptions)}
+          </Box>
+        );
+      }
     }
-    // console.log(domNode.name);
   },
 };
 
