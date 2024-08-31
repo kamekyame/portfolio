@@ -247,7 +247,19 @@ const Page: NextPage<{ data: IBlog }> = ({ data }) => {
               </Link>
             );
           } else {
-            return <Box key={i}>{parse(field.content, parserOptions)}</Box>;
+            return (
+              <Box
+                key={i}
+                sx={{
+                  // 背景色設定したspan や strong タグで先頭のスペースを有効にするために設定
+                  "& span, & strong": {
+                    whiteSpace: "pre-wrap",
+                  },
+                }}
+              >
+                {parse(field.content, parserOptions)}
+              </Box>
+            );
           }
         })}
         <Box sx={{ mt: 4 }}>
