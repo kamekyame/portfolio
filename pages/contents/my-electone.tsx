@@ -20,7 +20,7 @@ function createData(title: string, note: string = "") {
 const musics = [
   createData("彼方の光"),
   createData("旅立ちの日に"),
-  createData("坂井市立雄島小学校 校歌", "ピアノ"),
+  createData("小学校 校歌", "ピアノ"),
   createData("旅立ちの日に", "ピアノ"),
   createData("TRUTH"),
   createData("今、咲き誇る花たちよ"),
@@ -38,7 +38,7 @@ const musics = [
   createData("YES!!"),
   createData("君の瞳に恋してる"),
   createData("時の旅人", "ピアノ、中2合唱コンクール伴奏曲"),
-  createData("坂井市立三国中学校 校歌", "ピアノ"),
+  createData("中学校 校歌", "ピアノ"),
   createData("故郷 Homeland", "ピアノ"),
   createData("希空 ～まれぞら～"),
   createData("上を向いて歩こう", "ピアノ"),
