@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+import React, { ElementType } from "react";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
@@ -76,7 +76,7 @@ const parserOptions: HTMLReactParserOptions = {
     } else if (domNode.name.match(/h\d/)) {
       return (
         <Box
-          component={domNode.name as ComponentProps<typeof Box>["component"]}
+          component={domNode.name as ElementType}
           sx={{
             mt: "1.5em",
             mb: "0.5em",

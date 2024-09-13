@@ -8,7 +8,7 @@ import {
   Dialog,
   DialogTitle,
   List,
-  ListItem,
+  ListItemButton,
   Divider,
 } from "@mui/material";
 import { RestEndpointMethodTypes } from "@octokit/rest";
@@ -163,14 +163,13 @@ const Home: NextPage<Props> = ({
               <List>
                 {tags.map((t, i) => (
                   <Link key={t} href={t} underline="none" color="inherit">
-                    <ListItem
-                      button
+                    <ListItemButton
                       key={t}
                       onClick={() => setDialogOpen(false)}
                     >
                       {t}
                       {i === 0 ? "(Latest)" : ""}
-                    </ListItem>
+                    </ListItemButton>
                   </Link>
                 ))}
               </List>

@@ -234,8 +234,12 @@ export default function Page() {
                 }}
               >
                 {content.title.split(/(\n)/).map((i) => {
-                  if (i === "\n") return <br />;
-                  return <>{i}</>;
+                  if (i === "\n") return <br key={i} />;
+                  return (
+                    <Box component="span" key={i}>
+                      {i}
+                    </Box>
+                  );
                 })}
               </Box>
               <Box
