@@ -6,7 +6,14 @@ import DataGrid, { Column, SortColumn, Renderers, Row } from "react-data-grid";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { GithubClient } from "../../src/octokit";
-import { DB, Character, Unit, Ingame, CD, DVD } from "../../src/t7s-db";
+import {
+  DB as DBType,
+  Character,
+  Unit,
+  Ingame,
+  CD,
+  DVD,
+} from "../../src/t7s-db";
 import Title from "../../components/title";
 
 import "react-data-grid/lib/styles.css";
@@ -15,7 +22,7 @@ import { getQueryAsString } from "../../src/query";
 
 const gh = new GithubClient("kamekyame", "t7s-db");
 
-type DBKey = keyof DB;
+type DBKey = keyof DBType;
 type ColumnSearchType<T> = {
   key: string;
   searchText?: null | ((row: T) => string | number | undefined);
@@ -446,7 +453,7 @@ const renderers: Renderers<any, any> = {
   },
 };
 
-const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
+const DataView = ({ db, type }: { db: DBType; type: DBKey }) => {
   const router = useRouter();
   const q = getQueryAsString(router.query.q) ?? "";
 
@@ -632,7 +639,7 @@ const DataView = ({ db, type }: { db: DB; type: DBKey }) => {
   );
 };
 
-const DB = ({ db }: { db: DB }) => {
+const DB = ({ db }: { db: DBType }) => {
   const router = useRouter();
   const type: DBKey = getQueryAsString(router.query.type) ?? "characters";
 
@@ -671,7 +678,7 @@ const DB = ({ db }: { db: DB }) => {
 };
 
 const Page: NextPage<{}, { type: string }> = ({}) => {
-  const [db, setDB] = useState<DB>();
+  const [db, setDB] = useState<DBType>();
 
   useEffect(() => {
     gh.getFileContent("data.json").then((res) => {
@@ -682,7 +689,7 @@ const Page: NextPage<{}, { type: string }> = ({}) => {
 
   return (
     <Box sx={{ height: "max(calc(100vh - 64px),500px)" }}>
-      <Title name="Tokyo 7th Sisters DB" />
+      <Title name="Tokyo 7th Sisters DBType" />
       {db && <DB db={db} />}
     </Box>
   );
