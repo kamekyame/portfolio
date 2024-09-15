@@ -37,6 +37,13 @@ const contents: Array<{
     type: "el",
   },
   {
+    title: "Electone Regist Font",
+    description:
+      "エレクトーンの楽譜によく使用されている レジストを表す画像 をフォントとして作ってみました",
+    href: "/el/regist-font",
+    type: "el",
+  },
+  {
     title: "t7s 推しカードチェックインスポット マップ",
     description:
       "t7s 全国 推しカードチェックイン!!のチェックポイントをマップ上にプロットしてみました。",

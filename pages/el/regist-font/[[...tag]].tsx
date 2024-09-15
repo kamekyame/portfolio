@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
 export const getStaticProps: GetStaticProps<Props, { tag: string[] }> = async (
   ctx
 ) => {
-  const gh = new GithubClient("kamekyame", "el-domino_define");
+  const gh = new GithubClient("kamekyame", "electone-regist-font");
 
   const paramTag = ctx.params?.tag?.[0];
 
@@ -94,8 +94,8 @@ const Home: NextPage<Props> = ({
         color: (t) => t.palette.text.primary,
       }}
     >
-      <Title name="Domino用 Electone音源定義ファイル" />
-      <Typography variant="h1">Domino用音源定義ファイル</Typography>
+      <Title name="Electone Regist Font" />
+      <Typography variant="h1">Electone Regist Font</Typography>
 
       <Box
         sx={{
@@ -131,7 +131,12 @@ const Home: NextPage<Props> = ({
                 <Button
                   key={asset.id}
                   variant="contained"
-                  sx={{ py: 4, minWidth: "max-content", textAlign: "center" }}
+                  sx={{
+                    py: 4,
+                    minWidth: "max-content",
+                    textAlign: "center",
+                    textTransform: "none",
+                  }}
                   href={asset.browser_download_url}
                 >
                   ダウンロード

@@ -149,31 +149,35 @@ const Home: NextPage<Props> = ({
               </Button>
             )}
 
-            <Button
-              variant="outlined"
-              color="inherit"
-              sx={{ py: 1, minWidth: "max-content" }}
-              onClick={() => setDialogOpen(true)}
-              size="small"
-            >
-              別バージョン
-            </Button>
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-              <DialogTitle>バージョンを選択</DialogTitle>
-              <List>
-                {tags.map((t, i) => (
-                  <Link key={t} href={t} underline="none" color="inherit">
-                    <ListItemButton
-                      key={t}
-                      onClick={() => setDialogOpen(false)}
-                    >
-                      {t}
-                      {i === 0 ? "(Latest)" : ""}
-                    </ListItemButton>
-                  </Link>
-                ))}
-              </List>
-            </Dialog>
+            {tags.length >= 2 && (
+              <>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ py: 1, minWidth: "max-content" }}
+                  onClick={() => setDialogOpen(true)}
+                  size="small"
+                >
+                  別バージョン
+                </Button>
+                <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+                  <DialogTitle>バージョンを選択</DialogTitle>
+                  <List>
+                    {tags.map((t, i) => (
+                      <Link key={t} href={t} underline="none" color="inherit">
+                        <ListItemButton
+                          key={t}
+                          onClick={() => setDialogOpen(false)}
+                        >
+                          {t}
+                          {i === 0 ? "(Latest)" : ""}
+                        </ListItemButton>
+                      </Link>
+                    ))}
+                  </List>
+                </Dialog>
+              </>
+            )}
             {isLatest === false && (
               <Button
                 variant="outlined"
