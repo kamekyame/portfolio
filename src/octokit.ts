@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/rest";
 
 export class GithubClient {
-  public octokit = new Octokit();
+  public octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
 
   public owner: string;
   public repo: string;
@@ -20,7 +20,12 @@ export class GithubClient {
       owner: this.owner,
       repo: this.repo,
     });
-    return res.data;
+    // ドラフトとプレリリースは省く
+    const releases = res.data.filter((release) => {
+      if (release.draft || release.prerelease) return false;
+      else return true;
+    });
+    return releases;
   };
 
   getFileContent = async (path: string) => {
