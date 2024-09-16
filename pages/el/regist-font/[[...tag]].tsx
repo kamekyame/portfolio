@@ -94,7 +94,12 @@ const Home: NextPage<Props> = ({
         color: (t) => t.palette.text.primary,
       }}
     >
-      <Title name="Electone Regist Font" />
+      <Title
+        name="Electone Regist Font"
+        description="エレクトーンの楽譜によく使用されている レジストを表す画像 をフォントとして作ってみました"
+        thumbnailUrl="img/ogp/electone-regist-font.png"
+        twitterCard="summary_large_image"
+      />
       <Typography variant="h1">Electone Regist Font</Typography>
 
       <Box
