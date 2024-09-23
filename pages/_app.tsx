@@ -4,27 +4,19 @@ import { AppProps } from "next/app";
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider, EmotionCache } from "@emotion/react";
+import { AppCacheProvider } from "@mui/material-nextjs/v14-pagesRouter";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import theme from "../src/theme";
-import createEmotionCache from "../src/createEmotionCache";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
 import "./font.css";
 
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
-
-interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
-}
-
-export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
   return (
-    <CacheProvider value={emotionCache}>
+    <AppCacheProvider {...props}>
       <GoogleAnalytics trackPageViews />
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
@@ -45,6 +37,6 @@ export default function MyApp(props: MyAppProps) {
           <Footer />
         </div>
       </ThemeProvider>
-    </CacheProvider>
+    </AppCacheProvider>
   );
 }
