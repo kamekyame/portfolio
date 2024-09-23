@@ -5,6 +5,7 @@ import { red } from "@mui/material/colors";
 // https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=c3d825&secondary.color=d80faa
 // 若草色：#c3d825(https://www.colordic.org/w)
 const theme = createTheme({
+  cssVariables: true,
   palette: {
     mode: "light",
     primary: {
