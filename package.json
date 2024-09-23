@@ -13,6 +13,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.13.0",
+    "@google-cloud/logging-winston": "^6.0.0",
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
     "@mui/x-date-pickers": "^7.17.0",
@@ -35,7 +36,8 @@
     "react-twitter-widgets": "^1.11.0",
     "react-youtube": "^10.1.0",
     "recharts": "^2.12.7",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

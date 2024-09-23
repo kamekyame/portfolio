@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import Title from "../../components/title";
 import { client } from "../../src/microCms";
 import Link from "../../src/link";
+import { logger } from "../../src/logger";
 
 type Content = {
   url: string;
@@ -179,16 +180,22 @@ export const getStaticProps: GetStaticProps = async () => {
   const sp = qiitaUrl.searchParams;
   sp.set("query", "user:SuzuTomo2001");
   const qiitaRes = await fetch(qiitaUrl);
-  const qiitaJson = await qiitaRes.json();
-  if (Array.isArray(qiitaJson)) {
-    qiitaJson.forEach((c) => {
-      contents.push({
-        title: c.title,
-        url: c.url,
-        updatedAt: c["updated_at"],
-        type: "qiita",
+  if (qiitaRes.ok) {
+    const qiitaJson = await qiitaRes.json();
+    if (Array.isArray(qiitaJson)) {
+      qiitaJson.forEach((c) => {
+        contents.push({
+          title: c.title,
+          url: c.url,
+          updatedAt: c["updated_at"],
+          type: "qiita",
+        });
       });
-    });
+    }
+  } else {
+    logger.error(
+      `${qiitaRes.status} https://qiita.com/api/v2/items: ブログ記事一覧に Qiita の記事が表示されなくなります`
+    );
   }
   // console.log(contents);
 
