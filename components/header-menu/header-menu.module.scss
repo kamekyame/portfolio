@@ -23,6 +23,7 @@ $menu-opened-icon-size: 96px;
   width: calc($menu-closed-icon-size + 4px + 16px);
   height: 100dvh;
   overflow: hidden;
+  pointer-events: none;
 
   @include menu-transition(width);
 
@@ -37,6 +38,7 @@ $menu-opened-icon-size: 96px;
   z-index: $zindex-logo;
   align-items: center;
   padding: 2px;
+  pointer-events: auto;
   background-color: white;
   border-radius: 50px 50px 4px 4px;
   outline-offset: -2px;
@@ -77,6 +79,7 @@ $menu-opened-icon-size: 96px;
   top: -58px;
   left: 10px;
   width: $menu-width;
+  pointer-events: auto;
   border-bottom: $menu-border;
   border-left: $menu-border;
   border-bottom-left-radius: 2.5px;
