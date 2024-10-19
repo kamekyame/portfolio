@@ -19,6 +19,7 @@
     "@mui/material-nextjs": "^6.1.0",
     "@mui/x-date-pickers": "^7.17.0",
     "@octokit/rest": "^21.0.2",
+    "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "dropbox": "^10.34.0",
@@ -33,11 +34,13 @@
     "react": "18.3.1",
     "react-data-grid": "7.0.0-beta.41",
     "react-dom": "18.3.1",
+    "react-icons": "^5.3.0",
     "react-leaflet": "^4.2.1",
     "react-twitter-widgets": "^1.11.0",
     "react-youtube": "^10.1.0",
     "recharts": "^2.12.7",
     "sharp": "^0.33.5",
+    "tone": "^15.0.4",
     "winston": "^3.14.2"
   },
   "devDependencies": {
@@ -49,6 +52,10 @@
     "@types/recharts": "^1.8.29",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.11",
+    "sass": "^1.79.5",
+    "stylelint": "^16.10.0",
+    "stylelint-config-recess-order": "^5.1.1",
+    "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.6.2"
   }
 }

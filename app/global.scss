@@ -1,0 +1,35 @@
+@use "components/variables.module.scss" as v;
+@use "./destyle";
+
+@layer global {
+  html,
+  body {
+    font-family: Roboto, Helvetica, "Noto Sans", "Droid Sans",
+      "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴシック", Meiryo,
+      "Arial Unicode MS", sans-serif;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: white;
+
+    main {
+      flex: 1;
+    }
+  }
+
+  *:focus-visible {
+    /* theme.palette.primaly.dark */
+    outline: solid 2px #8fa700;
+  }
+
+  a {
+    color: v.$color-primary;
+    border-radius: 4px;
+  }
+}
