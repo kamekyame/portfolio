@@ -1,7 +1,10 @@
+"use client";
+
 import IconTwitterX from "assets/icons/icon-twitter-x.svg";
 import IconGithub from "assets/icons/icon-github-white.svg";
 
 import s from "./footer.module.scss";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -9,12 +12,20 @@ export default function Footer() {
       <div className={s["contents"]}>
         <div className={s["copylight-text"]}>©2024 kamekyame</div>
         <div className={s["icons"]}>
-          <a className={s["icon"]}>
+          <Link
+            title="すずとものついったー(X)"
+            href="https://x.com/SuzuTomo2001"
+            className={s["icon"]}
+          >
             <IconTwitterX />
-          </a>
-          <a className={s["icon"]}>
+          </Link>
+          <Link
+            title="GitHubページ"
+            href="https://github.com/kamekyame"
+            className={s["icon"]}
+          >
             <IconGithub />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
