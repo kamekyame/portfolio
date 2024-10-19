@@ -92,7 +92,7 @@ export default function HeaderMenu() {
               key={key}
               className={clsx(s["key"], !!menu && s["key-after"])}
               onClick={() => {
-                if (playSound) playPiano(key);
+                if (isShowMenu && playSound) playPiano(key);
               }}
             >
               {menu && (
@@ -109,7 +109,8 @@ export default function HeaderMenu() {
                   className={clsx(s["black-key"], shortBlackKey && s["short"])}
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (playSound) playPiano(`${key[0]}b${key[1]}`);
+                    if (isShowMenu && playSound)
+                      playPiano(`${key[0]}b${key[1]}`);
                   }}
                 ></div>
               )}
