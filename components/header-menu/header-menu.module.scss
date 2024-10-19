@@ -1,0 +1,156 @@
+@use "components/variables.module.scss" as v;
+
+$zindex-blackkey: 1;
+$zindex-hover-blend: 2;
+$zindex-logo: 3;
+$border-width: 2.5px;
+$menu-width: 150px;
+$menu-border: solid $border-width black;
+$black-key-height: 29px;
+$black-key-offset: 34.5px;
+$black-key-width: calc($menu-width - $border-width - $black-key-offset);
+$menu-closed-icon-size: 48px;
+$menu-opened-icon-size: 96px;
+
+@mixin menu-transition($property: all) {
+  transition: $property 0.4s ease-out;
+}
+
+.menu {
+  position: fixed;
+  right: 0;
+  z-index: 100;
+  width: calc($menu-closed-icon-size + 4px + 16px);
+  height: 100dvh;
+  overflow: hidden;
+
+  @include menu-transition(width);
+
+  &.open {
+    width: calc($menu-width + 16px);
+  }
+}
+
+.logo-button {
+  position: absolute;
+  top: 16px;
+  z-index: $zindex-logo;
+  align-items: center;
+  padding: 2px;
+  background-color: white;
+  border-radius: 50px 50px 4px 4px;
+  outline-offset: -2px;
+
+  @include menu-transition(background-color);
+
+  .open & {
+    // width: 200px;
+    background-color: transparent;
+    border-radius: 9999px;
+  }
+}
+
+.logo {
+  position: relative;
+  width: $menu-closed-icon-size;
+  height: $menu-closed-icon-size;
+
+  @include menu-transition;
+
+  .open & {
+    width: $menu-opened-icon-size;
+    height: $menu-opened-icon-size;
+  }
+}
+
+.logo-text {
+  font-size: 14px;
+  text-align: center;
+
+  .open & {
+    display: none;
+  }
+}
+
+.opened-menu {
+  position: absolute;
+  top: -58px;
+  left: 10px;
+  width: $menu-width;
+  border-bottom: $menu-border;
+  border-left: $menu-border;
+  border-bottom-left-radius: 2.5px;
+  opacity: 0;
+
+  @include menu-transition;
+
+  .open & {
+    left: 18px;
+    opacity: 1;
+  }
+}
+
+.key {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 36.5px;
+  background-color: white;
+  border-top: $menu-border;
+
+  &.key-after {
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: $zindex-hover-blend;
+      width: 0;
+      pointer-events: none;
+      content: "";
+      background-color: white;
+      mix-blend-mode: difference;
+      transition: all 0.2s linear;
+    }
+
+    &:focus-within::after {
+      width: 100%;
+    }
+
+    @media (hover: hover) {
+      &:hover::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.key-menu {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-left: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  text-align: left;
+  text-decoration: none;
+  outline: none;
+}
+
+.black-key {
+  position: absolute;
+  top: calc(-1 * ($black-key-height + $border-width) / 2);
+  right: 0;
+  z-index: $zindex-blackkey;
+  width: $black-key-width;
+  height: $black-key-height;
+  background-color: black;
+  border-top-left-radius: 2.5px;
+  border-bottom-left-radius: 2.5px;
+
+  &.short {
+    width: 30px;
+  }
+}

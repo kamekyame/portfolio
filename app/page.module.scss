@@ -1,0 +1,324 @@
+@use "components/variables.module.scss" as v;
+
+@mixin mobile {
+  @media screen and (width <= 600px) {
+    @content;
+  }
+}
+
+@mixin nomobile {
+  @media not screen and (width <= 600px) {
+    @content;
+  }
+}
+
+.link {
+  color: v.$color-dark-foreground;
+}
+
+.contents {
+  display: flex;
+  width: 100%;
+  color: v.$color-dark-foreground;
+  background-color: v.$color-dark-background;
+
+  :root {
+    --menu-text-color: white;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25%;
+  height: 100vh;
+  height: 100dvh;
+  padding: 8px;
+  background-color: v.$color-dark-background;
+
+  @include mobile {
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: calc(77px + 16px); // menu の高さに合わせる
+    padding-right: calc(52px + 16px * 2); // menu 分避ける
+  }
+
+  .sidebar-inner {
+    overflow: auto;
+
+    @include nomobile {
+      max-height: 100%;
+    }
+
+    @include mobile {
+      max-width: 100%;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    padding: 8px;
+    border-color: v.$color-dark-foreground;
+
+    @include nomobile {
+      border-right: 1px solid;
+    }
+
+    @include mobile {
+      flex-direction: column;
+      border-bottom: 1px solid;
+    }
+  }
+
+  .tabs-link {
+    display: flex;
+    flex-direction: column;
+
+    @include mobile {
+      flex-direction: row;
+    }
+  }
+
+  .link-tab {
+    width: 5.5em;
+    padding: 4px 8px;
+    font-size: 16px;
+    color: #aaa;
+    text-decoration: none;
+
+    &.active {
+      font-weight: bold;
+      color: v.$color-dark-foreground;
+    }
+
+    @include nomobile {
+      margin: 8px 2px;
+      text-align: right;
+    }
+
+    @include mobile {
+      margin: 2px 0;
+      text-align: center;
+    }
+  }
+
+  .tab-bar {
+    position: relative;
+    background-color: v.$color-primary;
+    border-radius: 9999px;
+    transition: 0.2s ease;
+    transition-property: top, left;
+
+    @include nomobile {
+      top: calc(100% / var(--page-length) * var(--now-page));
+      width: 4px;
+      height: calc(100% / var(--page-length));
+    }
+
+    @include mobile {
+      left: calc(100% / var(--page-length) * var(--now-page));
+      width: calc(100% / var(--page-length));
+      height: 4px;
+    }
+  }
+}
+
+.main-contents {
+  @include nomobile {
+    width: 75%;
+  }
+
+  .page {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+
+    @include nomobile {
+      min-height: 100vh;
+      margin-right: calc(52px + 16px * 2); // menu 分避ける
+      opacity: 0;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    @include mobile {
+      min-height: calc(100vh - 93px);
+    }
+
+    .scroll-anchor {
+      position: absolute;
+
+      @include nomobile {
+        top: 0;
+      }
+
+      @include mobile {
+        top: -93px;
+      }
+    }
+  }
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+
+  @include nomobile {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 20%;
+    min-width: 48px;
+    max-width: 96px;
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .table {
+    font-size: 12px;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 4px 16px;
+      border-bottom: 1px solid v.$color-primary;
+    }
+
+    th {
+      text-align: right;
+    }
+  }
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .list {
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-rows: max(min-content, 32px) 1fr;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+      padding: 8px;
+      border-bottom: 1px solid v.$color-primary;
+
+      .icon {
+        display: flex;
+        grid-row: 1 / 2;
+        justify-content: center;
+      }
+
+      .title {
+        display: flex;
+        grid-column: 2 / -1;
+        gap: 8px;
+        align-items: center;
+
+        a {
+          // font-weight: bold;
+          color: v.$color-dark-foreground;
+          text-decoration: none;
+
+          &:hover {
+            color: v.$color-primary;
+          }
+        }
+
+        .title-icon {
+          width: 24px;
+          height: 24px;
+          padding: 2px;
+        }
+      }
+
+      .detail {
+        grid-column: 2 / -1;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .content {
+    font-size: 12px;
+  }
+
+  .next-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .next {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      text-align: right;
+      text-decoration: none;
+
+      .icon {
+        .active & {
+          animation: bounce 1s infinite;
+        }
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+
+  40% {
+    transform: translateX(-10%);
+  }
+
+  60% {
+    transform: translateX(-5%);
+  }
+}

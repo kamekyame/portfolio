@@ -1,0 +1,37 @@
+@use "components/variables.module.scss" as v;
+
+.footer {
+  padding: 16px 32px;
+  color: v.$color-dark-foreground;
+  background-color: v.$color-dark-background;
+  border-top: solid 1px gray;
+}
+
+.contents {
+  display: flex;
+  align-items: center;
+  max-width: 1220px;
+}
+
+.copylight-text {
+  flex: 1;
+  font-size: 14px;
+}
+
+.icons {
+  display: flex;
+  gap: 16px;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+
+    svg {
+      width: 100%;
+    }
+  }
+}
