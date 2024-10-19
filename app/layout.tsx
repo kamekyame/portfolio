@@ -1,4 +1,4 @@
-"use client";
+import { Metadata } from "next";
 
 import HeaderMenu from "components/header-menu/header-menu";
 import Footer from "components/footer/footer";
@@ -25,3 +25,18 @@ export default function RootLayout({
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Top - sztm-blog",
+  description: "すずとものブログです",
+  openGraph: {
+    locale: "ja_JP",
+    type: "website",
+    siteName: "sztm-blog",
+    images: ["ogp.jpg"],
+  },
+  twitter: {
+    card: "summary",
+    site: "@SuzuTomo2001",
+  },
+};
