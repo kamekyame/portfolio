@@ -99,6 +99,7 @@ const Projects = () => {
           <div className={s["title"]}>
             <Link href="https://kakomimasu.com">囲みマス</Link>
             <Link
+              title="囲みマスのGitHubページ"
               className={s["title-icon"]}
               href="https://github.com/kakomimasu"
             >
@@ -155,6 +156,7 @@ const Projects = () => {
           <div className={s["title"]}>
             <Link href="/contents/kosen-calendar">高専カレンダー</Link>
             <Link
+              title="高専カレンダーのGitHubページ"
               className={s["title-icon"]}
               href="https://github.com/kamekyame/kosen-calendar"
             >
@@ -250,8 +252,6 @@ export default function Page() {
 
   return (
     <div className={clsx(s["contents"])} style={{}}>
-      <Title name="Top" />
-
       <div className={s["sidebar"]}>
         <div className={s["sidebar-inner"]}>
           <div className={s["tabs"]}>
