@@ -3,7 +3,6 @@
 import HeaderMenu from "components/header-menu/header-menu";
 import Footer from "components/footer/footer";
 
-import "./desttyle.css";
 import "./global.scss";
 import v from "components/variables.module.scss";
 
