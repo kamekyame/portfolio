@@ -79,7 +79,6 @@ $menu-opened-icon-size: 96px;
   top: -58px;
   left: 10px;
   width: $menu-width;
-  pointer-events: auto;
   border-bottom: $menu-border;
   border-left: $menu-border;
   border-bottom-left-radius: 2.5px;
@@ -89,6 +88,7 @@ $menu-opened-icon-size: 96px;
 
   .open & {
     left: 18px;
+    pointer-events: auto;
     opacity: 1;
   }
 }
