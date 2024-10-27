@@ -233,20 +233,31 @@ export default function Page() {
   const [nowPageInt, setNowPageInt] = useState<number>(0);
 
   useEffect(() => {
-    const onScroll = () => {
-      const centerY = window.innerHeight / 2;
-      for (let i = 0; i < pages.length; i++) {
-        const rect = pages[i].ref.current?.getBoundingClientRect();
-        if (rect && rect.top <= centerY && rect.bottom > centerY) {
-          setNowPageInt(i);
-        }
-      }
-    };
+    const threshold = 0.3;
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const ratio = entry.intersectionRatio;
+          const target = entry.target;
+          if (ratio > threshold) {
+            target.classList.add(s["active"]);
+            if (target instanceof HTMLElement) {
+              setNowPageInt(Number(target.dataset.i));
+            }
+          } else {
+            entry.target.classList.remove(s["active"]);
+          }
+        });
+      },
+      { threshold }
+    );
+    pages.forEach((page) => {
+      if (!page.ref.current) return;
+      intersectionObserver.observe(page.ref.current);
+    });
 
-    onScroll();
-    addEventListener("scroll", onScroll);
     return () => {
-      removeEventListener("scroll", onScroll);
+      intersectionObserver.disconnect();
     };
   }, []);
 
@@ -291,11 +302,12 @@ export default function Page() {
         {pages.map((page, i) => {
           return (
             <div
-              className={clsx(s["page"], nowPageInt === i && s["active"])}
+              data-i={i}
+              className={clsx(s["page"])}
               key={page.id}
               ref={page.ref}
+              id={page.id}
             >
-              <div id={page.id} className={s["scroll-anchor"]} />
               <page.component />
             </div>
           );
