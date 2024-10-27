@@ -151,6 +151,7 @@
     @include nomobile {
       min-height: 100vh;
       margin-right: calc(52px + 16px * 2); // menu 分避ける
+      scroll-margin-top: 0;
       opacity: 0;
 
       &.active {
@@ -160,18 +161,7 @@
 
     @include mobile {
       min-height: calc(100vh - 93px);
-    }
-
-    .scroll-anchor {
-      position: absolute;
-
-      @include nomobile {
-        top: 0;
-      }
-
-      @include mobile {
-        top: -93px;
-      }
+      scroll-margin-top: 93px;
     }
   }
 }

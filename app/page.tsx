@@ -243,7 +243,7 @@ export default function Page() {
             target.classList.add(s["active"]);
             if (target instanceof HTMLElement) {
               setNowPageInt(Number(target.dataset.i));
-        }
+            }
           } else {
             entry.target.classList.remove(s["active"]);
           }
@@ -306,8 +306,8 @@ export default function Page() {
               className={clsx(s["page"])}
               key={page.id}
               ref={page.ref}
+              id={page.id}
             >
-              <div id={page.id} className={s["scroll-anchor"]} />
               <page.component />
             </div>
           );
