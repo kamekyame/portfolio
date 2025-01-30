@@ -19,7 +19,7 @@
     "@mui/material-nextjs": "^6.1.0",
     "@mui/x-date-pickers": "^7.17.0",
     "@next/third-parties": "^14.2.15",
-    "@octokit/rest": "^21.0.2",
+    "@octokit/rest": "^21.1.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
