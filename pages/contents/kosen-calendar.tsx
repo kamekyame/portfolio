@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       try {
         const res = await fetch(`${baseUrl}/contents/${path}`, {
           headers: new Headers({
-            Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
+            Authorization: `token ${process.env.GH_ACCESS_TOKEN}`,
           }),
         });
         // console.log(res);

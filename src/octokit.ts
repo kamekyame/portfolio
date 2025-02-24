@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/rest";
 
 export class GithubClient {
-  public octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
+  public octokit = new Octokit({ auth: process.env.GH_ACCESS_TOKEN });
 
   public owner: string;
   public repo: string;
