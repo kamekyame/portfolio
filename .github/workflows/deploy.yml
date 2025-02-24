@@ -47,6 +47,6 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "kamekyame-portfolio-42"
+          project: "suzutomo-portfolio-42"
           entrypoint: "./server.cjs"
           root: ".next/standalone"
