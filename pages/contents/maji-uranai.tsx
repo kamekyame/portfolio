@@ -70,7 +70,7 @@ type LuckyUnluckyBarChartData = {
 }[];
 
 const luckyUnluckyBarChartTypes = ["normal", "diff"] as const;
-type LuckyUnluckyBarChartType = typeof luckyUnluckyBarChartTypes[number];
+type LuckyUnluckyBarChartType = (typeof luckyUnluckyBarChartTypes)[number];
 
 function LuckyUnluckyBarChart({
   data: data_,
@@ -79,7 +79,7 @@ function LuckyUnluckyBarChart({
   data: LuckyUnluckyBarChartData;
   type: LuckyUnluckyBarChartType;
 }) {
-  const data: (typeof data_[number] & { diff: number })[] = useMemo(() => {
+  const data: ((typeof data_)[number] & { diff: number })[] = useMemo(() => {
     return data_.map((d) => {
       const diff = d.lucky - d.unlucky;
       return {
@@ -95,7 +95,7 @@ function LuckyUnluckyBarChart({
       width="100%"
       maxWidth="800px"
       aspect={3}
-      sx={{ fontSize: "0.8em", color: "black" }}
+      sx={{ fontSize: "0.8em", aspectRatio: "3" }}
     >
       <BarChart data={data} barCategoryGap="20%" barGap={5}>
         <CartesianGrid strokeDasharray="1 1" />
@@ -106,9 +106,8 @@ function LuckyUnluckyBarChart({
           interval={0}
           dy={15}
           dx={10}
-          stroke="white"
         />
-        <YAxis width={20} stroke="white" />
+        <YAxis width="auto" />
         <Legend />
         <Tooltip />
         <Bar hide={type !== "normal"} dataKey="lucky" fill={colors.lucky} />
