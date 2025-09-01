@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { NextPage } from "next";
 import Image from "next/image";
 import { Box, Tabs, Tab, TextField, InputAdornment, Chip } from "@mui/material";
-import DataGrid, { Column, SortColumn, Renderers, Row } from "react-data-grid";
+import { DataGrid, Column, SortColumn, Renderers, Row } from "react-data-grid";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { GithubClient } from "../../src/octokit";

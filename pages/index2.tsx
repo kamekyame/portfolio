@@ -368,7 +368,7 @@ const pages: {
   id: string;
   title: string;
   component: React.FC;
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement | null>;
 }[] = [
   {
     id: "welcome",
@@ -431,7 +431,7 @@ const Home: NextPage = () => {
     };
   }, []);
 
-  const sideBarRef = useRef<HTMLDivElement>();
+  const sideBarRef = useRef<HTMLDivElement>(undefined);
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
   useEffect(() => {
     const element = sideBarRef.current;
