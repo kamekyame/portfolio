@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import type { GetStaticProps, NextPage } from "next";
+import React from "react";
+import type { NextPage } from "next";
 import {
   Box,
   TableContainer,
@@ -9,91 +9,28 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
-import ical from "node-ical";
-import { Scheduler } from "@aldabil/react-scheduler";
-import { ja } from "date-fns/locale";
 
 import Title from "../../components/title";
 import Link from "../../src/link";
 
 import Logo from "../../assets/kosen-calendar.svg";
 
-type Props = {
-  resources: Resource[];
-  events: { title: string; start: string; end: string; name: string }[];
-};
-type Resource = { name: string; path: string; color: string };
+type Resource = { name: string; path: string };
 
-const paths = [
-  "kitakyusyu/kitakyusyu.ics",
-  "fukui/fukui.ics",
-  "ishikawa/ishikawa_2021.ics",
-  "nagaoka/nagaoka.ics",
-  "tsuyama/tsuyama.ics",
+const googleCalendarIframeUrl =
+  "https://calendar.google.com/calendar/embed?wkst=1&ctz=Asia%2FTokyo&showPrint=0&title=kosen-calendar&showTz=0&src=ZGNvZTF0OWk5ZHZjMjY1MWxqcTNvYWJkdjd0dWhxNW9AaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=OHNnczU3MmhiaXI4MWxxYXViNW84azF0OXBpNzBxZHRAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=NmZnNHZkM203MWk5Y2NrMTZ1NGlybXQ1Nmk2cmczY2FAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=bnNxbnRnbGZhaWlscjhzcmU4bzRkdTVsbmlybDQwaDlAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=aGllcmlvZDgxOHNna2pla2Q4aHR2djNrdWUwcWFycmpAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237cb342&color=%237986cb&color=%23ad1457&color=%23616161&color=%23616161";
+
+const resources: Resource[] = [
+  { name: "北九州高専", path: "kitakyusyu/kitakyusyu.ics" },
+  { name: "福井高専", path: "fukui/fukui.ics" },
+  { name: "石川高専2021", path: "ishikawa/ishikawa_2021.ics" },
+  { name: "長岡高専", path: "nagaoka/nagaoka.ics" },
+  { name: "津山高専", path: "tsuyama/tsuyama.ics" },
 ];
 
-const baseUrl = "https://api.github.com/repos/kamekyame/kosen-calendar";
 const githubIoBaseUrl =
   "https://raw.githubusercontent.com/kamekyame/kosen-calendar/main";
 const githubUrl = "https://github.com/kamekyame/kosen-calendar";
-
-const isVCalendar = (obj: ical.CalendarComponent): obj is ical.VCalendar => {
-  return obj.type === "VCALENDAR";
-};
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const events: Props["events"] = [];
-  const promises = paths.map((path, i) => {
-    return new Promise<Resource>(async (resolve, reject) => {
-      try {
-        const res = await fetch(`${baseUrl}/contents/${path}`, {
-          headers: new Headers({
-            Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}`,
-          }),
-        });
-        // console.log(res);
-        const data = await res.json();
-        // console.log(data);
-        const icsStr = Buffer.from(data.content, "base64").toString();
-        const ics = await ical.async.parseICS(icsStr);
-        const icsEvents = Object.values(ics);
-        // console.log(icsEvents);
-        const vcalendar = icsEvents.find(isVCalendar);
-        const name = vcalendar && vcalendar["WR-CALNAME"]?.split(" ")[0];
-        if (name === undefined) throw Error("name is undefined");
-
-        const resource: Resource = {
-          name,
-          path,
-          color: `hsl(${(i * 360) / paths.length} ,80%,60%)`,
-        };
-        icsEvents.forEach((event) => {
-          if (event.type !== "VEVENT") return;
-          const end =
-            event.datetype === "date-time"
-              ? event.end
-              : new Date(event.end.getTime() - 1);
-          events.push({
-            title: event.summary,
-            start: event.start.toISOString(),
-            end: end.toISOString(),
-            name,
-          });
-        });
-        resolve(resource);
-      } catch (e) {
-        reject(e);
-      }
-    });
-  });
-  const resources = await Promise.all(promises);
-  // console.log(resources);
-  // console.log(events);
-  return {
-    props: { resources, events },
-    revalidate: 60,
-  };
-};
 
 const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
   return (
@@ -109,15 +46,7 @@ const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
   );
 };
 
-const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
-  const events = useMemo(() => {
-    return eventsRaw.flatMap((data, i) => {
-      const start = new Date(data.start);
-      const end = new Date(data.end);
-      return [{ event_id: i, title: data.title, start, end, name: data.name }];
-    });
-  }, [eventsRaw]);
-
+const Page: NextPage = () => {
   return (
     <Box sx={{ mb: 3 }}>
       <Title name="kosen-calendar" />
@@ -191,52 +120,18 @@ const Page: NextPage<Props> = ({ resources, events: eventsRaw }) => {
             </TableContainer>
           </div>
         </Box>
-        <Box
-          component="section"
-          sx={
-            {
-              // overflowX: "none",
-            }
-          }
-        >
-          <SectionHeader title="カレンダー" />
-          <Scheduler
-            events={events}
-            locale={ja}
-            timeZone="Asia/Tokyo"
-            view="month"
-            resourceViewMode="tabs"
-            resources={resources}
-            resourceFields={{
-              idField: "name",
-              textField: "name",
-              colorField: "color",
+
+        <Box component="section">
+          <SectionHeader title="カレンダープレビュー" />
+          <iframe
+            style={{
+              width: "100%",
+              minHeight: "400px",
+              aspectRatio: "16/9",
+              border: "none",
             }}
-            month={{
-              weekDays: [0, 1, 2, 3, 4, 5, 6],
-              weekStartOn: 1,
-              startHour: 0,
-              endHour: 23,
-              cellRenderer: () => <></>,
-            }}
-            week={{
-              weekDays: [0, 1, 2, 3, 4, 5, 6],
-              weekStartOn: 1,
-              startHour: 0,
-              endHour: 23,
-              step: 240,
-              cellRenderer: () => <></>,
-            }}
-            day={{
-              startHour: 0,
-              endHour: 23,
-              step: 240,
-              cellRenderer: () => <></>,
-            }}
-            editable={false}
-            deletable={false}
-            draggable={false}
-          />
+            src={googleCalendarIframeUrl}
+          ></iframe>
         </Box>
         <Box component="section">
           <SectionHeader title="協力お願い" />
