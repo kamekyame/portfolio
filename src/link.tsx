@@ -3,16 +3,12 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import MuiLink, { LinkProps as MuiLinkProps } from "@mui/material/Link";
-import { styled } from "@mui/material/styles";
-
-// Add support for the sx prop for consistency with the other branches.
-const Anchor = styled("a")({});
 
 interface NextLinkComposedProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
     Omit<
       NextLinkProps,
-      "href" | "as" | "passHref" | "onClick" | "onMouseEnter" | "onTouchStart"
+      "href" | "as" | "passHref" | "onMouseEnter" | "onClick" | "onTouchStart"
     > {
   to: NextLinkProps["href"];
   linkAs?: NextLinkProps["as"];
@@ -22,33 +18,9 @@ export const NextLinkComposed = React.forwardRef<
   HTMLAnchorElement,
   NextLinkComposedProps
 >(function NextLinkComposed(props, ref) {
-  const {
-    to,
-    linkAs,
-    replace,
-    scroll,
-    shallow,
-    prefetch,
-    legacyBehavior = true,
-    locale,
-    ...other
-  } = props;
+  const { to, linkAs, ...other } = props;
 
-  return (
-    <NextLink
-      href={to}
-      prefetch={prefetch}
-      as={linkAs}
-      replace={replace}
-      scroll={scroll}
-      shallow={shallow}
-      passHref
-      locale={locale}
-      legacyBehavior={legacyBehavior}
-    >
-      <Anchor ref={ref} {...other} />
-    </NextLink>
-  );
+  return <NextLink href={to} as={linkAs} ref={ref} {...other} />;
 });
 
 export type LinkProps = {
@@ -71,34 +43,22 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     as,
     className: classNameProps,
     href,
-    legacyBehavior,
     linkAs: linkAsProp,
-    locale,
     noLinkStyle,
-    prefetch,
-    replace,
-    role, // Link don't have roles.
-    scroll,
-    shallow,
     ...other
   } = props;
 
   const router = useRouter();
-  const pathname = typeof href === "string" ? href : href.pathname;
+  const pathname = typeof href === "string" ? href : href?.pathname;
+
   const className = clsx(classNameProps, {
     [activeClassName]: router.pathname === pathname && activeClassName,
   });
 
-  const linkAs = linkAsProp || as;
+  const linkAs = linkAsProp || as || (href as string);
   const nextjsProps = {
     to: href,
     linkAs,
-    replace,
-    scroll,
-    shallow,
-    prefetch,
-    legacyBehavior,
-    locale,
   };
 
   if (noLinkStyle) {

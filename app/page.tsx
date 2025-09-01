@@ -200,7 +200,7 @@ const pages: {
   id: string;
   title: string;
   component: React.FC;
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement | null>;
 }[] = [
   {
     id: "welcome",
