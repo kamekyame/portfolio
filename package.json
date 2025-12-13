@@ -21,7 +21,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "dropbox": "^10.34.0",
-    "googleapis": "^159.0.0",
+    "googleapis": "^167.0.0",
     "html-react-parser": "^5.2.6",
     "leaflet": "^1.9.4",
     "microcms-js-sdk": "^3.2.0",
