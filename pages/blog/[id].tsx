@@ -332,12 +332,16 @@ export const getStaticProps: GetStaticProps<
   }
 
   try {
-    const data = await client.get({
-      endpoint: "blog",
-      contentId: id,
-      queries: { draftKey },
-    });
-    return { props: { data }, revalidate: 60 };
+    if (client) {
+      const data = await client.get({
+        endpoint: "blog",
+        contentId: id,
+        queries: { draftKey },
+      });
+      return { props: { data }, revalidate: 60 };
+    } else {
+      return { notFound: true };
+    }
   } catch (_) {
     return { notFound: true };
   }
