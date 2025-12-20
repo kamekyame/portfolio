@@ -19,7 +19,7 @@ type Content = {
   url: string;
   title: string;
   updatedAt: string;
-  type: "qiita" | "blog";
+  type: "qiita" | "blog" | "zenn";
 };
 
 const Page: NextPage<{
@@ -92,6 +92,23 @@ const Page: NextPage<{
                         <Image
                           src="/qiita.png"
                           alt="Qiita favicon"
+                          fill
+                          // width="25"
+                          // height="25"
+                        ></Image>
+                      </Box>
+                    )}
+                    {blog.type === "zenn" && (
+                      <Box
+                        sx={{
+                          gridColumn: "1 / 2",
+                          position: "relative",
+                          aspectRatio: "1",
+                        }}
+                      >
+                        <Image
+                          src="/zenn.svg"
+                          alt="Zenn favicon"
                           fill
                           // width="25"
                           // height="25"
@@ -203,6 +220,28 @@ export const getStaticProps: GetStaticProps = async () => {
       `${qiitaRes.status} https://qiita.com/api/v2/items: ブログ記事一覧に Qiita の記事が表示されなくなります`
     );
   }
+
+  const zennUrl = new URL("https://zenn.dev/api/articles?username=suzutomo");
+  const zennRes = await fetch(zennUrl);
+  if (zennRes.ok) {
+    const zennJson = await zennRes.json();
+    const articles = zennJson.articles;
+    if (Array.isArray(articles)) {
+      articles.forEach((c) => {
+        contents.push({
+          title: c.title,
+          url: `https://zenn.dev/${c.path}`,
+          updatedAt: c.body_updated_at,
+          type: "zenn",
+        });
+      });
+    }
+  } else {
+    logger.error(
+      `${zennRes.status} https://zenn.dev/api/articles?username=suzutomo: ブログ記事一覧に Zenn の記事が表示されなくなります`
+    );
+  }
+
   // console.log(contents);
 
   contents.sort((a, b) => {
