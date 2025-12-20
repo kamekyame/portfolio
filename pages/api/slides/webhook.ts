@@ -29,8 +29,8 @@ export default async function handler(
 
   const data: WebhookData = req.body;
   if (data.service !== "kamekyame" || data.api !== "slides") {
-    throw new Error("Invalid data.service or data.api or data.id");
+    throw new Error("Invalid data.service or data.api");
   }
-  res.revalidate("/slides");
+  res.revalidate("/contents/slides");
   return res.json({ revalidated: true });
 }
