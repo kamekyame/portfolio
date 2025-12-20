@@ -1,9 +1,13 @@
 import { createClient } from "microcms-js-sdk";
 
-export const client = createClient({
-  serviceDomain: "kamekyame",
-  apiKey: process.env.MICROCMS_API_KEY || "invalid-api-key",
-});
+const API_KEY = process.env.MICROCMS_API_KEY;
+
+export const client = API_KEY
+  ? createClient({
+      serviceDomain: "kamekyame",
+      apiKey: API_KEY,
+    })
+  : undefined;
 
 export type IList<T> = {
   contents: T[];

@@ -158,22 +158,28 @@ const Page: NextPage<{
 export const getStaticProps: GetStaticProps = async () => {
   const contents: Content[] = [];
 
-  const microCmsData = await client.get({
-    endpoint: "blog",
-    queries: {
-      limit: Number.MAX_SAFE_INTEGER,
-      fields: "id,title,updatedAt",
-    },
-  });
-  if (Array.isArray(microCmsData.contents)) {
-    microCmsData.contents.forEach((c: any) => {
-      contents.push({
-        url: `/blog/${c.id}`,
-        title: c.title,
-        updatedAt: c.updatedAt,
-        type: "blog",
-      });
+  if (client) {
+    const microCmsData = await client.get({
+      endpoint: "blog",
+      queries: {
+        limit: Number.MAX_SAFE_INTEGER,
+        fields: "id,title,updatedAt",
+      },
     });
+    if (Array.isArray(microCmsData.contents)) {
+      microCmsData.contents.forEach((c: any) => {
+        contents.push({
+          url: `/blog/${c.id}`,
+          title: c.title,
+          updatedAt: c.updatedAt,
+          type: "blog",
+        });
+      });
+    }
+  } else {
+    logger.error(
+      `MicroCMS client is not initialized: ブログ記事一覧に MicroCMS の記事が表示されなくなります`
+    );
   }
 
   const qiitaUrl = new URL("https://qiita.com/api/v2/items");
