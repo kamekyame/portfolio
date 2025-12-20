@@ -23,10 +23,8 @@ const Page: NextPage<{
         pb: 3,
       }}
     >
-      <Title name="blog" />
-      <Typography variant="h1" color="">
-        SLIDES
-      </Typography>
+      <Title name="slides" />
+      <Typography variant="h1">SLIDES</Typography>
       <Box sx={{ py: 2 }}>
         これまでのカンファレンスなどにおける発表資料をまとめています
       </Box>
@@ -65,20 +63,27 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     });
     if (Array.isArray(microCmsData.contents)) {
-      const promises = microCmsData.contents.map(async (c: any) => {
+      const promises = microCmsData.contents.flatMap(async (c: any) => {
         const slideUrl = c.slideUrl;
-        const ombedUrl = new URL(`https://speakerdeck.com/oembed.json`);
-        ombedUrl.searchParams.append("url", slideUrl);
-        return fetch(ombedUrl)
+        const oembedUrl = new URL(`https://speakerdeck.com/oembed.json`);
+        oembedUrl.searchParams.append("url", slideUrl);
+        return fetch(oembedUrl)
           .then((res) => res.json())
-          .then((ombedData) => {
+          .then((oembedData) => {
             const data: SlideContent = {
-              html: ombedData.html,
+              html: oembedData.html,
             };
             return data;
+          })
+          .catch((err) => {
+            return undefined;
           });
       });
-      contents.push(...(await Promise.all(promises)));
+      contents.push(
+        ...(await Promise.all(promises)).filter(
+          (c): c is SlideContent => c !== undefined
+        )
+      );
     }
   } else {
     logger.error(
