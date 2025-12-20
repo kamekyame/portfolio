@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     });
     if (Array.isArray(microCmsData.contents)) {
-      const promises = microCmsData.contents.flatMap(async (c: any) => {
+      const promises = microCmsData.contents.map(async (c: any) => {
         const slideUrl = c.slideUrl;
         const oembedUrl = new URL(`https://speakerdeck.com/oembed.json`);
         oembedUrl.searchParams.append("url", slideUrl);
