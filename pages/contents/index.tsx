@@ -11,6 +11,12 @@ const contents: Array<{
   bgImage?: string;
 }> = [
   {
+    title: "発表資料",
+    description: "これまでのカンファレンスなどにおける発表資料をまとめています",
+    href: "/contents/slides",
+    type: "normal",
+  },
+  {
     title: "EL-Explorer",
     description: "エレクトーン用のエクスプローラです。",
     href: "/el/explorer",
