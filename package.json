@@ -17,7 +17,7 @@
     "@mui/material": "^7.3.6",
     "@mui/material-nextjs": "^7.3.3",
     "@next/third-parties": "15.5.2",
-    "@octokit/rest": "^22.0.0",
+    "@octokit/rest": "^22.0.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
     "dropbox": "^10.34.0",
