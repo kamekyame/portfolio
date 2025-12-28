@@ -19,7 +19,7 @@
     "@next/third-parties": "15.5.2",
     "@octokit/rest": "^22.0.1",
     "clsx": "^2.1.1",
-    "dayjs": "^1.11.18",
+    "dayjs": "^1.11.19",
     "dropbox": "^10.34.0",
     "googleapis": "^167.0.0",
     "html-react-parser": "^5.2.6",
