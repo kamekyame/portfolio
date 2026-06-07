@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         <meta name="theme-color" content={v.colorPrimary} />
-        <link rel="icon" href="/logo.svg" type="image/svg+xml"></link>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml"></link>
       </head>
       <body>
         <HeaderMenu />

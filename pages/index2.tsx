@@ -7,7 +7,7 @@ import theme from "../src/theme";
 import Link from "../src/link";
 import Title from "../components/title";
 
-import Logo from "../public/logo.svg";
+import Logo from "../public/icon.svg";
 import GitHub from "@mui/icons-material/GitHub";
 import XIcon from "@mui/icons-material/X";
 import YouTubeIcon from "@mui/icons-material/YouTube";
