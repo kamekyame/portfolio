@@ -19,7 +19,7 @@ const pages: { name: string; href: string }[] = [
   { name: "sztm-bot", href: "/sztm-bot" },
 ];
 
-import Logo from "../public/logo.svg";
+import Logo from "../public/icon.svg";
 
 export default function App() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

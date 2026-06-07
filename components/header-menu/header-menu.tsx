@@ -7,7 +7,7 @@ import { type Sampler } from "tone";
 
 import s from "./header-menu.module.scss";
 
-import Logo from "public/logo.svg";
+import Logo from "public/icon.svg";
 import Link from "next/link";
 
 const keys: {

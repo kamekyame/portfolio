@@ -15,14 +15,14 @@ import {
 import theme from "../src/theme";
 
 export default function MyDocument(
-  props: DocumentProps & DocumentHeadTagsProps
+  props: DocumentProps & DocumentHeadTagsProps,
 ) {
   return (
     <Html lang="ja">
       <Head>
         {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main} />
-        <link rel="icon" href="/logo.svg" type="image/svg+xml"></link>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml"></link>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

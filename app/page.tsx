@@ -9,7 +9,7 @@ import Title from "../components/title";
 
 import GitHub from "assets/icons/icon-github-white.svg";
 import { CgChevronRight } from "react-icons/cg";
-import Logo from "../public/logo.svg";
+import Logo from "../public/icon.svg";
 
 import s from "./page.module.scss";
 
@@ -249,7 +249,7 @@ export default function Page() {
           }
         });
       },
-      { threshold }
+      { threshold },
     );
     pages.forEach((page) => {
       if (!page.ref.current) return;
@@ -272,7 +272,7 @@ export default function Page() {
                   className={clsx(
                     s["link"],
                     s["link-tab"],
-                    nowPageInt === i && s["active"]
+                    nowPageInt === i && s["active"],
                   )}
                   key={page.id}
                   href={`#${page.id}`}
