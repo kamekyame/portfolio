@@ -17,7 +17,10 @@ export default function App({
 }: Props) {
   const title = `${name} - sztm-blog`;
   const description = description_ || "すずとものブログです";
-  const host = process.env.NEXT_PUBLIC_VERCEL_URL;
+  const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === "production";
+  const host = isProduction
+    ? process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+    : process.env.NEXT_PUBLIC_VERCEL_URL;
   const ogpImageUrl = `http${host ? "s" : ""}://${host ?? "localhost:3000"}/${
     thumbnailUrl || "ogp.jpg"
   }`;
