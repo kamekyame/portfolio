@@ -63,8 +63,8 @@ importers:
         specifier: ^2.3.7
         version: 2.3.7(next@15.5.18(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.101.0))(react@19.1.1)
       opentype.js:
-        specifier: ^1.3.4
-        version: 1.3.5
+        specifier: 1.3.4
+        version: 1.3.4
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -3435,9 +3435,9 @@ packages:
   one-time@1.0.0:
     resolution: {integrity: sha512-5DXOiRKwuSEcQ/l0kGCF6Q3jcADFv5tSmRaJck/OqkVFcOzutB134KRSfF0xDrL39MNnqxbHBbUUcjZIhTgb2g==}
 
-  opentype.js@1.3.5:
-    resolution: {integrity: sha512-thKDiELidAApOvXlncrpwDZKJCa9fXLEKM4+FoEWI+qTLDeNb+h7EkN+8a7KQODsB1GZ+Exz9KknkoPrEdXZDw==}
-    deprecated: This version should be ignored, it was meant to be published as 2.0.0 but got published as 1.3.5 by mistake. As of May 6th 2026 the latest v1 release is v1.3.4
+  opentype.js@1.3.4:
+    resolution: {integrity: sha512-d2JE9RP/6uagpQAVtJoF0pJJA/fgai89Cc50Yp0EJHk+eLp6QQ7gBoblsnubRULNY132I0J1QKMJ+JTbMqz4sw==}
+    engines: {node: '>= 8.0.0'}
     hasBin: true
 
   optionator@0.9.4:
@@ -3881,6 +3881,9 @@ packages:
     resolution: {integrity: sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==}
     engines: {node: '>=12'}
 
+  string.prototype.codepointat@0.2.1:
+    resolution: {integrity: sha512-2cBVCj6I4IOvEnjgO/hWqXjqBGsY+zwPmHl12Srk9IXSZ56Jwwmy+66XO5Iut/oQVR7t5ihYdLB0GMa4alEUcg==}
+
   string.prototype.includes@2.0.1:
     resolution: {integrity: sha512-o7+c9bW6zpAdJHTtujeePODAhkuicdAryFsfVKwA+wGw89wJ4GTY484WTucM9hLtDEOpOvI+aHnzqnC5lHp4Rg==}
     engines: {node: '>= 0.4'}
@@ -4051,6 +4054,9 @@ packages:
 
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
+
+  tiny-inflate@1.0.3:
+    resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
@@ -7917,7 +7923,10 @@ snapshots:
     dependencies:
       fn.name: 1.1.0
 
-  opentype.js@1.3.5: {}
+  opentype.js@1.3.4:
+    dependencies:
+      string.prototype.codepointat: 0.2.1
+      tiny-inflate: 1.0.3
 
   optionator@0.9.4:
     dependencies:
@@ -8443,6 +8452,8 @@ snapshots:
       emoji-regex: 9.2.2
       strip-ansi: 7.2.0
 
+  string.prototype.codepointat@0.2.1: {}
+
   string.prototype.includes@2.0.1:
     dependencies:
       call-bind: 1.0.9
@@ -8683,6 +8694,8 @@ snapshots:
       xtend: 2.1.2
 
   through@2.3.8: {}
+
+  tiny-inflate@1.0.3: {}
 
   tiny-invariant@1.3.3: {}
 
