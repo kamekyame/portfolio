@@ -1,36 +1,34 @@
-import { NextPage, GetStaticProps } from "next";
 import Script from "next/script";
-import { Typography, Box } from "@mui/material";
+import Link from "next/link";
+import Title from "../../components/title";
 
-import Link from "../src/link";
-import Title from "../components/title";
+import s from "./page.module.scss";
 
-type Props = { botWorking: boolean };
+export default async function Page() {
+  const res = await fetch("https://api.kamekyame.com/version");
+  const botWorking = res.ok;
 
-const Page: NextPage<Props> = ({ botWorking }) => {
   return (
     <>
       <Title name="sztm-bot" />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          mb: 3,
-        }}
-      >
-        <Typography variant="h1">SZTM-BOT</Typography>
-        <Box sx={{ my: 1 }}>{botWorking ? `Bot稼働中` : "Bot停止中"}</Box>
-        <Box sx={{ my: 1, textAlign: "center", width: "90%" }}>
-          すずともが制作しているBot達です。可愛がってあげてください。
-          <br />X API の一部有料化に伴い終了したBotもあります。ご了承ください。
-        </Box>
-        <Box sx={{ width: "90%" }}>
-          <Box>
-            <Typography variant="h6" sx={{ my: 2 }}>
-              高専ロボコンInfo-BOT
-            </Typography>
-            <Box>
+      <div className={s["contents"]}>
+        <div className={s["title"]}>
+          <h1>SZTM-BOT</h1>
+        </div>
+        <div className={s["explanation"]}>
+          <div>{botWorking ? `Bot稼働中` : "Bot停止中"}</div>
+          <div>
+            すずともが制作しているBot達です。可愛がってあげてください。
+            <br />X API
+            の一部有料化に伴い終了したBotもあります。ご了承ください。
+          </div>
+        </div>
+        <div className={s["items"]}>
+          <div>
+            <div className={s["title"]}>
+              <h2>高専ロボコンInfo-BOT</h2>
+            </div>
+            <div>
               高専ロボコンの各大会までの日数を毎朝ツイートするBOTです。
               <br />
               高専ロボコンが気になった方は
@@ -68,13 +66,13 @@ const Page: NextPage<Props> = ({ botWorking }) => {
                   2025年8月31日
                 </a>
               </blockquote>
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h6" sx={{ my: 2 }}>
-              ナナシスInfo-BOT
-            </Typography>
-            <Box>
+            </div>
+          </div>
+          <div>
+            <div className={s["title"]}>
+              <h2>ナナシスInfo-BOT</h2>
+            </div>
+            <div>
               ゲームアプリ「Tokyo 7th
               シスターズ」の周年までの日数を毎朝ツイートするBOTです。
               <br />
@@ -98,54 +96,46 @@ const Page: NextPage<Props> = ({ botWorking }) => {
                   2025年8月31日
                 </a>
               </blockquote>
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h6" sx={{ my: 2 }}>
-              じゃんけんBOT（終了）
-            </Typography>
-            <Box>
+            </div>
+          </div>
+          <div>
+            <div className={s["title"]}>
+              <h2>じゃんけんBOT（終了）</h2>
+            </div>
+            <div>
               Twitterで すずとも とじゃんけんができるBOTです。
               <br />X API 有料化に伴い終了しました。
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h6" sx={{ my: 2 }}>
-              まぁじ占いアンラッキーBOT（終了）
-            </Typography>
-            <Box>
+            </div>
+          </div>
+          <div>
+            <div className={s["title"]}>
+              <h2>まぁじ占いアンラッキーBOT（終了）</h2>
+            </div>
+            <div>
               まぁじ
               っていう人が毎朝やってる「まぁじ占い」。まぁじ占いはラッキー星座・色しか占わないので、すずともがアンラッキー星座・色を占ってあげています。
               <br />
               (ついでに占い情報も収集しています。)
               <br />X API 有料化に伴い終了しました。
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h6" sx={{ my: 2 }}>
-              (くそ)占いBOT（終了）
-            </Typography>
-            <Box>
+            </div>
+          </div>
+          <div>
+            <div className={s["title"]}>
+              <h2>(くそ)占いBOT（終了）</h2>
+            </div>
+            <div>
               Twitterで 占い と送ると運勢とラッキーアイテムが返ってくるBOTです。
               <br />
               @SuzuTomo2001宛に「占い」という文字列を含んだツイートを送信してください。
               <br />X API 有料化に伴い終了しました。
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+            </div>
+          </div>
+        </div>
+      </div>
       <Script
         src="https://platform.twitter.com/widgets.js"
         strategy="lazyOnload"
       />
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const res = await fetch("https://api.kamekyame.com/version");
-  const botWorking = res.ok;
-  return { props: { botWorking } };
-};
-
-export default Page;
+}

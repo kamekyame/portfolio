@@ -1,7 +1,13 @@
 $color-dark-background: #000;
 $color-dark-foreground: #ececec;
 $color-primary: #c3d825;
+$color-primary-text: #000;
+$color-secondary: #d80faa;
+$color-secondary-text: #fff;
 
 :export {
   colorPrimary: $color-primary;
+  colorPrimaryText: $color-primary-text;
+  colorSecondary: $color-secondary;
+  colorSecondaryText: $color-secondary-text;
 }
