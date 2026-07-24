@@ -21,18 +21,19 @@ const keys: {
   { key: "A2" },
   { key: "B2" },
   { key: "C3" },
-  { key: "D3", shortBlackKey: true, menu: { name: "Blog", href: "/blog" } },
+
+  { key: "D3", shortBlackKey: true, menu: { name: "Top", href: "/" } },
+  { key: "E3", shortBlackKey: true, menu: { name: "Blog", href: "/blog" } },
   {
-    key: "E3",
+    key: "F3",
     shortBlackKey: true,
     menu: { name: "Contents", href: "/contents" },
   },
   {
-    key: "F3",
+    key: "G3",
     shortBlackKey: true,
     menu: { name: "sztm-bot", href: "/sztm-bot" },
   },
-  { key: "G3", shortBlackKey: true },
   { key: "A3", shortBlackKey: true },
   { key: "B3", shortBlackKey: true },
   { key: "C4", playSound: true },
