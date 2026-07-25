@@ -1,17 +1,7 @@
-import React, { useMemo } from "react";
-import type { GetStaticProps, NextPage } from "next";
-import {
-  Box,
-  Typography,
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Metadata } from "next";
+import React from "react";
 
-import Title from "../../components/title";
+import s from "./page.module.scss";
 
 function createData(title: string, note: string = "") {
   return { title, note };
@@ -129,12 +119,12 @@ const challenge100 = [
   createData("海の声"),
   createData(
     "Everyone's Song、千利休、小野妹子、本能寺の変",
-    "三国中学校テーマソング、後3曲エグスプロージョンの踊る授業シリーズ"
+    "三国中学校テーマソング、後3曲エグスプロージョンの踊る授業シリーズ",
   ),
   createData("Ocean flight", "EF2017 出場曲"),
   createData(
     "晴天 -Hale Sola-",
-    "EF2017(アンサンブル) 北陸地区大会 金賞受賞曲"
+    "EF2017(アンサンブル) 北陸地区大会 金賞受賞曲",
   ),
   createData("しあわせの花"),
   createData("遠く遠く"),
@@ -142,13 +132,13 @@ const challenge100 = [
   createData("真夜中の510", "EF2018(アンサンブル) 北陸地区大会 金賞受賞曲"),
   createData(
     "AMUSE LIVE",
-    "3人組ユニット「AMUSE」コンサートのライブで演奏した曲たち"
+    "3人組ユニット「AMUSE」コンサートのライブで演奏した曲たち",
   ),
   createData("Neo Japanesque", "EF2019(アンサンブル) 北陸地区大会 金賞受賞曲"),
   createData("Into the Sky", "EF2019 北陸地区大会 金賞受賞曲"),
   createData(
     "ラストコンサート",
-    "すずとものラストコンサート(2019/12/29)で演奏した曲たち"
+    "すずとものラストコンサート(2019/12/29)で演奏した曲たち",
   ),
 ];
 
@@ -156,56 +146,54 @@ const MusicList: React.FC<{ list: ReturnType<typeof createData>[] }> = ({
   list,
 }) => {
   return (
-    <TableContainer>
-      <Table size="small">
-        <TableHead>
-          <TableCell>No.</TableCell>
-          <TableCell>曲名</TableCell>
-          <TableCell>備考</TableCell>
-        </TableHead>
-        <TableBody>
-          {list.map((music, index) => (
-            <TableRow key="music">
-              <TableCell sx={{ width: "5em" }}>{index + 1}</TableCell>
-              <TableCell>{music.title}</TableCell>
-              <TableCell>{music.note}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <table className={s["table"]}>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>曲名</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map((music, index) => (
+          <tr key={index}>
+            <td className={s["no-head"]}>{index + 1}</td>
+            <td>{music.title}</td>
+            <td>{music.note}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
-const Page: NextPage = () => {
+export default async function Page() {
   return (
-    <Box sx={{ mb: 3 }}>
-      <Title name="My-Electone" />
-      <Typography variant="h1" align="center">
-        My-Electone
-      </Typography>
-
-      <Box
-        sx={{
-          px: 5,
-        }}
-      >
-        すずともが過去に弾いてきたエレクトーン楽曲をリストにしました。
-        <br />
-        自分の忘備録として残しておきます。
+    <div className={s["contents"]}>
+      <div className={s["title"]}>
+        <h1>My-Electone</h1>
+      </div>
+      すずともが過去に弾いてきたエレクトーン楽曲をリストにしました。
+      <br />
+      自分の忘備録として残しておきます。
+      <div className={s["sub-title"]}>
         <h2>いにしえのリスト</h2>
-        <p>
-          過去に弾いてきた曲リストです。以下の100曲チャレンジが始まった時期からは、編曲した曲が主にリストに入っています。
-        </p>
-        <MusicList list={challenge100} />
+      </div>
+      <p>
+        過去に弾いてきた曲リストです。以下の100曲チャレンジが始まった時期からは、編曲した曲が主にリストに入っています。
+      </p>
+      <MusicList list={challenge100} />
+      <div className={s["sub-title"]}>
         <h2>100曲チャレンジリスト</h2>
-        <p>
-          中学校に入学してからエレクトーンを習うのをやめるまでに親に課せられた100曲チャレンジ。高専3年12月でエレクトーンの教室はやめてしまい、結局100曲達成はなりませんでしたが...（上の「いにしえのリスト」を足せば100行くでしょ...）
-        </p>
-        <MusicList list={musics} />
-      </Box>
-    </Box>
+      </div>
+      <p>
+        中学校に入学してからエレクトーンを習うのをやめるまでに親に課せられた100曲チャレンジ。高専3年12月でエレクトーンの教室はやめてしまい、結局100曲達成はなりませんでしたが...（上の「いにしえのリスト」を足せば100行くでしょ...）
+      </p>
+      <MusicList list={musics} />
+    </div>
   );
-};
+}
 
-export default Page;
+export const metadata: Metadata = {
+  title: "My-Electone",
+};
