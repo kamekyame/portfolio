@@ -1,19 +1,11 @@
+"use client";
+
+import Link from "next/link";
 import React from "react";
-import type { NextPage } from "next";
-import {
-  Box,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@mui/material";
 
-import Title from "../../components/title";
-import Link from "../../src/link";
+import Logo from "assets/kosen-calendar.svg";
 
-import Logo from "../../assets/kosen-calendar.svg";
+import s from "./Contents.module.scss";
 
 type Resource = { name: string; path: string };
 
@@ -34,37 +26,20 @@ const githubUrl = "https://github.com/kamekyame/kosen-calendar";
 
 const SectionHeader: React.FC<{ title: string }> = ({ title }) => {
   return (
-    <Box
-      component="h2"
-      sx={{
-        borderBottom: "3px solid #e35c21",
-        pl: 1,
-      }}
-    >
-      {title}
-    </Box>
+    <div className={s["section-title"]}>
+      <h2>{title}</h2>
+    </div>
   );
 };
 
-const Page: NextPage = () => {
+export default function Page() {
   return (
-    <Box sx={{ mb: 3 }}>
-      <Title name="kosen-calendar" />
-      <Box sx={{ textAlign: "center", width: "100vw" }}>
-        <Box
-          component={Logo}
-          sx={{
-            maxWidth: "500px",
-            p: 5,
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          px: 5,
-        }}
-      >
-        <Box component="section">
+    <div className={s["contents"]}>
+      <div className={s["logo-wrapper"]}>
+        <Logo />
+      </div>
+      <div className={s["section-wrapper"]}>
+        <section>
           <SectionHeader title="kosen-calendarとは" />
           <div>
             学校の行事予定って配られるけど、毎年カレンダーに登録するの面倒くさくない？ときどき変更されるし...
@@ -73,8 +48,8 @@ const Page: NextPage = () => {
             <br />
             icalは自動更新されるので、学期途中の変更にも対応！
           </div>
-        </Box>
-        <Box component="section">
+        </section>
+        <section>
           <SectionHeader title="使い方" />
           <div>
             「対応高専」欄のURLをiCalendarに対応しているカレンダーに登録するだけ。
@@ -90,38 +65,34 @@ const Page: NextPage = () => {
               </li>
             </ul>
           </div>
-        </Box>
-        <Box component="section">
+        </section>
+        <section>
           <SectionHeader title="対応高専" />
-          <div>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>高専名</TableCell>
-                    <TableCell>URL</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {resources.map((resource) => {
-                    return (
-                      <TableRow key={resource.name}>
-                        <TableCell>{resource.name}</TableCell>
-                        <TableCell>
-                          <Link
-                            href={`${githubIoBaseUrl}/${resource.path}`}
-                          >{`${githubIoBaseUrl}/${resource.path}`}</Link>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </Box>
+          <table>
+            <thead>
+              <tr>
+                <th>高専名</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resources.map((resource) => {
+                return (
+                  <tr key={resource.name}>
+                    <td>{resource.name}</td>
+                    <td>
+                      <Link
+                        href={`${githubIoBaseUrl}/${resource.path}`}
+                      >{`${githubIoBaseUrl}/${resource.path}`}</Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
 
-        <Box component="section">
+        <section>
           <SectionHeader title="カレンダープレビュー" />
           <iframe
             style={{
@@ -132,18 +103,16 @@ const Page: NextPage = () => {
             }}
             src={googleCalendarIframeUrl}
           ></iframe>
-        </Box>
-        <Box component="section">
+        </section>
+        <section>
           <SectionHeader title="協力お願い" />
           <div>
             まだ一部の高専しか作成できていません。協力してくださるよ という方は
-            <Link href={githubUrl}> Github</Link>にてPull
+            <Link href={githubUrl}>Github</Link>にてPull
             Requestを送ってください。
           </div>
-        </Box>
-      </Box>
-    </Box>
+        </section>
+      </div>
+    </div>
   );
-};
-
-export default Page;
+}

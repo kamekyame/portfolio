@@ -1,0 +1,32 @@
+.contents {
+  padding-inline: 32px;
+  padding-bottom: 24px;
+}
+
+.title {
+  padding-block: 16px;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sub-title {
+  padding-block: 16px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.table {
+  width: 100%;
+  margin: 0 auto;
+
+  th,
+  td {
+    padding: 4px 8px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .no-head {
+    width: 5em;
+  }
+}

@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-import Title from "../components/title";
-
 import GitHub from "assets/icons/icon-github-white.svg";
 import { CgChevronRight } from "react-icons/cg";
 import Logo from "../public/icon.svg";

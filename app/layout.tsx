@@ -29,7 +29,10 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: "Top - sztm-blog",
+  title: {
+    template: "%s - sztm-blog",
+    default: "Top - sztm-blog",
+  },
   description: "すずとものブログです",
   openGraph: {
     locale: "ja_JP",

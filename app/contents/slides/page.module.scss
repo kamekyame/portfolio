@@ -1,0 +1,27 @@
+@use "components/variables.module.scss" as v;
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+
+.title {
+  padding-block: 16px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.description {
+  padding-block: 8px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 90%;
+  max-width: 1000px;
+}
