@@ -1,9 +1,9 @@
-import { contents } from "./data";
-import Title from "../../components/title";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { contents } from "./data";
 
-import s from "./page.module.scss";
 import v from "components/variables.module.scss";
+import s from "./page.module.scss";
 
 const sxs: { [key: string]: { backgroundColor: string; color: string } } = {
   normal: {
@@ -23,7 +23,6 @@ const sxs: { [key: string]: { backgroundColor: string; color: string } } = {
 export default function Page() {
   return (
     <div className={s["contents"]}>
-      <Title name="Contents" />
       <div className={s["title"]}>
         <h1>Contents</h1>
       </div>
@@ -36,7 +35,9 @@ export default function Page() {
               key={content.href}
               style={
                 {
-                  "--bg-image": `url(${content.bgImage})`,
+                  "--bg-image": content.bgImage
+                    ? `url(${content.bgImage})`
+                    : "none",
                 } as React.CSSProperties
               }
             >
@@ -67,3 +68,7 @@ export default function Page() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Contents",
+};

@@ -1,6 +1,6 @@
-import Script from "next/script";
+import { Metadata } from "next";
 import Link from "next/link";
-import Title from "../../components/title";
+import Script from "next/script";
 
 import s from "./page.module.scss";
 
@@ -10,7 +10,6 @@ export default async function Page() {
 
   return (
     <>
-      <Title name="sztm-bot" />
       <div className={s["contents"]}>
         <div className={s["title"]}>
           <h1>SZTM-BOT</h1>
@@ -139,3 +138,7 @@ export default async function Page() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "sztm-bot",
+};

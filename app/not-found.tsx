@@ -1,11 +1,10 @@
-import Title from "../components/title";
+import { Metadata } from "next";
 
 import s from "./not-found.module.scss";
 
 export default function Page() {
   return (
     <div className={s["contents"]}>
-      <Title name="404 Not Found" />
       <div className={s["title"]}>
         <h1>よんまるよん</h1>
       </div>
@@ -13,3 +12,7 @@ export default function Page() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "404 Not Found",
+};
