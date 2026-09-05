@@ -1,0 +1,17 @@
+.contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+
+.title {
+  padding-block: 16px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.notice {
+  padding-block-end: 16px;
+  font-size: 16px;
+}
