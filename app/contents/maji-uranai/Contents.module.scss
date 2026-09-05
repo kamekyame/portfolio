@@ -1,0 +1,53 @@
+@use "components/variables.module.scss" as v;
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.chart-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 90%;
+}
+
+.chart-type-selector {
+  display: flex;
+}
+
+.chart-type-button {
+  padding: 6px 16px;
+  font: inherit;
+  color: v.$color-primary;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid v.$color-primary;
+
+  &:first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  &[aria-pressed="true"] {
+    color: #fff;
+    background-color: v.$color-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid v.$color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.chart-container {
+  max-width: 800px;
+  font-size: 0.8em;
+}
