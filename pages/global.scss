@@ -1,6 +1,7 @@
 @use "components/variables.module.scss" as v;
 
 ::search-text {
+  color: v.$color-primary-text;
   background-color: rgba(v.$color-primary, 0.8);
 
   &:current {
