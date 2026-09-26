@@ -1,0 +1,15 @@
+@use "components/variables.module.scss" as v;
+
+::search-text {
+  color: v.$color-primary-text;
+  background-color: rgba(v.$color-primary, 0.8);
+
+  &:current {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-style: dashed;
+    text-decoration-skip-ink: auto;
+    text-underline-offset: 2px;
+    background-color: yellow;
+  }
+}

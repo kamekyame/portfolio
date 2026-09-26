@@ -12,6 +12,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 
 import "./font.css";
+import "./global.scss";
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
