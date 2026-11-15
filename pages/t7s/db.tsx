@@ -117,7 +117,7 @@ const ingameColumn: Columns<Ingame> = [
     sortFn: (
       { credit: { lyrics: a } },
       { credit: { lyrics: b } },
-      direction
+      direction,
     ) => {
       return direction === "ASC" ? a.localeCompare(b) : b.localeCompare(a);
     },
@@ -131,7 +131,7 @@ const ingameColumn: Columns<Ingame> = [
     sortFn: (
       { credit: { compose: a } },
       { credit: { compose: b } },
-      direction
+      direction,
     ) => {
       return direction === "ASC" ? a.localeCompare(b) : b.localeCompare(a);
     },
@@ -146,7 +146,7 @@ const ingameColumn: Columns<Ingame> = [
     sortFn: (
       { implementationDate: a },
       { implementationDate: b },
-      direction
+      direction,
     ) => {
       const aDate = new Date(a);
       const bDate = new Date(b);
@@ -410,7 +410,7 @@ const characterColumn: Columns<Character> = [
 
 const getSearchTexts: (
   row: any,
-  columns: ColumnSearchType<any>[]
+  columns: ColumnSearchType<any>[],
 ) => (string | number)[] = (row, columns) => {
   const texts = columns.flatMap((column): (string | number)[] => {
     let value;
@@ -519,7 +519,7 @@ const DataView = ({ db, type }: { db: DBType; type: DBKey }) => {
       const { columnKey, direction } = sortColumns[i];
       sortedRows.sort((a, b) => {
         const optionalSortFn = (data.columns as ColumnSort[]).find(
-          (c) => c.key === columnKey
+          (c) => c.key === columnKey,
         )?.sortFn;
         if (optionalSortFn) {
           return optionalSortFn(a, b, direction);

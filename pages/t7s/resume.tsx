@@ -156,7 +156,7 @@ const Page: NextPage<Props> = ({ data: allData }) => {
   const [page, setPage] = useState(1);
   const paginationHandleChange = (
     _event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     setPage(value);
   };
@@ -166,7 +166,7 @@ const Page: NextPage<Props> = ({ data: allData }) => {
   // }, [allData]);
   const data = useMemo(() => {
     allData.sort(
-      (a, b) => (b.data.id > a.data.id ? 1 : -1) // IDが大きい順に並べる（新着順）
+      (a, b) => (b.data.id > a.data.id ? 1 : -1), // IDが大きい順に並べる（新着順）
     );
     // console.log(allData);
     return allData.slice((page - 1) * num, page * num);

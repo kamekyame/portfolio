@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths<{ tag: string[] }> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props, { tag: string[] }> = async (
-  ctx
+  ctx,
 ) => {
   const gh = new GithubClient("kamekyame", "el-domino_define");
 
