@@ -6,7 +6,7 @@ import { WebhookData } from "../../../src/microCms";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   // signature 検証
   // https://document.microcms.io/manual/webhook-setting

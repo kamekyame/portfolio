@@ -15,12 +15,11 @@ export default async function handler(
   const aniv = req.query.aniv ?? `${0}`;
   const count = `ナナシスは 今日で ${req.query.count ?? 10000}日目`;
 
-  if (
-    typeof aniv !== "string" || typeof count !== "string"
-  ) {
+  if (typeof aniv !== "string" || typeof count !== "string") {
     res.status(400).json({ error: "param is invalid" });
   } else {
-    const addSvgs = // 指定した文字列をSVGパスに変換
+    const addSvgs =
+      // 指定した文字列をSVGパスに変換
       [
         `<g transform="translate(450, 170)">
           ${generateTextPath(aniv, 400, 200, { align: "center" })}

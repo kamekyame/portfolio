@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
 
 export function getQueryAsString<T extends string = string>(
-  value: ParsedUrlQuery[string]
+  value: ParsedUrlQuery[string],
 ) {
   if (typeof value === "string") {
     return value as T;

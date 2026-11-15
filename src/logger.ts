@@ -6,15 +6,15 @@ import { LoggingWinston, Options } from "@google-cloud/logging-winston";
 // 環境変数に設定されていなければデフォルトの動作をするはず
 const gcpCredentials = process.env.GCP_SERVICE_ACCOUNT_BASE64
   ? JSON.parse(
-    Buffer.from(process.env.GCP_SERVICE_ACCOUNT_BASE64, "base64").toString(),
-  )
+      Buffer.from(process.env.GCP_SERVICE_ACCOUNT_BASE64, "base64").toString(),
+    )
   : undefined;
 
 const credentialsOptions: Options = gcpCredentials
   ? {
-    credentials: gcpCredentials,
-    projectId: gcpCredentials["project_id"],
-  }
+      credentials: gcpCredentials,
+      projectId: gcpCredentials["project_id"],
+    }
   : {};
 
 const loggingWinston = new LoggingWinston({
@@ -22,9 +22,7 @@ const loggingWinston = new LoggingWinston({
   ...credentialsOptions,
 });
 
-const transports: winston.transport[] = [
-  new winston.transports.Console(),
-];
+const transports: winston.transport[] = [new winston.transports.Console()];
 
 // デプロイされていたら Cloud Logging にログを送信する
 const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_URL;

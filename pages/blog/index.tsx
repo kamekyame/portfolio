@@ -195,7 +195,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } else {
     logger.error(
-      `MicroCMS client is not initialized: ブログ記事一覧に MicroCMS の記事が表示されなくなります`
+      `MicroCMS client is not initialized: ブログ記事一覧に MicroCMS の記事が表示されなくなります`,
     );
   }
 
@@ -217,7 +217,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } else {
     logger.error(
-      `${qiitaRes.status} https://qiita.com/api/v2/items: ブログ記事一覧に Qiita の記事が表示されなくなります`
+      `${qiitaRes.status} https://qiita.com/api/v2/items: ブログ記事一覧に Qiita の記事が表示されなくなります`,
     );
   }
 
@@ -238,7 +238,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   } else {
     logger.error(
-      `${zennRes.status} https://zenn.dev/api/articles?username=suzutomo: ブログ記事一覧に Zenn の記事が表示されなくなります`
+      `${zennRes.status} https://zenn.dev/api/articles?username=suzutomo: ブログ記事一覧に Zenn の記事が表示されなくなります`,
     );
   }
 

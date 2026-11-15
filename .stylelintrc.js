@@ -5,9 +5,12 @@ module.exports = {
     "at-rule-no-unknown": null,
     "scss/selector-no-union-class-name": true,
     "scss/at-rule-no-unknown": true,
-    "selector-pseudo-class-no-unknown": [true, { ignorePseudoClasses: ["export"] }],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { ignorePseudoClasses: ["export"] },
+    ],
     "property-no-unknown": [true, { ignoreSelectors: [":export"] }],
-    "media-query-no-invalid": null
+    "media-query-no-invalid": null,
   },
   ignoreFiles: ["**/node_modules/**"],
 };

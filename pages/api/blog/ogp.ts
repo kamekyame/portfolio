@@ -18,11 +18,9 @@ export default async function handler(
   } else {
     const addSvg = `<!-- 指定した文字列をSVGパスに変換 -->
       <g transform="translate(70, 150)">
-        ${
-      generateTextPath(title, 1060, 60, {
-        lines: 4,
-      })
-    }
+        ${generateTextPath(title, 1060, 60, {
+          lines: 4,
+        })}
       </g>`;
     const ogpSvg = svg.slice(0, -6) + addSvg + svg.slice(-6);
 
